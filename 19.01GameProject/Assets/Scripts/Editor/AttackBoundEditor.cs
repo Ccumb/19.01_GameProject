@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
+///<summary>
+/// 영역 관리 에디터 클래스
+///</summary>
 [CustomEditor(typeof(CharacterAttack))]
 public class AttackBoundEditor : Editor
 {

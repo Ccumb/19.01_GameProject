@@ -2,20 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+///<summary>
+/// 공격 영역 관련 컴포넌트
+///</summary>
 [DisallowMultipleComponent]
 [RequireComponent(typeof(BoxCollider))]
 public class CharacterAttack : MonoBehaviour
 {
-    private BoxCollider mAttackBound;
+    private BoxCollider mAttackBound;   // 공격 영역 콜라이더
 
-    public float center_z;
+    public float center_z;  // 공격 영역의 센터, z값
 
     public float length;    // z
     public float height;    // y 
     public float width;     // x
 
-    private float mPower;
-    private bool isPlaying;
+    private float mPower;       // 공격력
+    private bool isPlaying;     // 기지모 관련 변수(신경쓰지 않으셔도 됨)
 
     // Start is called before the first frame update
     void Start()

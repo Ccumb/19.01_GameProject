@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+///<summary>
+/// 캐릭터 움직임 관련 컴포넌트
+///</summary>
 [RequireComponent(typeof(Rigidbody))]
 [DisallowMultipleComponent]
 public class CharacterMovement : MonoBehaviour
