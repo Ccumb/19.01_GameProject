@@ -10,7 +10,8 @@ public class Enemy : Unit
     // Start is called before the first frame update
     void Start()
     {
-        
+        this.gameObject.tag = "Enemy";
+        InitHP();
     }
 
     // Update is called once per frame

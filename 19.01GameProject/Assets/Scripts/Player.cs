@@ -10,12 +10,16 @@ public class Player : Unit
     // Start is called before the first frame update
     void Start()
     {
-        
+        this.gameObject.tag = "Player";
+        InitHP();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (hp <= 0)
+        {
+            Die();
+        }
     }
 }

@@ -8,12 +8,22 @@ using UnityEngine;
 public class Unit : MonoBehaviour
 {
     public float hp;    // 체력
+    public float max_hp;        // 최대 체력
+
     public float power; // 공격력
 
     // 죽을때 처리 함수
     protected virtual void Die()
     {
         Destroy(this.gameObject);
+    }
+
+    protected void InitHP()
+    {
+        if (hp > max_hp)
+        {
+            max_hp = hp;
+        }
     }
 
     // 데미지를 입는 함수
