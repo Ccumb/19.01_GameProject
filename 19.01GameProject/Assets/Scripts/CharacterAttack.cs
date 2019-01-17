@@ -74,9 +74,9 @@ public class CharacterAttack : MonoBehaviour
     {
         if(other.tag == "Enemy")
         {
-            Debug.Log("Hit Enemy");
             Enemy enemy = other.gameObject.GetComponent<Enemy>();
             enemy.TakeDamage(mPower);
+            Debug.Log("Hit Enemy ( Remaining hp : " + enemy.hp + " / " + enemy.max_hp + " )");
         }
     }
 

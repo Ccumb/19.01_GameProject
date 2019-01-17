@@ -12,10 +12,23 @@ public class Unit : MonoBehaviour
 
     public float power; // 공격력
 
+    public float respawnTime;
+
+    protected bool mIsActive;
+
+    public bool isArrive
+    {
+        get
+        {
+            return mIsActive;
+        }
+    }
+
+
     // 죽을때 처리 함수
     protected virtual void Die()
     {
-        Destroy(this.gameObject);
+        //Destroy(this.gameObject);
     }
 
     protected void InitHP()
@@ -30,5 +43,37 @@ public class Unit : MonoBehaviour
     public void TakeDamage(float damage)
     {
         hp -= damage;
+    }
+
+    protected IEnumerator Respawn()
+    {
+        yield return new WaitForSeconds(respawnTime);
+        Active();
+    }
+
+    protected virtual void Active()
+    {
+        if (mIsActive == false)
+        {
+            MeshRenderer meshRenderer = this.gameObject.GetComponent<MeshRenderer>();
+            meshRenderer.enabled = true;
+            Collider collider = this.gameObject.GetComponent<Collider>();
+            collider.enabled = true;
+
+            mIsActive = true;
+        }
+    }
+
+    protected virtual void InActive()
+    {
+        if (mIsActive == true)
+        {
+            MeshRenderer meshRenderer = this.gameObject.GetComponent<MeshRenderer>();
+            meshRenderer.enabled = false;
+            Collider collider = this.gameObject.GetComponent<Collider>();
+            collider.enabled = false;
+
+            mIsActive = false;
+        }
     }
 }
