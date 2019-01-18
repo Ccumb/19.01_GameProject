@@ -82,17 +82,21 @@ public class CharacterAttack : MonoBehaviour
 
     void OnDrawGizmos()
     {
-        if(!isPlaying)
+        Gizmos.color = Color.yellow;
+
+        Vector3 center = this.transform.position;
+
+        center.z += center_z;
+
+        Vector3 size = new Vector3(width, height, length);
+
+        if (!isPlaying)
         {
-            Gizmos.color = Color.yellow;
-
-            Vector3 center = this.transform.position;
-
-            center.z += center_z;
-
-            Vector3 size = new Vector3(width, height, length);
-
-            Gizmos.DrawCube(center, size);
+            Gizmos.DrawWireCube(center, size);
+        }
+        else if (mAttackBound.enabled)  //이 부분때문에 null ref 오류나는데, 신경 굳이 안쓰셔도 됩니다!
+        {
+            Gizmos.DrawWireCube(center, size);
         }
     }
 }

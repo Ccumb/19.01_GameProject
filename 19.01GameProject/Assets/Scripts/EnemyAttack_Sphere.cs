@@ -12,6 +12,8 @@ public class EnemyAttack_Sphere : MonoBehaviour
 
     public float attackPower;
 
+    private bool isPlaying;     // 기지모 관련 변수(신경쓰지 않으셔도 됨)
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +25,8 @@ public class EnemyAttack_Sphere : MonoBehaviour
         {
             attackPower = gameObject.GetComponentInParent<Enemy>().power;
         }
+
+        isPlaying = true;
     }
 
     private void OnEnable()
@@ -62,6 +66,24 @@ public class EnemyAttack_Sphere : MonoBehaviour
             Debug.Log("Hit Player(Sphere)");
             Player player = other.gameObject.GetComponent<Player>();
             player.TakeDamage(attackPower);
+        }
+    }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+
+        Vector3 center = this.transform.position;
+
+        float r = mAttackBound.radius;
+
+        if (!isPlaying)
+        {
+            Gizmos.DrawWireSphere(center, r);
+        }
+        else if (mAttackBound.enabled)  //이 부분때문에 null ref 오류나는데, 신경 굳이 안쓰셔도 됩니다!
+        {
+            Gizmos.DrawWireSphere(center, r);
         }
     }
 }
