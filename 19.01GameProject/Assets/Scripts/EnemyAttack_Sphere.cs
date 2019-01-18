@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(SphereCollider))]
-public class EnemyAttack_Sphere : MonoBehaviour
+public class EnemyAttack_Sphere : EnemyAbility
 {
     private SphereCollider mAttackBound;
 
@@ -12,11 +12,12 @@ public class EnemyAttack_Sphere : MonoBehaviour
 
     public float attackPower;
 
-    private bool isPlaying;     // 기지모 관련 변수(신경쓰지 않으셔도 됨)
-
     // Start is called before the first frame update
     void Start()
     {
+        Enemy owner = GetComponentInParent<Enemy>();
+        owner.RegisterAbility(this);
+
         mAttackBound = GetComponent<SphereCollider>();
         mAttackBound.isTrigger = true;
         mAttackBound.enabled = false;
@@ -25,8 +26,6 @@ public class EnemyAttack_Sphere : MonoBehaviour
         {
             attackPower = gameObject.GetComponentInParent<Enemy>().power;
         }
-
-        isPlaying = true;
     }
 
     private void OnEnable()
@@ -34,15 +33,14 @@ public class EnemyAttack_Sphere : MonoBehaviour
         StartCoroutine("ActiveBound");
     }
 
+    private void OnDisable()
+    {
+        mAttackBound.enabled = false;
+    }
+
     // Update is called once per frame
     void Update()
     {
-        bool isArrive = gameObject.GetComponentInParent<Enemy>().isArrive;
-
-        if (!isArrive)
-        {
-            StopCoroutine("ActiveBound");
-        }
     }
 
     IEnumerator ActiveBound()
@@ -76,12 +74,8 @@ public class EnemyAttack_Sphere : MonoBehaviour
         Vector3 center = this.transform.position;
 
         float r = mAttackBound.radius;
-
-        if (!isPlaying)
-        {
-            Gizmos.DrawWireSphere(center, r);
-        }
-        else if (mAttackBound.enabled)  //이 부분때문에 null ref 오류나는데, 신경 굳이 안쓰셔도 됩니다!
+        
+        if (mAttackBound.enabled)  //이 부분때문에 null ref 오류나는데, 신경 굳이 안쓰셔도 됩니다!
         {
             Gizmos.DrawWireSphere(center, r);
         }

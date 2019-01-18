@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider))]
-public class EnemyAttack_Box : MonoBehaviour
+public class EnemyAttack_Box : EnemyAbility
 {
     private BoxCollider mAttackBound;
 
@@ -11,12 +11,14 @@ public class EnemyAttack_Box : MonoBehaviour
     public float maintainBound;     // 공격 영역 유지 시간
 
     public float attackPower;
-
-    private bool isPlaying;     // 기지모 관련 변수(신경쓰지 않으셔도 됨)
+    
 
     // Start is called before the first frame update
     void Start()
     {
+        Enemy owner = GetComponentInParent<Enemy>();
+        owner.RegisterAbility(this);
+
         mAttackBound = GetComponent<BoxCollider>();
         mAttackBound.isTrigger = true;
         mAttackBound.enabled = false;
@@ -25,8 +27,6 @@ public class EnemyAttack_Box : MonoBehaviour
         {
             attackPower = gameObject.GetComponentInParent<Enemy>().power;
         }
-
-        isPlaying = true;
     }
 
     private void OnEnable()
@@ -34,15 +34,15 @@ public class EnemyAttack_Box : MonoBehaviour
         StartCoroutine("ActiveBound");
     }
 
+    private void OnDisable()
+    {
+        mAttackBound.enabled = false;
+    }
+
     // Update is called once per frame
     void Update()
     {
-        bool isArrive = gameObject.GetComponentInParent<Enemy>().isArrive;
-
-        if(!isArrive)
-        {
-            StopCoroutine("ActiveBound");
-        }
+       
     }
 
     IEnumerator ActiveBound()
@@ -76,12 +76,8 @@ public class EnemyAttack_Box : MonoBehaviour
         Vector3 center = this.transform.position;
 
         Vector3 size = mAttackBound.size;
-
-        if (!isPlaying)
-        {
-            Gizmos.DrawWireCube(center, size);
-        }
-        else if (mAttackBound.enabled)  //이 부분때문에 null ref 오류나는데, 신경 굳이 안쓰셔도 됩니다!
+        
+        if (mAttackBound.enabled)  //이 부분때문에 null ref 오류나는데, 신경 굳이 안쓰셔도 됩니다!
         {
             Gizmos.DrawWireCube(center, size);
         }

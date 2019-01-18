@@ -94,9 +94,5 @@ public class CharacterAttack : MonoBehaviour
         {
             Gizmos.DrawWireCube(center, size);
         }
-        else if (mAttackBound.enabled)  //이 부분때문에 null ref 오류나는데, 신경 굳이 안쓰셔도 됩니다!
-        {
-            Gizmos.DrawWireCube(center, size);
-        }
     }
 }

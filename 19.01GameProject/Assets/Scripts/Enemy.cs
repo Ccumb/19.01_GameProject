@@ -8,12 +8,21 @@ using UnityEngine;
 //
 public class Enemy : Unit
 {
+    private Vector3 mStartPos;
+    private List<EnemyAbility> mAbilities;
+
+    private void Awake()
+    {
+        mAbilities = new List<EnemyAbility>();    
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         mIsActive = true;
         InitHP();
         this.gameObject.tag = "Enemy";
+        mStartPos = this.transform.position;
     }
 
     // Update is called once per frame
@@ -27,11 +36,39 @@ public class Enemy : Unit
 
     protected override void Die() 
     {
-        StartCoroutine("Respawn");
-
-        SpawnCoin(this.transform.position);
-        InActive();
         hp = max_hp;
+
+        DisableAbilities();
+        SpawnCoin(this.transform.position);
+        
+        InActive();
+
+        StartCoroutine("Respawn");
+    }
+
+    protected override void Active()
+    {
+        base.Active();
+        
+        AbleAbilities();
+        this.transform.position = mStartPos;
+    }
+
+    void DisableAbilities()
+    {
+        for (int i = 0; i < mAbilities.Count; i++)
+        {
+            mAbilities[i].StopAllCoroutines();
+            mAbilities[i].enabled = false;
+        }
+    }
+
+    void AbleAbilities()
+    {
+        for (int i = 0; i < mAbilities.Count; i++)
+        {
+            mAbilities[i].enabled = true;
+        }
     }
 
     void SpawnCoin(Vector3 pos)
@@ -48,4 +85,16 @@ public class Enemy : Unit
             }
         }
     }
+
+    public void RegisterAbility(EnemyAbility ability)
+    {
+        mAbilities.Add(ability);
+    }
+
+    IEnumerator Respawn()
+    {
+        yield return new WaitForSeconds(respawnTime);
+        Active();
+    }
+
 }

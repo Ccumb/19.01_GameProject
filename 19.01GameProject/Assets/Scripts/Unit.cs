@@ -45,12 +45,6 @@ public class Unit : MonoBehaviour
         hp -= damage;
     }
 
-    protected IEnumerator Respawn()
-    {
-        yield return new WaitForSeconds(respawnTime);
-        Active();
-    }
-
     protected virtual void Active()
     {
         if (mIsActive == false)
