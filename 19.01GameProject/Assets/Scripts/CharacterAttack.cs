@@ -7,7 +7,7 @@ using UnityEngine;
 ///</summary>
 [DisallowMultipleComponent]
 [RequireComponent(typeof(BoxCollider))]
-public class CharacterAttack : MonoBehaviour
+public class CharacterAttack : CharacterAbility
 {
     private BoxCollider mAttackBound;   // 공격 영역 콜라이더
 
@@ -23,6 +23,9 @@ public class CharacterAttack : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Player owner = GetComponentInParent<Player>();
+        owner.RegisterAbility(this);
+
         mAttackBound = GetComponent<BoxCollider>();
 
         mAttackBound.center = new Vector3(0.0f, 0.0f, center_z);

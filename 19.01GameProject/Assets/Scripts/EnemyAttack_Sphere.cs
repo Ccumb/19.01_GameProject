@@ -73,9 +73,11 @@ public class EnemyAttack_Sphere : EnemyAbility
 
         Vector3 center = this.transform.position;
 
+        //이 부분때문에 null ref 오류나는데, 신경 굳이 안쓰셔도 됩니다!
+
         float r = mAttackBound.radius;
         
-        if (mAttackBound.enabled)  //이 부분때문에 null ref 오류나는데, 신경 굳이 안쓰셔도 됩니다!
+        if (mAttackBound.enabled)
         {
             Gizmos.DrawWireSphere(center, r);
         }

@@ -15,7 +15,7 @@ public class ShowPlayerGold : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        string text = "Gold : " + GameObject.Find("Player").GetComponent<Player>().mGold;
+        string text = "Gold : " + GameObject.Find("Player").GetComponent<Player>().Gold;
         mText.text = text;
     }
 }

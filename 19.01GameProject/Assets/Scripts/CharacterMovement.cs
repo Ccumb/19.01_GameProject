@@ -7,7 +7,7 @@ using UnityEngine;
 ///</summary>
 [RequireComponent(typeof(Rigidbody))]
 [DisallowMultipleComponent]
-public class CharacterMovement : MonoBehaviour
+public class CharacterMovement : CharacterAbility
 {
     public float speed = 0.08f;
     private Rigidbody mRigid;
@@ -15,6 +15,9 @@ public class CharacterMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Player owner = GetComponent<Player>();
+        owner.RegisterAbility(this);
+
         mRigid = GetComponent<Rigidbody>();
         mRigid.freezeRotation = true;
     }
