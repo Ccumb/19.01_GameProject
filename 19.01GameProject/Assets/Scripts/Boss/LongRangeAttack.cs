@@ -25,14 +25,8 @@ public class LongRangeAttack : MonoBehaviour
 
     private SpriteRenderer RangeSpriteRenderer; //게임상에서 표시되는 2D 스프라이트(범위)
 
-    void Start()
-    {
-        DelayDamageTime = TargetOnTime * 2;
-        this.RangeSpriteRenderer = transform.GetChild(1).GetComponent<SpriteRenderer>();
-        RangeSpriteRenderer.enabled = false;
-
-        StartCoroutine(FindTargetsWithDelay(0.2f));
-    }
+    //임시
+    public GameObject ProejctileObejct;
 
     IEnumerator FindTargetsWithDelay(float delay)
     {
@@ -41,6 +35,22 @@ public class LongRangeAttack : MonoBehaviour
             yield return new WaitForSeconds(delay);
             FindVisibleTargets();
         }
+    }
+
+    private void OnEnable()
+    {
+        Debug.Log("On Script LongRange!");
+        DelayDamageTime = TargetOnTime * 2;
+        this.RangeSpriteRenderer = transform.GetChild(1).GetComponent<SpriteRenderer>();
+        RangeSpriteRenderer.enabled = false;
+        StartCoroutine(FindTargetsWithDelay(0.2f));
+    }
+
+    private void OnDisable()
+    {
+        RangeSpriteRenderer.enabled = false;
+        StopCoroutine(FindTargetsWithDelay(0));
+        Debug.Log("Off Script LongRange!");
     }
 
     void Update()
@@ -82,6 +92,7 @@ public class LongRangeAttack : MonoBehaviour
                 if (!Physics.Raycast(transform.position, dirTotarget, dstToTarget, ObstacleMask)
                     && LongTargetOffRadius < Vector3.Distance(transform.position, target.position))
                 {
+                    transform.forward = dirTotarget;
                     Debug.Log("Find");
                     if (!bTargetOn) bTargetOn = true;
 
@@ -92,6 +103,12 @@ public class LongRangeAttack : MonoBehaviour
                     if (bDamage)
                     {
                         //프로젝타일 발사//
+                        
+                        GameObject PO = Instantiate(ProejctileObejct, transform.position, Quaternion.identity);
+                        PO.transform.SetParent(transform);
+                        PO.GetComponent<Rigidbody>().velocity = new Vector3(transform.forward.x, 0, transform.forward.z) * 10;
+                        //PO.GetComponent<Rigidbody>().velocity = new Vector3(dirTotarget.x,0, dirTotarget.z) * 10;
+                        //프로젝타일 발사[임시]//
                         Debug.Log("Proejctile" + Vector3.Distance(transform.position, PlayerPos));
                         PlayerPos = Vector3.zero;
                         bDamage = false;
