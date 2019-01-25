@@ -16,8 +16,14 @@ public class ObjectPooling : MonoBehaviour
         }
     }
 
+    void Start()
+    {
+        
+    }
+
     void Awake()
     {
+        Time.timeScale = 1;
         mObjects = new List<GameObject>();
 
         for (int i = 0; i< objectNum; i ++)

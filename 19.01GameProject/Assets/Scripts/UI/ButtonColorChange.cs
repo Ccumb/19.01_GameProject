@@ -5,28 +5,28 @@ using UnityEngine.UI;
 
 public class ButtonColorChange : MonoBehaviour
 {
-    public Text text;
+    public Text buttonText;
     public Color changeColor;
-    private Color originalColor;
+    private Color mOriginalColor;
 
     private void Start()
     {
-        text = gameObject.GetComponentInChildren<Text>();
-        originalColor = text.color;
+        buttonText = gameObject.GetComponentInChildren<Text>();
+        mOriginalColor = buttonText.color;
     }
 
     public void OnButtonHighlighte()
     {
-        text.color = new Color(changeColor.r, changeColor.g, changeColor.b, 255);
+        buttonText.color = new Color(changeColor.r, changeColor.g, changeColor.b, 255);
     }
 
     public void OffButtonHighlighte()
     {
-        text.color = new Color(originalColor.r, originalColor.g, originalColor.b, 255);
+        buttonText.color = new Color(mOriginalColor.r, mOriginalColor.g, mOriginalColor.b, 255);
     }
 
     public void OnClickButton()
     {
-        text.color = new Color(originalColor.r, originalColor.g, originalColor.b, 255);
+        buttonText.color = new Color(mOriginalColor.r, mOriginalColor.g, mOriginalColor.b, 255);
     }
 }

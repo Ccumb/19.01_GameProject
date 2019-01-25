@@ -8,19 +8,19 @@ using UnityEngine.EventSystems;
 public class MenuInputKey : MonoBehaviour
 {
     public Color changeTextColor;
-    private Color originalTextColor;
+    private Color mOriginalTextColor;
 
     [SerializeField]
-    private Button[] menuButtons;
+    private Button[] mMenuButtons;
 
-    private int buttonIndex = 0;
-    private MainMenuController panelControl;
+    private int mbuttonIndex = 0;
+    private MainMenuController mpanelControl;
     // Start is called before the first frame update
     
     void Start()
     {
-        originalTextColor = menuButtons[0].GetComponentInChildren<Text>().color;
-        panelControl = gameObject.GetComponent<MainMenuController>();
+        mOriginalTextColor = mMenuButtons[0].GetComponentInChildren<Text>().color;
+        mpanelControl = gameObject.GetComponent<MainMenuController>();
     }
 
     // Update is called once per frame
@@ -28,61 +28,61 @@ public class MenuInputKey : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            if (buttonIndex < menuButtons.Length - 1)
+            if (mbuttonIndex < mMenuButtons.Length - 1)
             {
-                Debug.Log(buttonIndex);
-                ReturnButtonHighlight(buttonIndex);
-                buttonIndex++;
-                NextButtonHighlight(buttonIndex);
+                Debug.Log(mbuttonIndex);
+                ReturnButtonHighlight(mbuttonIndex);
+                mbuttonIndex++;
+                NextButtonHighlight(mbuttonIndex);
             }
         }
 
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            if (buttonIndex > 0)
+            if (mbuttonIndex > 0)
             {
-                Debug.Log(buttonIndex);
-                ReturnButtonHighlight(buttonIndex);
-                buttonIndex--;
-                NextButtonHighlight(buttonIndex);
+                Debug.Log(mbuttonIndex);
+                ReturnButtonHighlight(mbuttonIndex);
+                mbuttonIndex--;
+                NextButtonHighlight(mbuttonIndex);
             }
         }
 
         if(Input.GetKeyDown(KeyCode.Return))
         {
-            EnterButton(buttonIndex);
+            EnterButton(mbuttonIndex);
         }
 
         if(Input.GetKeyDown(KeyCode.Escape))
         {
-            if(panelControl.optionPanel.activeSelf)
+            if(mpanelControl.optionPanel.activeSelf)
             {
-                panelControl.optionPanel.SetActive(false);
-                panelControl.mainPanel.SetActive(true);
+                mpanelControl.optionPanel.SetActive(false);
+                mpanelControl.mainPanel.SetActive(true);
             }
 
-            if(panelControl.creditPanel.activeSelf)
+            if(mpanelControl.creditPanel.activeSelf)
             {
-                panelControl.creditPanel.SetActive(false);
-                panelControl.mainPanel.SetActive(true);
+                mpanelControl.creditPanel.SetActive(false);
+                mpanelControl.mainPanel.SetActive(true);
             }
         }
     }
 
     private void ReturnButtonHighlight(int btnIndex)
     {
-        Text btnText = menuButtons[btnIndex].GetComponentInChildren<Text>();
-        btnText.color = new Color(originalTextColor.r, originalTextColor.g, originalTextColor.b, 255);
+        Text btnText = mMenuButtons[btnIndex].GetComponentInChildren<Text>();
+        btnText.color = new Color(mOriginalTextColor.r, mOriginalTextColor.g, mOriginalTextColor.b, 255);
     }
 
     private void NextButtonHighlight(int btnIndex)
     {
-        Text btnText = menuButtons[btnIndex].GetComponentInChildren<Text>();
+        Text btnText = mMenuButtons[btnIndex].GetComponentInChildren<Text>();
         btnText.color = new Color(changeTextColor.r, changeTextColor.g, changeTextColor.b, 255);
     }
     
     private void EnterButton(int btnIndex)
     {
-        menuButtons[btnIndex].onClick.Invoke();
+        mMenuButtons[btnIndex].onClick.Invoke();
     }
 }
