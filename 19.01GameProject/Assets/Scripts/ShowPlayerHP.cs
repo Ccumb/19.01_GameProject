@@ -17,6 +17,7 @@ public class ShowPlayerHP : MonoBehaviour
         mText = GetComponentInChildren<Text>();
         healthBar = GetComponent<Image>();
         max_hp = GameObject.Find("Player").GetComponent<Player>().max_hp;
+      
     }
 
     // Update is called once per frame

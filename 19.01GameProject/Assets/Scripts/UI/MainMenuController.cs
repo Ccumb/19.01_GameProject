@@ -50,6 +50,7 @@ public class MainMenuController : MonoBehaviour
 
     public void ClickStartButton()
     {
-        SceneManager.LoadScene("SampleScene");
+        Time.timeScale = 1;
+        SceneManager.LoadScene("SampleScene");        
     }
 }
