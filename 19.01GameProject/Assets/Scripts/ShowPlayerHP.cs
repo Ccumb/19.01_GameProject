@@ -5,17 +5,26 @@ using UnityEngine.UI;
 
 public class ShowPlayerHP : MonoBehaviour
 {
+    Image healthBar;
+    
     private Text mText;
+
+    private float hp;
+    private float max_hp;
 
     private void Start()
     {
-        mText = GetComponent<Text>();
+        mText = GetComponentInChildren<Text>();
+        healthBar = GetComponent<Image>();
+        max_hp = GameObject.Find("Player").GetComponent<Player>().max_hp;
     }
 
     // Update is called once per frame
     void Update()
     {
-        string text = "HP : " + GameObject.Find("Player").GetComponent<Player>().hp + " / " + GameObject.Find("Player").GetComponent<Player>().max_hp;
+        hp = GameObject.Find("Player").GetComponent<Player>().hp;
+        string text = "HP : " + hp + " / " + max_hp;
         mText.text = text;
+        healthBar.fillAmount = hp / max_hp;
     }
 }
