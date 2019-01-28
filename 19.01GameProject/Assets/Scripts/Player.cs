@@ -23,7 +23,7 @@ public class Player : Unit
     // Start is called before the first frame update
     void Start()
     {
-        mIsActive = true;
+        mbIsActive = true;
         this.gameObject.tag = "Player";
         InitHP();
         mGold = 0;
