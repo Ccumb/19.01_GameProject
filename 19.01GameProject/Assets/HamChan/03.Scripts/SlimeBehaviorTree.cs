@@ -45,6 +45,8 @@ public class SlimeBehaviorTree : MonoBehaviour
         mMoveToAttack = new BehaviorTree.Selector();
         mCanAttack = new BehaviorTree.CanAttack();
         mCloseAttack = new BehaviorTree.CloseAttack();
+
+        //페이즈1
         mSequence.Children.Add(mMoveToAttack);
         mMoveToAttack.Children.Add(mCanAttack);
         mMoveToAttack.Children.Add(moveTo);

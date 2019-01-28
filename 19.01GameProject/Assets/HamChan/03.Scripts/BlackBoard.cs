@@ -142,5 +142,9 @@ namespace Neremnem.AI
         {
             mTrnasformKey[key] = value;
         }
+        public static void DeleteStringKey(string key)
+        {
+            mStringKey.Remove(key);
+        }
     }
 }

@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class move : MonoBehaviour
+public class Move : MonoBehaviour
 {
     public float speed;
 
-    private Rigidbody rb;
+    private Rigidbody mRigidbody;
 
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        mRigidbody = GetComponent<Rigidbody>();
+        mRigidbody.isKinematic = true;
     }
 
     void Update()

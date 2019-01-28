@@ -26,7 +26,13 @@ namespace Neremnem.AI
         {
             protected List<Service> mServiceList;
             protected List<Decorator> mDecoratorList;
+            protected bool mbLoop;
             protected string mNodeName;
+            public bool isLoop
+            {
+                get { return mbLoop; }
+                set { mbLoop = value; }
+            }
             public List<Service> ServiceList
             {
                 get { return mServiceList; }
@@ -39,12 +45,14 @@ namespace Neremnem.AI
             public Node()
             {
                 mNodeName = null;
+                mbLoop = false;
                 mServiceList = new List<Service>();
                 mDecoratorList = new List<Decorator>();
             }
             public Node(string name)
             {
                 mNodeName = name;
+                mbLoop = false;
                 mServiceList = new List<Service>();
                 mDecoratorList = new List<Decorator>();
             }
@@ -134,9 +142,74 @@ namespace Neremnem.AI
                 }
             }
         }
-        public class Decorator :Node
+        public class Decorator : Node
         {
-
+            private string mNodeName;
+            private Node mParent;
+            public Decorator()
+            {
+                mNodeName = "Decorator";
+            }
+            public Decorator(string name)
+            {
+                mNodeName = name;
+            }
+        }
+        public class ConditionalLoop : Decorator
+        {
+            private bool mbSet;
+            private string mKey;
+            private Node mParent;
+            public bool IsSet
+            {
+                get { return mbSet; }
+                set { mbSet = value; }
+            }
+            public string Key
+            {
+                get { return mKey; }
+                set { mKey = value; }
+            }
+            public ConditionalLoop(string key, bool offset, Node parent)
+                : base("Conditional Loop")
+            {
+                mbSet = offset;
+                mKey = key;
+                mParent = parent;
+            }
+            public ConditionalLoop(string name, string key,bool offset, Node parent)
+                : base(name)
+            {
+                mbSet = offset;
+                mKey = key;
+                mParent = parent;
+            }
+            public override EBTState Tick()
+            {
+                if (mbSet)
+                {
+                    if (BlackBoard.GetValueByStringKey(mKey) != null)
+                    {
+                        mParent.isLoop = true;
+                    }
+                    else
+                    {
+                        mParent.isLoop = false;
+                    }
+                }
+                else // is not set
+                {
+                    if (BlackBoard.GetValueByStringKey(mKey) == null)
+                    {
+                        mParent.isLoop = true;
+                    }
+                    else
+                    {
+                        mParent.isLoop = false;
+                    }
+                }
+                return EBTState.True;
+            }
         }
         public class Composite : Node
         {
@@ -145,10 +218,12 @@ namespace Neremnem.AI
             public Composite() : base()
             {
                 mCursor = -1;
+                mbLoop = false;
             }
             public Composite(string nodeName) : base(nodeName)
             {
                 mCursor = -1;
+                mbLoop = false;
             }
         }
         //false 만날때까지
@@ -180,6 +255,16 @@ namespace Neremnem.AI
                         }
                     }
                 }
+                if (mDecoratorList.Count > 0)
+                {
+                    for (int i = 0; i < mDecoratorList.Count; i++)
+                    {
+                        if (mDecoratorList[i].Tick() == EBTState.False)
+                        {
+                            return EBTState.False;
+                        }
+                    }
+                }
                 if (mCursor < 0)
                 {
                     mCursor = 0;
@@ -193,12 +278,24 @@ namespace Neremnem.AI
                     }
                     else
                     {
+                        if (mbLoop)
+                        {
+                            mCursor = -1;
+                            mTickStack.Push(this);
+                            return EBTState.True;
+                        }
                         mCursor = -1;
                         return EBTState.True;
                     }
                 }
                 else if (mCompare == EBTState.False)
                 {
+                    if (mbLoop)
+                    {
+                        mCursor = -1;
+                        mTickStack.Push(this);
+                        return EBTState.True;
+                    }
                     mCursor = -1;
                     return EBTState.False;
 
@@ -236,7 +333,7 @@ namespace Neremnem.AI
                 {
                     for (int i = 0; i < mServiceList.Count; i++)
                     {
-                        if (mServiceList[i].Tick() 
+                        if (mServiceList[i].Tick()
                             == EBTState.False)
                         {
                             return EBTState.False;
@@ -258,6 +355,12 @@ namespace Neremnem.AI
                     }
                     else
                     {
+                        if (mbLoop)
+                        {
+                            mCursor = -1;
+                            mTickStack.Push(this);
+                            return EBTState.True;
+                        }
                         mCursor = -1;
                         return EBTState.False;
                     }
@@ -265,6 +368,12 @@ namespace Neremnem.AI
                 else if (mCompare
                     == EBTState.True)
                 {
+                    if (mbLoop)
+                    {
+                        mCursor = -1;
+                        mTickStack.Push(this);
+                        return EBTState.True;
+                    }
                     mCursor = -1;
                     return EBTState.True;
                 }
@@ -302,11 +411,11 @@ namespace Neremnem.AI
             }
             public override EBTState Tick()
             {
-                if(mDecoratorList.Count > 0)
+                if (mDecoratorList.Count > 0)
                 {
                     for (int i = 0; i < mDecoratorList.Count; i++)
                     {
-                        if (mDecoratorList[i].Tick() 
+                        if (mDecoratorList[i].Tick()
                             == EBTState.Abort)
                         {
                             return EBTState.Abort;
@@ -317,7 +426,7 @@ namespace Neremnem.AI
                 {
                     for (int i = 0; i < mServiceList.Count; i++)
                     {
-                        if (mServiceList[i].Tick() 
+                        if (mServiceList[i].Tick()
                             == EBTState.False)
                         {
                             return EBTState.False;
@@ -339,7 +448,7 @@ namespace Neremnem.AI
                 }
                 else
                 {
-                   Debug.Log(" 컨틴유!");
+                    Debug.Log(" 컨틴유!");
                     BlackBoard.SetValueByBoolKey("CanMove", true);
                     return EBTState.Continue;
                 }
