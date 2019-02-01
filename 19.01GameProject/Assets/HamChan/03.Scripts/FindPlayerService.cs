@@ -9,6 +9,10 @@ public class FindPlayerService : BehaviorTree.Service
     {
         mTarget = GameObject.Find("Sphere");
     }
+    public FindPlayerService(GameObject target)
+    {
+        mTarget = target;
+    }
     public override EBTState Tick()
     {
         Debug.Log("호출!");

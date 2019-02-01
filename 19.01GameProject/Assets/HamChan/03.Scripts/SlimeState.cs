@@ -31,9 +31,10 @@ namespace Neremnem.AI
         {
             BlackBoard.SetValueByStringKey("Phase1", "Phase1");
             mHP = 100;
-        }
-        private void Update()
+        }       
+        private void TakeDamage(int i)
         {
+            mHP = mHP - i;
             if (mHP < 21)
             {
                 BlackBoard.DeleteStringKey("Phase4");
@@ -54,7 +55,7 @@ namespace Neremnem.AI
                 BlackBoard.DeleteStringKey("Phase1");
                 BlackBoard.SetValueByStringKey("Phase2", "Phase2");
             }
-
         }
+
     }
 }

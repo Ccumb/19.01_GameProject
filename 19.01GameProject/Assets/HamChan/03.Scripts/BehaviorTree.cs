@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Neremnem.Tools;
 namespace Neremnem.AI
 {
     public enum EBTState
@@ -145,7 +146,7 @@ namespace Neremnem.AI
         public class Decorator : Node
         {
             private string mNodeName;
-            private Node mParent;
+            protected Node mParent;
             public Decorator()
             {
                 mNodeName = "Decorator";
@@ -159,7 +160,6 @@ namespace Neremnem.AI
         {
             private bool mbSet;
             private string mKey;
-            private Node mParent;
             public bool IsSet
             {
                 get { return mbSet; }
@@ -177,7 +177,7 @@ namespace Neremnem.AI
                 mKey = key;
                 mParent = parent;
             }
-            public ConditionalLoop(string name, string key,bool offset, Node parent)
+            public ConditionalLoop(string name, string key, bool offset, Node parent)
                 : base(name)
             {
                 mbSet = offset;
@@ -390,6 +390,23 @@ namespace Neremnem.AI
         {
 
         }
+        public class ImplementRandom : Task
+        {
+            protected List<Node> mChildren;
+            public ImplementRandom(params Node[] children)
+            {
+                mChildren = new List<Node>();
+                for (int i = 0; i < children.Length; i++)
+                {
+                    mChildren.Add(children[i]);
+                }
+            }
+            public override EBTState Tick()
+            {
+                mTickStack.Push(mChildren[Random.Range(0, mChildren.Count)]);
+                return EBTState.True;
+            }
+        }
         public class MoveTo : Task
         {
             private string mKey;
@@ -513,9 +530,34 @@ namespace Neremnem.AI
                 return EBTState.True;
             }
         }
-
-
+        public class BashAttack : Node
+        {
+            public override EBTState Tick()
+            {
+                BlackBoard.SetValueByBoolKey("BashAttack", true);
+                return EBTState.True;
+            }
+        }
+        public class CheckSectorJudgment : Node
+        {
+            public override EBTState Tick()
+            {
+                GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+                for (int i = 0; i < players.Length; i++)
+                {
+                    if (Mathf.Acos(
+                        Vector3.Dot(
+                            BlackBoard.GetValueByGameObjectKey("Boss").transform.forward,
+                    (players[i].transform.position - BlackBoard.GetValueByGameObjectKey("Boss").transform.position).normalized)
+                    ) < 45
+                        && Vector3.Distance(BlackBoard.GetValueByGameObjectKey("Boss").transform.position, players[i].transform.position)
+                        < 4.0f)
+                    {
+                        EventManager.TriggerTakeDamageEvent("TakeDamage", players[i], 1);
+                    }
+                }
+                return EBTState.True;
+            }
+        }
     }
-
-
 }
