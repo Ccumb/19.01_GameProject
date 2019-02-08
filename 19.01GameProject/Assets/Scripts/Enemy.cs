@@ -19,7 +19,7 @@ public class Enemy : Unit
     // Start is called before the first frame update
     void Start()
     {
-        mIsActive = true;
+        mbIsActive = true;
         InitHP();
         this.gameObject.tag = "Enemy";
         mStartPos = this.transform.position;

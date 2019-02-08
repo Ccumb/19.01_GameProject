@@ -9,7 +9,7 @@ public class HealthItem : Item
 
     private void Start()
     {
-        mIsActive = true;    
+        mbIsActive = true;    
     }
 
     private void OnCollisionEnter(Collision collision)

@@ -18,7 +18,7 @@ public class CharacterAttack : CharacterAbility
     public float width;     // x
 
     private float mPower;       // 공격력
-    private bool isPlaying;     // 기지모 관련 변수(신경쓰지 않으셔도 됨)
+    private bool mbIsPlaying;     // 기지모 관련 변수(신경쓰지 않으셔도 됨)
 
     // Start is called before the first frame update
     void Start()
@@ -35,7 +35,7 @@ public class CharacterAttack : CharacterAbility
         mAttackBound.enabled = false;
 
         mPower = gameObject.GetComponentInParent<Player>().power;
-        isPlaying = true;
+        mbIsPlaying = true;
     }
 
     // Update is called once per frame
@@ -93,7 +93,7 @@ public class CharacterAttack : CharacterAbility
 
         Vector3 size = new Vector3(width, height, length);
 
-        if (!isPlaying)
+        if (!mbIsPlaying)
         {
             Gizmos.DrawWireCube(center, size);
         }
