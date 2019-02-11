@@ -23,7 +23,6 @@ public class RangeAttackEditor : Editor
         Handles.DrawWireArc(fow.transform.position, Vector3.up, Vector3.forward, 360, fow.TargetOnRadius);
         Vector3 DamageAngleA = fow.DirFromAngle(-fow.TargetAngle / 2, false);
         Vector3 DamageAngleB = fow.DirFromAngle(fow.TargetAngle / 2, false);
-
         Handles.DrawLine(fow.transform.position, fow.transform.position + DamageAngleA * fow.TargetOnRadius);
         Handles.DrawLine(fow.transform.position, fow.transform.position + DamageAngleB * fow.TargetOnRadius);
     }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(ProjectilePool))]
 [DisallowMultipleComponent]
 public class LongRangeAttack : MonoBehaviour
 {
@@ -25,8 +26,20 @@ public class LongRangeAttack : MonoBehaviour
 
     private SpriteRenderer RangeSpriteRenderer; //게임상에서 표시되는 2D 스프라이트(범위)
 
+    ProjectilePool ProjectilePooling;
+
     //임시
     public GameObject ProejctileObejct;
+
+    private void Awake()
+    {
+        this.RangeSpriteRenderer = transform.GetChild(1).GetComponent<SpriteRenderer>();
+    }
+
+    private void Start()
+    {
+        ProjectilePooling = GetComponent<ProjectilePool>();
+    }
 
     IEnumerator FindTargetsWithDelay(float delay)
     {
@@ -41,7 +54,6 @@ public class LongRangeAttack : MonoBehaviour
     {
         Debug.Log("On Script LongRange!");
         DelayDamageTime = TargetOnTime * 2;
-        this.RangeSpriteRenderer = transform.GetChild(1).GetComponent<SpriteRenderer>();
         RangeSpriteRenderer.enabled = false;
         StartCoroutine(FindTargetsWithDelay(0.2f));
     }
@@ -103,13 +115,8 @@ public class LongRangeAttack : MonoBehaviour
                     if (bDamage)
                     {
                         //프로젝타일 발사//
-                        
-                        GameObject PO = Instantiate(ProejctileObejct, transform.position, Quaternion.identity);
-                        PO.transform.SetParent(transform);
-                        PO.GetComponent<Rigidbody>().velocity = new Vector3(transform.forward.x, 0, transform.forward.z) * 10;
-                        //PO.GetComponent<Rigidbody>().velocity = new Vector3(dirTotarget.x,0, dirTotarget.z) * 10;
-                        //프로젝타일 발사[임시]//
-                        Debug.Log("Proejctile" + Vector3.Distance(transform.position, PlayerPos));
+                        ProjectilePooling.Pooling();
+
                         PlayerPos = Vector3.zero;
                         bDamage = false;
                         bPos = false;

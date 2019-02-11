@@ -19,17 +19,13 @@ public class RangeAttack : MonoBehaviour
     float DelayDamageTime = 0.5f; //타겟을 찾은 뒤 몇 초 뒤에 대미지를 줄 것인지
     float DamageTime = 0.0f;
 
-    private SpriteRenderer RangeSpriteRenderer; //게임상에서 표시되는 2D 스프라이트(범위)
+    [HideInInspector]
+    public SpriteRenderer RangeSpriteRenderer; //게임상에서 표시되는 2D 스프라이트(범위)
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        DelayDamageTime = TargetOnTime * 2;
-        this.RangeSpriteRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
-
-        RangeSpriteRenderer.enabled = false;
-
-        StartCoroutine(FindTargetsWithDelay(0.2f));
+        RangeSpriteRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
+        RangeSpriteRenderer.transform.localScale = new Vector3(TargetOnRadius, TargetOnRadius, 0)* 10;
     }
 
     IEnumerator FindTargetsWithDelay(float delay)
@@ -39,6 +35,21 @@ public class RangeAttack : MonoBehaviour
             yield return new WaitForSeconds(delay);
             FindVisibleTargets();
         }
+    }
+
+    private void OnEnable()
+    {
+        Debug.Log("On Script Range!");
+        DelayDamageTime = TargetOnTime * 2;
+        RangeSpriteRenderer.enabled = false;
+        StartCoroutine(FindTargetsWithDelay(0.2f));
+    }
+
+    private void OnDisable()
+    {
+        RangeSpriteRenderer.enabled = false;
+        StopCoroutine(FindTargetsWithDelay(0));
+        Debug.Log("Off Script Range!");
     }
 
     void Update()
