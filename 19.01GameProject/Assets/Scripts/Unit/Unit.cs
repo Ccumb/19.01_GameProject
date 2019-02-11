@@ -14,13 +14,13 @@ public class Unit : MonoBehaviour
 
     public float respawnTime;
 
-    protected bool mIsActive;
+    protected bool mbIsActive;
 
-    public bool isArrive
+    public bool IsArrive
     {
         get
         {
-            return mIsActive;
+            return mbIsActive;
         }
     }
 
@@ -47,27 +47,27 @@ public class Unit : MonoBehaviour
 
     protected virtual void Active()
     {
-        if (mIsActive == false)
+        if (mbIsActive == false)
         {
             MeshRenderer meshRenderer = this.gameObject.GetComponent<MeshRenderer>();
             meshRenderer.enabled = true;
             Collider collider = this.gameObject.GetComponent<Collider>();
             collider.enabled = true;
 
-            mIsActive = true;
+            mbIsActive = true;
         }
     }
 
     protected virtual void InActive()
     {
-        if (mIsActive == true)
+        if (mbIsActive == true)
         {
             MeshRenderer meshRenderer = this.gameObject.GetComponent<MeshRenderer>();
             meshRenderer.enabled = false;
             Collider collider = this.gameObject.GetComponent<Collider>();
             collider.enabled = false;
 
-            mIsActive = false;
+            mbIsActive = false;
         }
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class Item : MonoBehaviour
 {
     public float respawnTime;
-    protected bool mIsActive;
+    protected bool mbIsActive;
 
     protected IEnumerator Respawn()
     {
@@ -15,27 +15,27 @@ public class Item : MonoBehaviour
 
     protected void Active()
     {
-        if(mIsActive == false)
+        if(mbIsActive == false)
         {
             MeshRenderer meshRenderer = this.gameObject.GetComponent<MeshRenderer>();
             meshRenderer.enabled = true;
             Collider collider = this.gameObject.GetComponent<Collider>();
             collider.enabled = true;
 
-            mIsActive = true;
+            mbIsActive = true;
         }
     }
 
     protected void InActive()
     {
-        if (mIsActive == true)
+        if (mbIsActive == true)
         {
             MeshRenderer meshRenderer = this.gameObject.GetComponent<MeshRenderer>();
             meshRenderer.enabled = false;
             Collider collider = this.gameObject.GetComponent<Collider>();
             collider.enabled = false;
 
-            mIsActive = false;
+            mbIsActive = false;
         }
     }
 }
