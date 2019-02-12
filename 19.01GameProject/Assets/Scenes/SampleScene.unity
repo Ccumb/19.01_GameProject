@@ -1581,6 +1581,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1405197606}
   m_CullTransparentMesh: 0
+--- !u!1 &1767885044 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100010, guid: 7d40d0bd5019cbf42a2d4626d33f8409,
+    type: 3}
+  m_PrefabInstance: {fileID: 2046018152}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1767885046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1767885044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a99ff0dc3abb23a4d94a127885b72600, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bIsAttack: 0
 --- !u!1 &1981686195
 GameObject:
   m_ObjectHideFlags: 0
@@ -1700,6 +1719,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 0d918829a68402247a4d04c7fa9dc52b, type: 2}
+    - target: {fileID: 13700000, guid: 7d40d0bd5019cbf42a2d4626d33f8409, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 400010, guid: 7d40d0bd5019cbf42a2d4626d33f8409, type: 3}
       propertyPath: m_LocalPosition.z
       value: -4.92
