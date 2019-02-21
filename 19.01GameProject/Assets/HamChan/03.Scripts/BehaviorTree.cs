@@ -45,7 +45,7 @@ namespace Neremnem.AI
 
             public Node()
             {
-                mNodeName = null;
+                mNodeName = "Node";
                 mbLoop = false;
                 mServiceList = new List<Service>();
                 mDecoratorList = new List<Decorator>();
@@ -64,6 +64,7 @@ namespace Neremnem.AI
             }
             public virtual EBTState Tick()
             {
+                //Debug.Log(NodeName);
                 return EBTState.Continue;
             }
         }
@@ -76,7 +77,7 @@ namespace Neremnem.AI
                 set { mChild = value; }
             }
             public Root()
-                : base()
+                : base("Root")
             {
                 mTickStack = new Stack<Node>();
             }
@@ -90,8 +91,8 @@ namespace Neremnem.AI
                 if (mTickStack.Count == 0)
                 {
                     mTickStack.Push(mChild);
-                    Debug.Log("추가");
-                    Debug.Log(mChild);
+                    //Debug.Log("추가");
+                    Debug.Log("adf");
                 }
                 mTickStack.Pop().Tick();
                 //temp.Tick();
@@ -103,7 +104,7 @@ namespace Neremnem.AI
                 {
                     if (mTickStack.Count == 0)
                     {
-                        mTickStack.Push(mChild);
+                        //mTickStack.Push(mChild);
                     }
                     temp = mTickStack.Pop();
                     temp.Tick();
@@ -128,6 +129,7 @@ namespace Neremnem.AI
             }
             public override EBTState Tick()
             {
+                base.Tick();
                 if (mFuture < 0)
                 {
                     mFuture = Time.time + mInterval;
@@ -145,6 +147,13 @@ namespace Neremnem.AI
         }
         public class Decorator : Node
         {
+            public enum EObserverAborts
+            {
+                None,
+                Self,
+                LowerPriority,
+                Both
+            }
             private string mNodeName;
             protected Node mParent;
             public Decorator()
@@ -156,6 +165,77 @@ namespace Neremnem.AI
                 mNodeName = name;
             }
         }
+        public class CompareString : Decorator
+        {
+            private string mKey;
+            private EObserverAborts mObserverAborts;
+            private string mCompare;
+            public CompareString(string key, EObserverAborts option, string compare, string name)
+                : base(name)
+            {
+                mKey = key;
+                mObserverAborts = option;
+                mCompare = compare;
+            }
+            public CompareString(string key, EObserverAborts option, string compare)
+            {
+                mKey = key;
+                mObserverAborts = option;
+                mCompare = compare;
+            }
+            public override EBTState Tick()
+            {
+
+                //Debug.Log(mKey + " " + BlackBoard.GetValueByBoolKey(mKey));
+                //is set
+
+
+                if (mCompare == BlackBoard.GetValueByStringKey(mKey))
+                {
+                    return EBTState.True;
+                }
+                else
+                {
+                    return EBTState.False;
+                }
+            }
+        }
+        public class CompareKey : Decorator
+        {
+            private string mKey;
+            private EObserverAborts mObserverAborts;
+            private object mCompare;
+            public CompareKey(string key, EObserverAborts option, object compare, string name)
+                : base(name)
+            {
+                mKey = key;
+                mObserverAborts = option;
+                mCompare = compare;
+            }
+            public CompareKey(string key, EObserverAborts option, object compare)
+            {
+                mKey = key;
+                mObserverAborts = option;
+                mCompare = compare;
+            }
+            public override EBTState Tick()
+            {
+                base.Tick();
+
+                //Debug.Log(mKey + " " + BlackBoard.GetValueByBoolKey(mKey));
+                //is set
+
+                if (mCompare == BlackBoard.GetValue(mKey))
+                {
+                    return EBTState.True;
+                }
+                else
+                {
+                    return EBTState.False;
+                }
+            }
+        }
+
         public class ConditionalLoop : Decorator
         {
             private bool mbSet;
@@ -186,9 +266,11 @@ namespace Neremnem.AI
             }
             public override EBTState Tick()
             {
+                base.Tick();
+
                 if (mbSet)
                 {
-                    if (BlackBoard.GetValueByStringKey(mKey) != null)
+                    if (BlackBoard.GetValueByBoolKey(mKey) != null)
                     {
                         mParent.isLoop = true;
                     }
@@ -197,15 +279,15 @@ namespace Neremnem.AI
                         mParent.isLoop = false;
                     }
                 }
-                else // is not set
+                else // is not true
                 {
-                    if (BlackBoard.GetValueByStringKey(mKey) == null)
+                    if (BlackBoard.GetValueByBoolKey(mKey) == null)
                     {
-                        mParent.isLoop = true;
+                        mParent.isLoop = false;
                     }
                     else
                     {
-                        mParent.isLoop = false;
+                        mParent.isLoop = true;
                     }
                 }
                 return EBTState.True;
@@ -215,6 +297,8 @@ namespace Neremnem.AI
         {
             protected int mCursor;
             protected EBTState mCompare;
+            protected bool bWillAbort;
+
             public Composite() : base()
             {
                 mCursor = -1;
@@ -224,6 +308,11 @@ namespace Neremnem.AI
             {
                 mCursor = -1;
                 mbLoop = false;
+            }
+            public bool WillAbort
+            {
+                get { return bWillAbort; }
+                set { bWillAbort = value; }
             }
         }
         //false 만날때까지
@@ -245,12 +334,15 @@ namespace Neremnem.AI
             }
             public override EBTState Tick()
             {
+                base.Tick();
+
                 if (mServiceList.Count > 0)
                 {
                     for (int i = 0; i < mServiceList.Count; i++)
                     {
                         if (mServiceList[i].Tick() == EBTState.False)
                         {
+                            Debug.Log("false");
                             return EBTState.False;
                         }
                     }
@@ -261,6 +353,7 @@ namespace Neremnem.AI
                     {
                         if (mDecoratorList[i].Tick() == EBTState.False)
                         {
+                            Debug.Log("중단되어야댐");
                             return EBTState.False;
                         }
                     }
@@ -269,16 +362,25 @@ namespace Neremnem.AI
                 {
                     mCursor = 0;
                 }
-                mCompare = mChildren[mCursor].Tick();
+                if (bWillAbort == false)
+                {
+                    mCompare = mChildren[mCursor].Tick();
+                    //Debug.Log(mChildren[mCursor].NodeName);
+
+                }
+                else
+                {
+                    return EBTState.Abort;
+                }
                 if (mCompare == EBTState.True)
                 {
                     if (mCursor + 1 < mChildren.Count)
                     {
-                        mTickStack.Push(mChildren[++mCursor]);
+                        ++mCursor;
                     }
                     else
                     {
-                        if (mbLoop)
+                        if (mbLoop == true)
                         {
                             mCursor = -1;
                             mTickStack.Push(this);
@@ -290,7 +392,7 @@ namespace Neremnem.AI
                 }
                 else if (mCompare == EBTState.False)
                 {
-                    if (mbLoop)
+                    if (mbLoop == true)
                     {
                         mCursor = -1;
                         mTickStack.Push(this);
@@ -302,7 +404,7 @@ namespace Neremnem.AI
                 }
                 else if (mCompare == EBTState.Continue)
                 {
-                    mTickStack.Push(mChildren[mCursor]);
+                    mTickStack.Push(this);
                     return EBTState.Continue;
                 }
                 return EBTState.Running;
@@ -329,6 +431,8 @@ namespace Neremnem.AI
             }
             public override EBTState Tick()
             {
+                base.Tick();
+
                 if (mServiceList.Count > 0)
                 {
                     for (int i = 0; i < mServiceList.Count; i++)
@@ -388,7 +492,7 @@ namespace Neremnem.AI
         }
         public class Task : Node
         {
-
+            protected string mNodeName;
         }
         public class ImplementRandom : Task
         {
@@ -428,6 +532,8 @@ namespace Neremnem.AI
             }
             public override EBTState Tick()
             {
+                base.Tick();
+
                 if (mDecoratorList.Count > 0)
                 {
                     for (int i = 0; i < mDecoratorList.Count; i++)
@@ -465,24 +571,24 @@ namespace Neremnem.AI
                 }
                 else
                 {
-                    Debug.Log(" 컨틴유!");
+                    //Debug.Log(" 컨틴유!");
                     BlackBoard.SetValueByBoolKey("CanMove", true);
                     return EBTState.Continue;
                 }
             }
         }
-        public class Wait : Node
+        public class Wait : Task
         {
             public float seconds = 0.3f;
             float future = -1;
             public Wait(float seconds)
             {
+                NodeName = "Wait";
                 this.seconds = seconds;
             }
 
             public override EBTState Tick()
             {
-                Debug.Log("wait 호출");
                 if (future < 0)
                 {
                     future = Time.time + seconds;
@@ -498,11 +604,18 @@ namespace Neremnem.AI
                 }
             }
         }
-        public class CanAttack : Node
+        public class CanAttack : Task
         {
-            private float mRange = 0.5f;
+            private float mRange;
+            public CanAttack()
+            {
+                mNodeName = "CanAttack";
+                mRange = 0.5f;
+            }
             public override EBTState Tick()
             {
+                base.Tick();
+
                 Debug.Log(Vector3.Distance(
                     BlackBoard.GetValueByVector3Key("TargetPlayer")
                     , BlackBoard.GetValueByVector3Key("CurrentPosition")));
@@ -512,7 +625,7 @@ namespace Neremnem.AI
                     BlackBoard.GetValueByVector3Key("TargetPlayer")
                     , BlackBoard.GetValueByVector3Key("CurrentPosition")))
                 {
-                    Debug.Log("treu");
+                    Debug.Log("true");
                     return EBTState.True;
                 }
                 else
@@ -522,26 +635,184 @@ namespace Neremnem.AI
                 }
             }
         }
-        public class CloseAttack : Node
+        public class SetActive : Task
         {
+            private GameObject mTarget;
+            public SetActive(GameObject target)
+            {
+                mTarget = target;
+            }
             public override EBTState Tick()
             {
-                BlackBoard.SetValueByBoolKey("Attack", true);
+                base.Tick();
+
+                mTarget.SetActive(true);
                 return EBTState.True;
             }
         }
-        public class BashAttack : Node
+        public class SetNotActive : Task
         {
+            private GameObject mTarget;
+            public SetNotActive(GameObject target)
+            {
+                mTarget = target;
+            }
             public override EBTState Tick()
             {
-                BlackBoard.SetValueByBoolKey("BashAttack", true);
+                base.Tick();
+
+                mTarget.SetActive(false);
                 return EBTState.True;
             }
         }
-        public class CheckSectorJudgment : Node
+        public class SetEnable : Task
+        {
+            public SetEnable()
+            {
+                mNodeName = "SetEnable";
+            }
+            private string mTarget;
+            public SetEnable(string target)
+            {
+                mTarget = target;
+            }
+            public override EBTState Tick()
+            {
+                base.Tick();
+
+                EventManager.TriggerCommonEvent(mTarget);
+                return EBTState.True;
+            }
+        }
+        public class SetDisable : Task
+        {
+            private string mTarget;
+            public SetDisable(string target)
+            {
+                mTarget = target;
+            }
+            public override EBTState Tick()
+            {
+                base.Tick();
+
+                EventManager.TriggerCommonEvent(mTarget);
+                return EBTState.True;
+            }
+        }
+
+        public class CloseAttack : Task
         {
             public override EBTState Tick()
             {
+                base.Tick();
+
+                // Debug.Log("CloseAttack");
+                BlackBoard.SetValueByStringKey("Action", "NormalAttack");
+                return EBTState.True;
+            }
+        }
+        public class SpawnSlime : Task
+        {
+            private int mSpawnCount;
+            private bool mbFirstSpawn;
+            private bool mbRush;
+            public SpawnSlime(string name)
+            {
+                mNodeName = name;
+                mSpawnCount = 0;
+                mbFirstSpawn = false;
+                mbRush = false;
+                BlackBoard.AddIntKey("SlimeAmount", 0);
+            }
+            public override EBTState Tick()
+            {
+                if (!mbFirstSpawn)
+                {
+                    for (int i = 0; i < 3; i++)
+                    {
+                        EventManager.TriggerCommonEvent("SpawnNormalSlimes");
+                    }
+                    BlackBoard.SetValueByIntKey("SlimeAmount", 3);
+                    return EBTState.True;
+                }
+                else
+                {
+                    if (mSpawnCount < 5)
+                    {
+                        if (mbRush == false)
+                        {
+                            EventManager.TriggerCommonEvent("SpawnNormalSlimes");
+                            BlackBoard.SetValueByIntKey("SlimeAmount"
+                                , BlackBoard.GetValueByIntKey("SlimeAmount") + 1); ;
+                        }
+                        else
+                        {
+                            EventManager.TriggerCommonEvent("SpawnRushSlimes");
+                            BlackBoard.SetValueByIntKey("SlimeAmount"
+                                , BlackBoard.GetValueByIntKey("SlimeAmount") + 1); ;
+                        }
+                    }                        
+                    return EBTState.True;
+                }
+            }
+        }
+        public class BashAttack : Task
+        {
+            public BashAttack()
+            {
+                mNodeName = "BashAttack";
+            }
+            public override EBTState Tick()
+            {
+                base.Tick();
+
+                BlackBoard.SetValueByStringKey("Action", "BashAttack");
+                return EBTState.True;
+            }
+        }
+        public class WhirlwindAttack : Task
+        {
+            public override EBTState Tick()
+            {
+                base.Tick();
+
+                BlackBoard.SetValueByStringKey("Action", "Whirlwind");
+                return EBTState.True;
+            }
+        }
+        public class CheckRoundJudgment : Task
+        {
+            public CheckRoundJudgment()
+            {
+                mNodeName = "CheckRoundJudgment";
+            }
+            public override EBTState Tick()
+            {
+                base.Tick();
+
+                GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+                for (int i = 0; i < players.Length; i++)
+                {
+                    if (Vector3.Distance(players[i].transform.position,
+                        BlackBoard.GetValueByGameObjectKey("Boss").transform.position)
+                        < 5.0f)
+                    {
+                        EventManager.TriggerTakeDamageEvent("KnockBack", players[i], 1);
+                    }
+                }
+                return EBTState.True;
+            }
+        }
+        public class CheckSectorJudgment : Task
+        {
+            public CheckSectorJudgment()
+            {
+                mNodeName = "CheckSectorJudgment";
+            }
+            public override EBTState Tick()
+            {
+                base.Tick();
+
                 GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
                 for (int i = 0; i < players.Length; i++)
                 {

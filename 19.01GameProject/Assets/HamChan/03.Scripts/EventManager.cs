@@ -8,6 +8,7 @@ public class StringEvent : UnityEvent<string> { }
 public class IntEvent : UnityEvent<int> { }
 public class FloatEvent : UnityEvent<float> { }
 public class GameObjectEvent : UnityEvent<GameObject> { }
+public class ComponentEvent : UnityEvent<Component> { }
 public class TransformEvent : UnityEvent<Transform> { }
 public class TakeDamageEvent : UnityEvent<GameObject, int> { }
     public class EventManager
@@ -45,6 +46,10 @@ public class TakeDamageEvent : UnityEvent<GameObject, int> { }
             if (mGameobjectEventDictionary == null)
             {
                 mGameobjectEventDictionary = new Dictionary<string, GameObjectEvent>();
+            }            
+            if (mTakeDamageEventDictionary == null)
+            {
+                mTakeDamageEventDictionary = new Dictionary<string, TakeDamageEvent>();
             }
 
 
@@ -154,7 +159,7 @@ public class TakeDamageEvent : UnityEvent<GameObject, int> { }
                 mTakeDamageEventDictionary.Add(eventName, thisEvent);
             }
         }
-
+      
         public static void TriggerCommonEvent(string eventName)
         {
             Init();
@@ -218,7 +223,7 @@ public class TakeDamageEvent : UnityEvent<GameObject, int> { }
                 thisEvent.Invoke(target, damage);
             }
         }
-
+       
         public static void StopListeningCommonEvent(string eventName, UnityAction listener)
         {
             Init();
@@ -282,5 +287,6 @@ public class TakeDamageEvent : UnityEvent<GameObject, int> { }
                 thisEvent.RemoveListener(listener);
             }
         }
+       
     }
 }

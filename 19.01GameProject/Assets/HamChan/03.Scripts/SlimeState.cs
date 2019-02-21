@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Neremnem.Tools;
 
 namespace Neremnem.AI
 {
@@ -27,33 +28,43 @@ namespace Neremnem.AI
             get { return mHP; }
             set { mHP = value; }
         }
-        private void Start()
+        private void Awake()
         {
-            BlackBoard.SetValueByStringKey("Phase1", "Phase1");
+            BlackBoard.AddStringKey("Phase", "Phase1");
             mHP = 100;
-        }       
+        }
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.F2))
+            {
+                mHP = 80;
+                Debug.Log(mHP);
+                BlackBoard.SetValueByStringKey("Phase","Phase2");
+                EventManager.TriggerCommonEvent("ActiveBoundary");
+            }
+        }
         private void TakeDamage(int i)
         {
             mHP = mHP - i;
             if (mHP < 21)
             {
-                BlackBoard.DeleteStringKey("Phase4");
-                BlackBoard.SetValueByStringKey("Phase5", "Phase5");
+                BlackBoard.SetValueByStringKey("Phase", "Phase5");
+
             }
             else if (mHP < 41)
             {
-                BlackBoard.DeleteStringKey("Phase3");
-                BlackBoard.SetValueByStringKey("Phase4", "Phase4");
+                BlackBoard.SetValueByStringKey("Phase", "Phase4");
+
             }
             else if (mHP < 61)
             {
-                BlackBoard.DeleteStringKey("Phase2");
-                BlackBoard.SetValueByStringKey("Phase3", "Phase3");
+                BlackBoard.SetValueByStringKey("Phase", "Phase3");
+
             }
             else if (mHP < 81)
             {
-                BlackBoard.DeleteStringKey("Phase1");
-                BlackBoard.SetValueByStringKey("Phase2", "Phase2");
+                BlackBoard.SetValueByStringKey("Phase", "Phase2");
+                EventManager.TriggerCommonEvent("ActiveBoundary");
             }
         }
 

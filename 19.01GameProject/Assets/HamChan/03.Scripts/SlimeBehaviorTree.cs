@@ -9,18 +9,25 @@ public class SlimeBehaviorTree : MonoBehaviour
     public enum EAnimState
     {
         Bash
-        , Whirlwind 
-        , Jump 
+        , Whirlwind
+        , Jump
     }
 
+    private string mAction;
+    private bool mAnimationEnd = false;
     private GameObject mOwner;
     private Animator mAnimator;
     private NavMeshAgent mNavMeshAgent;
     private Rigidbody mRigidbody;
-    private Vector3 mGoal;
     private BehaviorTree mBehaviorTree;
     private BehaviorTree.Root mRoot;
     private BehaviorTree.Sequence mSequence;
+    private BehaviorTree.Sequence mPhase1;
+    private BehaviorTree.Selector mPhase2;
+    private BehaviorTree.Sequence mPhase3;
+    private BehaviorTree.Sequence mPhase4;
+    private BehaviorTree.Sequence mPhase5;
+
     private BehaviorTree.Sequence mPattern1;
     private BehaviorTree.Sequence mPattern2;
     private BehaviorTree.Sequence mPattern2_1;
@@ -33,6 +40,7 @@ public class SlimeBehaviorTree : MonoBehaviour
     private BehaviorTree.Wait mWait;
     private BehaviorTree.ImplementRandom mImplementRandom;
     private BehaviorTree.Selector mMoveToAttack;
+    private BehaviorTree.Selector mMoveToAttack2;
     private BehaviorTree.CanAttack mCanAttack;
     private BehaviorTree.CloseAttack mCloseAttack;
 
@@ -41,6 +49,10 @@ public class SlimeBehaviorTree : MonoBehaviour
     private BehaviorTree.ConditionalLoop mLoopPattern3;
     private BehaviorTree.ConditionalLoop mLoopPattern4;
     private BehaviorTree.ConditionalLoop mLoopPattern5;
+    
+    // private BehaviorTree.Blackboard mCheckHP;
+
+
     private bool mbMove;
 
     private void Awake()
@@ -49,28 +61,43 @@ public class SlimeBehaviorTree : MonoBehaviour
         mAnimator = mOwner.GetComponent<Animator>();
         mNavMeshAgent = mOwner.GetComponent<NavMeshAgent>();
         mRigidbody = mOwner.GetComponent<Rigidbody>();
-        mGoal = mOwner.transform.position;
     }
     private void Start()
     {
         mRigidbody.isKinematic = true;
         mNavMeshAgent.SetDestination(BlackBoard.GetValueByVector3Key("Destination"));
         BlackBoard.SetValueByGameObjectKey("Boss", this.gameObject);
-
         SetBehavior();
+    }
+    IEnumerator WaitForAnimation()
+    {
+        while (!mAnimationEnd)
+        {
+            Debug.Log("asdf");
+            yield return null;
+        }
     }
     private void Update()
     {
-        mbMove = BlackBoard.GetValueByBoolKey("CanMove");
+        BlackBoard.SetValueByVector3Key
+                ("CurrentPosition", this.transform.position);
         mRoot.Tick();
-        Debug.Log(mbMove);
+        mAction = BlackBoard.GetValueByStringKey("Action");
+        if (BlackBoard.GetValueByStringKey("Action") != null)
+        {
+            mAnimationEnd = false;
+            mAnimator.SetTrigger(mAction);
+            
+            //StartCoroutine(WaitForAnimation());
+            BlackBoard.SetValueByStringKey("Action", null);
+        }
+        mbMove = BlackBoard.GetValueByBoolKey("CanMove");
         if (mbMove)
         {
             mAnimator.SetBool("Move", true);
             mNavMeshAgent.SetDestination
                   (BlackBoard.GetValueByVector3Key("Destination"));
-            BlackBoard.SetValueByVector3Key
-                ("CurrentPosition", this.transform.position);
+
             mNavMeshAgent.Resume();
 
         }
@@ -79,73 +106,80 @@ public class SlimeBehaviorTree : MonoBehaviour
             mNavMeshAgent.Stop();
             mAnimator.SetBool("Move", false);
         }
-        if (BlackBoard.GetValueByBoolKey("Attack"))
-        {
-            mAnimator.SetTrigger("Attack");
-            BlackBoard.SetValueByBoolKey("Attack", false);
-            IEnumerator WaitForAnimation(Animation animation)
-            {
-                do
-                {
-                    yield return null;
-                } while (animation.isPlaying);
-            }
-        }
+
     }
     private void SetBehavior()
     {
-      
-        mBehaviorTree = new BehaviorTree();
+
         mRoot = new BehaviorTree.Root();
-        mSequence = new BehaviorTree.Sequence();
-        mPattern1 = new BehaviorTree.Sequence("Pattern 1");
-        mPattern2 = new BehaviorTree.Sequence("Pattern 1");
+        mSequence = new BehaviorTree.Sequence("Main");
+        
         mPattern2_1 = new BehaviorTree.Sequence("Pattern 2_1");
         mPattern2_2 = new BehaviorTree.Sequence("Pattern 2_2");
-        mPattern3 = new BehaviorTree.Sequence("Pattern 3");
-        mPattern4 = new BehaviorTree.Sequence("Pattern 4");
+        
+
+        mPhase1 = new BehaviorTree.Sequence("Phase1");
+        mPhase2 = new BehaviorTree.Selector("Phase2");
 
         mRoot.Child = mSequence;
         moveTo = new BehaviorTree.MoveTo("TargetPlayer");
         mFindPlayer = new FindPlayerService();
         mWait = new BehaviorTree.Wait(0.3f);
-        mMoveToAttack = new BehaviorTree.Selector();
+        mMoveToAttack = new BehaviorTree.Selector("moveToAttack");
+        mMoveToAttack2 = new BehaviorTree.Selector("moveToAttack");
         mCanAttack = new BehaviorTree.CanAttack();
         mCloseAttack = new BehaviorTree.CloseAttack();
 
-        //루프 데코레이터
-        mLoopPattern1 = new BehaviorTree.ConditionalLoop("Phase1", true, mPattern1);
-        mLoopPattern2 = new BehaviorTree.ConditionalLoop("Phase2", true, mPattern2_1);
-        mLoopPattern3 = new BehaviorTree.ConditionalLoop("Phase3", true, mPattern3);
-        mLoopPattern4 = new BehaviorTree.ConditionalLoop("Phase4", true, mPattern4);
-        mLoopPattern4 = new BehaviorTree.ConditionalLoop("Phase5", true, mPattern4);
-
-        //mImplementRandom = new BehaviorTree.ImplementRandom(mPattern2_1,mPattern2_2);
 
         //메인 스트림
-        mSequence.ServiceList.Add(mFindPlayer);
         BlackBoard.SetValueByVector3Key
                 ("CurrentPosition", this.transform.position);
-        mSequence.Children.Add(mPattern1);
-        mSequence.Children.Add(mImplementRandom);
-
+        //mSequence.Children.Add(mPhase1);
+        mSequence.Children.Add(mPhase2);
+        mSequence.ServiceList.Add(mFindPlayer);
         //페이즈1
-        mPattern1.DecoratorList.Add(mLoopPattern1);
-        mPattern1.Children.Add(mMoveToAttack);
+        mPhase1.DecoratorList.Add(new BehaviorTree.CompareString("Phase"
+            , BehaviorTree.Decorator.EObserverAborts.Self
+            ,"Phase1"));
+        //mPhase1.ServiceList.Add(mFindPlayer);
+        mPhase1.Children.Add(mMoveToAttack);
         mMoveToAttack.Children.Add(mCanAttack);
         mMoveToAttack.Children.Add(moveTo);
-        mPattern1.Children.Add(mWait);
-        mPattern1.Children.Add(mCloseAttack);
-        mPattern1.Children.Add(mWait);
+        mPhase1.Children.Add(new BehaviorTree.Wait(0.3f));
+        mPhase1.Children.Add(mCloseAttack);
+        mPhase1.Children.Add(new BehaviorTree.Wait(0.3f));
+        //애니메이션에 이벤트 넣어서 각각 시작, 끝날때 공격 체크하자
+        mMoveToAttack2 = mMoveToAttack;
 
-        //페이즈2
-        mPattern2.Children.Add(mMoveToAttack);
-        mPattern2.Children.Add(mWait);
-        mPattern2.Children.Add(new BehaviorTree.BashAttack());
-        mPattern2.Children.Add(new BehaviorTree.CheckSectorJudgment());
+        //페이즈2       
+        mPhase2.DecoratorList.Add(new BehaviorTree.CompareString("Phase"
+            , BehaviorTree.Decorator.EObserverAborts.Self
+            , "Phase2"));
+        mPhase2.ServiceList.Add(mFindPlayer);
+        mPhase2.Children.Add(mPattern2_1);
+        mPhase2.Children.Add(mPattern2_2);
+        mPattern2_2.Children.Add(mMoveToAttack);
+        //mPattern2_1.Children.Add('장판');
+        mPattern2_2.Children.Add(mWait);
+        mPattern2_2.Children.Add(new BehaviorTree.BashAttack());
+        mPattern2_2.Children.Add(new BehaviorTree.CheckSectorJudgment());
 
         //장판 그리고
         //공격
-        mPattern2_2.Children.Add(new BehaviorTree.Wait(0.5f));
+        //mPattern2_2.Children.Add('장판');
+        mPattern2_1.DecoratorList.Add(new BehaviorTree.CompareKey
+            ("Whirlwind", BehaviorTree.Decorator.EObserverAborts.Self,true));
+        mPattern2_1.Children.Add(new BehaviorTree.Wait(0.5f));
+        mPattern2_1.Children.Add(new BehaviorTree.WhirlwindAttack());
+        mPattern2_1.Children.Add(new BehaviorTree.CheckRoundJudgment());
+
+        mPhase3.Children.Add(new BehaviorTree.SpawnSlime("SpawnSoldiers"));
+    }
+    public void ActionEnd()
+    {
+        Debug.Log("ㅁㄴㅇㄹ");
+        mAnimationEnd = true;
+        mAction = null;
+
     }
 }

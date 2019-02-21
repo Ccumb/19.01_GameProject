@@ -6,13 +6,23 @@ namespace Neremnem.AI
     public class BlackBoard
     {
         private static Dictionary<string, bool> mBoolKey = new Dictionary<string, bool>();
+        private static Dictionary<string, object> mKey = new Dictionary<string, object>();
         private static Dictionary<string, GameObject> mGameObjectKey = new Dictionary<string, GameObject>();
         private static Dictionary<string, float> mFloatKey = new Dictionary<string, float>();
         private static Dictionary<string, string> mStringKey = new Dictionary<string, string>();
         private static Dictionary<string, int> mIntKey = new Dictionary<string, int>();
         private static Dictionary<string, Vector3> mVector3Key = new Dictionary<string, Vector3>();
         private static Dictionary<string, Transform> mTrnasformKey = new Dictionary<string, Transform>();
+        private static Dictionary<string, Component> mComponentmKey = new Dictionary<string, Component>();
 
+        public static void AddKey(string key, object value)
+        {
+            if (mKey == null)
+            {
+                mKey = new Dictionary<string, object>();
+            }
+            mKey.Add(key, value);
+        }
         public static void AddBoolKey(string key, bool value)
         {
             if (mBoolKey == null)
@@ -69,8 +79,21 @@ namespace Neremnem.AI
             }
             mTrnasformKey.Add(key, value);
         }
+        public static void AddComponentmKey(string key, Component value)
+        {
+            if (mComponentmKey == null)
+            {
+                mComponentmKey = new Dictionary<string, Component>();
+            }
+            mComponentmKey.Add(key, value);
+        }
 
-
+        public static object GetValue(string key)
+        {
+            object value;
+            mKey.TryGetValue(key, out value);
+            return value;
+        }
         public static bool GetValueByBoolKey(string key)
         {
             bool value;
@@ -113,7 +136,17 @@ namespace Neremnem.AI
             mTrnasformKey.TryGetValue(key, out value);
             return value;
         }
+        public static Component GetValueByComponentmKey(string key)
+        {
+            Component value;
+            mComponentmKey.TryGetValue(key, out value);
+            return value;
+        }
 
+        public static void SetValue(string key, bool value)
+        {
+            mKey[key] = value;
+        }
         public static void SetValueByBoolKey(string key, bool value)
         {
             mBoolKey[key] = value;
@@ -142,7 +175,19 @@ namespace Neremnem.AI
         {
             mTrnasformKey[key] = value;
         }
+        public static void SetValueByComponentKey(string key, Component value)
+        {
+            mComponentmKey[key] = value;
+        }
 
+        public static void DeleteKey(string key)
+        {
+            mKey.Remove(key);
+        }
+        public static void DeleteBoolKey(string key)
+        {
+            mBoolKey.Remove(key);
+        }
         public static void DeleteStringKey(string key)
         {
             mStringKey.Remove(key);
