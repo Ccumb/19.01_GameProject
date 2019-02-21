@@ -730,7 +730,7 @@ namespace Neremnem.AI
                 {
                     for (int i = 0; i < 3; i++)
                     {
-                        EventManager.TriggerCommonEvent("SpawnNormalSlimes");
+                        EventManager.TriggerCommonEvent("SpawnNormalSlime");
                     }
                     BlackBoard.SetValueByIntKey("SlimeAmount", 3);
                     return EBTState.True;
@@ -741,13 +741,13 @@ namespace Neremnem.AI
                     {
                         if (mbRush == false)
                         {
-                            EventManager.TriggerCommonEvent("SpawnNormalSlimes");
+                            EventManager.TriggerCommonEvent("SpawnNormalSlime");
                             BlackBoard.SetValueByIntKey("SlimeAmount"
                                 , BlackBoard.GetValueByIntKey("SlimeAmount") + 1); ;
                         }
                         else
                         {
-                            EventManager.TriggerCommonEvent("SpawnRushSlimes");
+                            EventManager.TriggerCommonEvent("SpawnRushSlime");
                             BlackBoard.SetValueByIntKey("SlimeAmount"
                                 , BlackBoard.GetValueByIntKey("SlimeAmount") + 1); ;
                         }
