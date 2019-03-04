@@ -124,10 +124,11 @@ namespace Neremnem.AI
             }
             public Service(float interval)
             {
+                keyList = new List<string>();
                 mInterval = interval;
                 mFuture = -1;
             }
-            public override EBTState Tick()
+            public virtual EBTState Tick()
             {
                 base.Tick();
                 if (mFuture < 0)

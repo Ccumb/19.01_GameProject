@@ -69,14 +69,7 @@ public class SlimeBehaviorTree : MonoBehaviour
         BlackBoard.SetValueByGameObjectKey("Boss", this.gameObject);
         SetBehavior();
     }
-    IEnumerator WaitForAnimation()
-    {
-        while (!mAnimationEnd)
-        {
-            Debug.Log("asdf");
-            yield return null;
-        }
-    }
+    
     private void Update()
     {
         BlackBoard.SetValueByVector3Key
