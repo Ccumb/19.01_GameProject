@@ -16,6 +16,8 @@ GameObject:
   - component: {fileID: 6582167499473797211}
   - component: {fileID: 2971120810515232502}
   - component: {fileID: 1020244538456682969}
+  - component: {fileID: 3286754906034501286}
+  - component: {fileID: 6841893703086814440}
   m_Layer: 0
   m_Name: Slime
   m_TagString: Untagged
@@ -153,6 +155,41 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 16
   m_CollisionDetection: 0
+--- !u!114 &3286754906034501286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 397123756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5713d9decac281469f9673e57275a3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObjectCount: 0
+  SubordinateObject: {fileID: 0}
+--- !u!114 &6841893703086814440
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 397123756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 337e280ed5bf78345ab09390de1611ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SummonCount: 3
+  cAccumulateSummonTime: 0
+  cSummonTime: 10
+  tSummonTransform:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &509168237
 GameObject:
   m_ObjectHideFlags: 0
