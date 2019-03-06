@@ -4,15 +4,9 @@ using UnityEngine;
 
 public class EnemyAbility : MonoBehaviour
 {
-    // Start is called before the first frame update
+    protected Animator anim;
+
     void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [DisallowMultipleComponent]
-public class RangeAttack : MonoBehaviour
+public class RangeAttack : EnemyAbility
 {
     public float TargetOffRadius;   //타겟 off 범위
     public float TargetOnRadius;    //타겟 on 범위

@@ -4,7 +4,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(ProjectilePool))]
 [DisallowMultipleComponent]
-public class LongRangeAttack : MonoBehaviour
+public class LongRangeAttack : EnemyAbility
 {
     public float LongTargetOffRadius;   //타겟 off 범위
     public float LongTargetOnRadius;    //타겟 on 범위
@@ -38,6 +38,7 @@ public class LongRangeAttack : MonoBehaviour
 
     private void Start()
     {
+        anim = GetComponent<Animator>();
         ProjectilePooling = GetComponent<ProjectilePool>();
     }
 
@@ -85,6 +86,8 @@ public class LongRangeAttack : MonoBehaviour
         }
         else
         {
+            anim.SetBool("isAttack", false);
+            RangeSpriteRenderer.enabled = false;
             DamageTime = 0.0f;
         }
     }
@@ -102,9 +105,11 @@ public class LongRangeAttack : MonoBehaviour
             {
                 float dstToTarget = Vector3.Distance(transform.position, target.position);
                 if (!Physics.Raycast(transform.position, dirTotarget, dstToTarget, ObstacleMask)
-                    && LongTargetOffRadius < Vector3.Distance(transform.position, target.position))
+                    && LongTargetOnRadius > Vector3.Distance(transform.position, target.position))
                 {
-                    transform.forward = dirTotarget;
+                    if (GetComponent<EnemyMovement>().enabled == true) GetComponent<EnemyMovement>().enabled = false;
+                    if(anim.GetBool(1) == true) anim.SetBool("isWalk", false);
+                    transform.forward = new Vector3 (dirTotarget.x, 0, dirTotarget.z);
                     Debug.Log("Find");
                     if (!bTargetOn) bTargetOn = true;
 
@@ -116,7 +121,7 @@ public class LongRangeAttack : MonoBehaviour
                     {
                         //프로젝타일 발사//
                         ProjectilePooling.Pooling();
-
+                        anim.SetBool("isAttack", true);
                         PlayerPos = Vector3.zero;
                         bDamage = false;
                         bPos = false;
@@ -132,10 +137,13 @@ public class LongRangeAttack : MonoBehaviour
             if (Vector3.Angle(transform.forward, dirToTarget) < LongTargetAngle / 2)
             {
                 float dstToTarget = Vector3.Distance(transform.position, target.position);
-                if (!Physics.Raycast(transform.position, dirToTarget, dstToTarget, ObstacleMask))
+                if (!Physics.Raycast(transform.position, dirToTarget, dstToTarget, ObstacleMask)
+                     && LongTargetOnRadius < Vector3.Distance(transform.position, target.position))
                 {
                     Debug.Log("Not Find");
-                    //if (bTargetOn) bTargetOn = false;
+                    if (bTargetOn) bTargetOn = false;
+                    if (GetComponent<EnemyMovement>().enabled == false) GetComponent<EnemyMovement>().enabled = true;
+                    if (anim.GetBool(1) == false) anim.SetBool("isWalk", true);
                 }
             }
         }
