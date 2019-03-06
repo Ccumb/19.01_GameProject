@@ -545,7 +545,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 285401274}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.89, y: 0.92656, z: -0.18443}
+  m_LocalPosition: {x: 19.79, y: 0.92656, z: -0.18443}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2091360134}
@@ -649,6 +649,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 305092433}
   m_CullTransparentMesh: 0
+--- !u!1 &361050073 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 617270170, guid: 28cd46e6232d044448311086b891f6f5,
+    type: 3}
+  m_PrefabInstance: {fileID: 1243725085}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &361050076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 361050073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a99ff0dc3abb23a4d94a127885b72600, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bIsAttack: 0
 --- !u!1 &397123756 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 397123756, guid: 28cd46e6232d044448311086b891f6f5,
@@ -2013,6 +2032,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1566417313}
     m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 397123756, guid: 28cd46e6232d044448311086b891f6f5, type: 3}
       propertyPath: m_Name
       value: Slime
@@ -2023,7 +2046,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 397123756, guid: 28cd46e6232d044448311086b891f6f5, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 397123758, guid: 28cd46e6232d044448311086b891f6f5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2083,7 +2106,7 @@ PrefabInstance:
     - target: {fileID: 6582167499473797211, guid: 28cd46e6232d044448311086b891f6f5,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2971120810515232502, guid: 28cd46e6232d044448311086b891f6f5,
         type: 3}
@@ -2178,6 +2201,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1687313362196947402, guid: 28cd46e6232d044448311086b891f6f5,
+        type: 3}
+      propertyPath: speed
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 3286754906034501286, guid: 28cd46e6232d044448311086b891f6f5,
         type: 3}
       propertyPath: ObjectCount
@@ -2219,8 +2247,40 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 4669441573627857402, guid: 28cd46e6232d044448311086b891f6f5, type: 3}
+    - target: {fileID: 397123757, guid: 28cd46e6232d044448311086b891f6f5, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 3ca3e3f95a4e4ba4a966a9eb5849791e, type: 2}
+    - target: {fileID: 617270172, guid: 28cd46e6232d044448311086b891f6f5, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0d918829a68402247a4d04c7fa9dc52b, type: 2}
+    - target: {fileID: 4806939737492747056, guid: 28cd46e6232d044448311086b891f6f5,
+        type: 3}
+      propertyPath: TargetAngle
+      value: 360
+      objectReference: {fileID: 0}
+    - target: {fileID: 4806939737492747056, guid: 28cd46e6232d044448311086b891f6f5,
+        type: 3}
+      propertyPath: TargetOffRadius
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4806939737492747056, guid: 28cd46e6232d044448311086b891f6f5,
+        type: 3}
+      propertyPath: TargetOnRadius
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4806939737492747056, guid: 28cd46e6232d044448311086b891f6f5,
+        type: 3}
+      propertyPath: TargetMask.m_Bits
+      value: 512
+      objectReference: {fileID: 0}
+    - target: {fileID: 47439539624868763, guid: 28cd46e6232d044448311086b891f6f5,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 28cd46e6232d044448311086b891f6f5, type: 3}
 --- !u!1 &1292472536
 GameObject:

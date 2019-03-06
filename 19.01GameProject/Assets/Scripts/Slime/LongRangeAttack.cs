@@ -22,6 +22,8 @@ public class LongRangeAttack : EnemyAbility
     float DelayDamageTime = 3.3f; //타겟을 찾은 뒤 몇 초 뒤에 대미지를 줄 것인지
     float DamageTime = 0.0f;
 
+    ChangeSlimeColor ChangeColor;
+
     Vector3 PlayerPos = Vector3.zero;
 
     private SpriteRenderer RangeSpriteRenderer; //게임상에서 표시되는 2D 스프라이트(범위)
@@ -40,6 +42,7 @@ public class LongRangeAttack : EnemyAbility
     {
         anim = GetComponent<Animator>();
         ProjectilePooling = GetComponent<ProjectilePool>();
+        ChangeColor = transform.GetChild(3).GetComponent<ChangeSlimeColor>();
     }
 
     IEnumerator FindTargetsWithDelay(float delay)
@@ -81,6 +84,7 @@ public class LongRangeAttack : EnemyAbility
                     bTargetOn = false;
                     DamageTime = 0.0f;
                     RangeSpriteRenderer.enabled = false;
+                    ChangeColor.bIsAttack = false;
                 }
             }
         }
@@ -89,6 +93,7 @@ public class LongRangeAttack : EnemyAbility
             anim.SetBool("isAttack", false);
             RangeSpriteRenderer.enabled = false;
             DamageTime = 0.0f;
+            ChangeColor.bIsAttack = false;
         }
     }
 
@@ -108,7 +113,7 @@ public class LongRangeAttack : EnemyAbility
                     && LongTargetOnRadius > Vector3.Distance(transform.position, target.position))
                 {
                     if (GetComponent<EnemyMovement>().enabled == true) GetComponent<EnemyMovement>().enabled = false;
-                    if(anim.GetBool(1) == true) anim.SetBool("isWalk", false);
+                    if(anim.GetBool("isAttack") == true) anim.SetBool("isWalk", false);
                     transform.forward = new Vector3 (dirTotarget.x, 0, dirTotarget.z);
                     Debug.Log("Find");
                     if (!bTargetOn) bTargetOn = true;
@@ -125,6 +130,7 @@ public class LongRangeAttack : EnemyAbility
                         PlayerPos = Vector3.zero;
                         bDamage = false;
                         bPos = false;
+                        ChangeColor.bIsAttack = true;
                     }
                 }
             }
@@ -143,7 +149,7 @@ public class LongRangeAttack : EnemyAbility
                     Debug.Log("Not Find");
                     if (bTargetOn) bTargetOn = false;
                     if (GetComponent<EnemyMovement>().enabled == false) GetComponent<EnemyMovement>().enabled = true;
-                    if (anim.GetBool(1) == false) anim.SetBool("isWalk", true);
+                    if (anim.GetBool("isAttack") == false) anim.SetBool("isWalk", true);
                 }
             }
         }
