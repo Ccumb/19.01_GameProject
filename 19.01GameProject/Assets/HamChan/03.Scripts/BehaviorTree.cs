@@ -27,13 +27,13 @@ namespace Neremnem.AI
         {
             protected List<Service> mServiceList;
             protected List<Decorator> mDecoratorList;
-            protected bool mbLoop;
+            //protected bool mbLoop;
             protected string mNodeName;
-            public bool isLoop
-            {
-                get { return mbLoop; }
-                set { mbLoop = value; }
-            }
+            //public bool isLoop
+            //{
+            //    get { return mbLoop; }
+            //    set { mbLoop = value; }
+            //}
             public List<Service> ServiceList
             {
                 get { return mServiceList; }
@@ -46,14 +46,14 @@ namespace Neremnem.AI
             public Node()
             {
                 mNodeName = "Node";
-                mbLoop = false;
+                //mbLoop = false;
                 mServiceList = new List<Service>();
                 mDecoratorList = new List<Decorator>();
             }
             public Node(string name)
             {
                 mNodeName = name;
-                mbLoop = false;
+                //mbLoop = false;
                 mServiceList = new List<Service>();
                 mDecoratorList = new List<Decorator>();
             }
@@ -237,63 +237,63 @@ namespace Neremnem.AI
             }
         }
 
-        public class ConditionalLoop : Decorator
-        {
-            private bool mbSet;
-            private string mKey;
-            public bool IsSet
-            {
-                get { return mbSet; }
-                set { mbSet = value; }
-            }
-            public string Key
-            {
-                get { return mKey; }
-                set { mKey = value; }
-            }
-            public ConditionalLoop(string key, bool offset, Node parent)
-                : base("Conditional Loop")
-            {
-                mbSet = offset;
-                mKey = key;
-                mParent = parent;
-            }
-            public ConditionalLoop(string name, string key, bool offset, Node parent)
-                : base(name)
-            {
-                mbSet = offset;
-                mKey = key;
-                mParent = parent;
-            }
-            public override EBTState Tick()
-            {
-                base.Tick();
+        //public class ConditionalLoop : Decorator
+        //{
+        //    private bool mbSet;
+        //    private string mKey;
+        //    public bool IsSet
+        //    {
+        //        get { return mbSet; }
+        //        set { mbSet = value; }
+        //    }
+        //    public string Key
+        //    {
+        //        get { return mKey; }
+        //        set { mKey = value; }
+        //    }
+        //    public ConditionalLoop(string key, bool offset, Node parent)
+        //        : base("Conditional Loop")
+        //    {
+        //        mbSet = offset;
+        //        mKey = key;
+        //        mParent = parent;
+        //    }
+        //    public ConditionalLoop(string name, string key, bool offset, Node parent)
+        //        : base(name)
+        //    {
+        //        mbSet = offset;
+        //        mKey = key;
+        //        mParent = parent;
+        //    }
+        //    public override EBTState Tick()
+        //    {
+        //        base.Tick();
 
-                if (mbSet)
-                {
-                    if (BlackBoard.GetValueByBoolKey(mKey) != null)
-                    {
-                        mParent.isLoop = true;
-                    }
-                    else
-                    {
-                        mParent.isLoop = false;
-                    }
-                }
-                else // is not true
-                {
-                    if (BlackBoard.GetValueByBoolKey(mKey) == null)
-                    {
-                        mParent.isLoop = false;
-                    }
-                    else
-                    {
-                        mParent.isLoop = true;
-                    }
-                }
-                return EBTState.True;
-            }
-        }
+        //        if (mbSet)
+        //        {
+        //            if (BlackBoard.GetValueByBoolKey(mKey) != null)
+        //            {
+        //                mParent.isLoop = true;
+        //            }
+        //            else
+        //            {
+        //                mParent.isLoop = false;
+        //            }
+        //        }
+        //        else // is not true
+        //        {
+        //            if (BlackBoard.GetValueByBoolKey(mKey) == null)
+        //            {
+        //                mParent.isLoop = false;
+        //            }
+        //            else
+        //            {
+        //                mParent.isLoop = true;
+        //            }
+        //        }
+        //        return EBTState.True;
+        //    }
+        //}
         public class Composite : Node
         {
             protected int mCursor;
@@ -303,13 +303,13 @@ namespace Neremnem.AI
             public Composite() : base()
             {
                 mCursor = -1;
-                mbLoop = false;
+                //mbLoop = false;
             }
             public Composite(string nodeName) : base(nodeName)
             {
                 mCursor = -1;
-                mbLoop = false;
-            }
+                //mbLoop = false;
+            }//
             public bool WillAbort
             {
                 get { return bWillAbort; }
@@ -381,24 +381,14 @@ namespace Neremnem.AI
                     }
                     else
                     {
-                        if (mbLoop == true)
-                        {
-                            mCursor = -1;
-                            mTickStack.Push(this);
-                            return EBTState.True;
-                        }
+                        
                         mCursor = -1;
                         return EBTState.True;
                     }
                 }
                 else if (mCompare == EBTState.False)
                 {
-                    if (mbLoop == true)
-                    {
-                        mCursor = -1;
-                        mTickStack.Push(this);
-                        return EBTState.True;
-                    }
+                    
                     mCursor = -1;
                     return EBTState.False;
 
@@ -460,12 +450,12 @@ namespace Neremnem.AI
                     }
                     else
                     {
-                        if (mbLoop)
-                        {
-                            mCursor = -1;
-                            mTickStack.Push(this);
-                            return EBTState.True;
-                        }
+                        //if (mbLoop)
+                        //{
+                        //    mCursor = -1;
+                        //    mTickStack.Push(this);
+                        //    return EBTState.True;
+                        //}
                         mCursor = -1;
                         return EBTState.False;
                     }
@@ -473,12 +463,12 @@ namespace Neremnem.AI
                 else if (mCompare
                     == EBTState.True)
                 {
-                    if (mbLoop)
-                    {
-                        mCursor = -1;
-                        mTickStack.Push(this);
-                        return EBTState.True;
-                    }
+                    //if (mbLoop)
+                    //{
+                    //    mCursor = -1;
+                    //    mTickStack.Push(this);
+                    //    return EBTState.True;
+                    //}
                     mCursor = -1;
                     return EBTState.True;
                 }
@@ -617,16 +607,16 @@ namespace Neremnem.AI
             {
                 base.Tick();
 
-                Debug.Log(Vector3.Distance(
-                    BlackBoard.GetValueByVector3Key("TargetPlayer")
-                    , BlackBoard.GetValueByVector3Key("CurrentPosition")));
-                Debug.Log(BlackBoard.GetValueByVector3Key("TargetPlayer"));
-                Debug.Log(BlackBoard.GetValueByVector3Key("CurrentPosition"));
+                //Debug.Log(Vector3.Distance(
+                //    BlackBoard.GetValueByVector3Key("TargetPlayer")
+                //    , BlackBoard.GetValueByVector3Key("CurrentPosition")));
+                //Debug.Log(BlackBoard.GetValueByVector3Key("TargetPlayer"));
+                //Debug.Log(BlackBoard.GetValueByVector3Key("CurrentPosition"));
                 if (mRange >= Vector3.Distance(
                     BlackBoard.GetValueByVector3Key("TargetPlayer")
                     , BlackBoard.GetValueByVector3Key("CurrentPosition")))
                 {
-                    Debug.Log("true");
+                    //Debug.Log("true");
                     return EBTState.True;
                 }
                 else

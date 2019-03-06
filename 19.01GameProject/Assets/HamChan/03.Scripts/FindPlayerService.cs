@@ -15,7 +15,7 @@ public class FindPlayerService : BehaviorTree.Service
     }
     public override EBTState Tick()
     {
-        Debug.Log(BlackBoard.GetValueByVector3Key("TargetPlayer"));
+        //Debug.Log(BlackBoard.GetValueByVector3Key("TargetPlayer"));
         BlackBoard.SetValueByVector3Key("TargetPlayer"
             , mTarget.transform.position);
         BlackBoard.SetValueByVector3Key("Destination",

@@ -43,12 +43,7 @@ public class SlimeBehaviorTree : MonoBehaviour
     private BehaviorTree.Selector mMoveToAttack2;
     private BehaviorTree.CanAttack mCanAttack;
     private BehaviorTree.CloseAttack mCloseAttack;
-
-    private BehaviorTree.ConditionalLoop mLoopPattern1;
-    private BehaviorTree.ConditionalLoop mLoopPattern2;
-    private BehaviorTree.ConditionalLoop mLoopPattern3;
-    private BehaviorTree.ConditionalLoop mLoopPattern4;
-    private BehaviorTree.ConditionalLoop mLoopPattern5;
+    
     
     // private BehaviorTree.Blackboard mCheckHP;
 
@@ -129,7 +124,7 @@ public class SlimeBehaviorTree : MonoBehaviour
                 ("CurrentPosition", this.transform.position);
         //mSequence.Children.Add(mPhase1);
         mSequence.Children.Add(mPhase2);
-        mSequence.ServiceList.Add(mFindPlayer);
+        //mSequence.ServiceList.Add(mFindPlayer);
         //페이즈1
         mPhase1.DecoratorList.Add(new BehaviorTree.CompareString("Phase"
             , BehaviorTree.Decorator.EObserverAborts.Self
@@ -152,6 +147,7 @@ public class SlimeBehaviorTree : MonoBehaviour
         mPhase2.Children.Add(mPattern2_1);
         mPhase2.Children.Add(mPattern2_2);
         mPattern2_2.Children.Add(mMoveToAttack);
+        mPattern2_2.ServiceList.Add(mFindPlayer);
         //mPattern2_1.Children.Add('장판');
         mPattern2_2.Children.Add(mWait);
         mPattern2_2.Children.Add(new BehaviorTree.BashAttack());
@@ -166,7 +162,7 @@ public class SlimeBehaviorTree : MonoBehaviour
         mPattern2_1.Children.Add(new BehaviorTree.WhirlwindAttack());
         mPattern2_1.Children.Add(new BehaviorTree.CheckRoundJudgment());
 
-        mPhase3.Children.Add(new BehaviorTree.SpawnSlime("SpawnSoldiers"));
+        //mPhase3.Children.Add(new BehaviorTree.SpawnSlime("SpawnSoldiers"));
     }
     public void ActionEnd()
     {
