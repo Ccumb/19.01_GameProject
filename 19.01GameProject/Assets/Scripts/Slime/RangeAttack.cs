@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [DisallowMultipleComponent]
-public class RangeAttack : MonoBehaviour
+public class RangeAttack : EnemyAbility
 {
     public float TargetOffRadius;   //타겟 off 범위
     public float TargetOnRadius;    //타겟 on 범위
@@ -22,10 +22,17 @@ public class RangeAttack : MonoBehaviour
     [HideInInspector]
     public SpriteRenderer RangeSpriteRenderer; //게임상에서 표시되는 2D 스프라이트(범위)
 
+    ChangeSlimeColor ChangeColor;
     private void Awake()
     {
         RangeSpriteRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
         RangeSpriteRenderer.transform.localScale = new Vector3(TargetOnRadius, TargetOnRadius, 0) * 10;
+    }
+
+    private void Start()
+    {
+        anim = GetComponent<Animator>();
+        ChangeColor = transform.GetChild(3).GetComponent<ChangeSlimeColor>();
     }
 
     IEnumerator FindTargetsWithDelay(float delay)
@@ -66,12 +73,16 @@ public class RangeAttack : MonoBehaviour
                     bTargetOn = false;
                     DamageTime = 0.0f;
                     RangeSpriteRenderer.enabled = false;
+                    ChangeColor.bIsAttack = false;
                 }
             }
         }
         else
         {
+            anim.SetBool("isAttack", false);
             DamageTime = 0.0f;
+            RangeSpriteRenderer.enabled = false;
+            ChangeColor.bIsAttack = false;
         }
     }
 
@@ -91,6 +102,9 @@ public class RangeAttack : MonoBehaviour
                     && TargetOnRadius < Vector3.Distance(transform.position, target.position))
                 {
                     if (bTargetOn) bTargetOn = false;
+
+                    if (GetComponent<EnemyMovement>().enabled == false) GetComponent<EnemyMovement>().enabled = true;
+                    if (anim.GetBool("isAttack") == false) anim.SetBool("isWalk", true);
                     Debug.Log("Target Off");
                 }
             }
@@ -105,13 +119,18 @@ public class RangeAttack : MonoBehaviour
                 float dstToTarget = Vector3.Distance(transform.position, target.position);
                 if (!Physics.Raycast(transform.position, dirToTarget, dstToTarget, ObstacleMask))
                 {
+                    if (GetComponent<EnemyMovement>().enabled == true) GetComponent<EnemyMovement>().enabled = false;
+                    if (anim.GetBool("isAttack") == true) anim.SetBool("isWalk", false);
+
                     if (!bTargetOn) bTargetOn = true;
 
                     if (bDamage)
                     {
                         //범위 대미지를 주는 함수//
                         AreaDamage(TargetsInOnRadius, 1.0f);
+                        anim.SetBool("isAttack", true);
                         bDamage = false;
+                        ChangeColor.bIsAttack = true;
                     }
                 }
             }
