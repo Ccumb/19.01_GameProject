@@ -13,10 +13,13 @@ namespace Neremnem.AI
         Continue,
         Abort
     }
-    //IEnumerator Run()
-    //{
-    //    yield return new WaitForSeconds(0.5f); 
-    //}
+    public enum EObserverAborts
+    {
+        None,
+        Self,
+        LowerPriority,
+        Both
+    }
     public class BehaviorTree
     {
         public static Stack<Node> mTickStack;
@@ -29,6 +32,7 @@ namespace Neremnem.AI
             protected List<Decorator> mDecoratorList;
             //protected bool mbLoop;
             protected string mNodeName;
+            public EObserverAborts AbortOption;
             //public bool isLoop
             //{
             //    get { return mbLoop; }
@@ -49,6 +53,7 @@ namespace Neremnem.AI
                 //mbLoop = false;
                 mServiceList = new List<Service>();
                 mDecoratorList = new List<Decorator>();
+                AbortOption = EObserverAborts.None;
             }
             public Node(string name)
             {
@@ -56,6 +61,7 @@ namespace Neremnem.AI
                 //mbLoop = false;
                 mServiceList = new List<Service>();
                 mDecoratorList = new List<Decorator>();
+                AbortOption = EObserverAborts.None;
             }
             public string NodeName
             {
@@ -92,24 +98,11 @@ namespace Neremnem.AI
                 {
                     mTickStack.Push(mChild);
                     //Debug.Log("추가");
-                    Debug.Log("adf");
+                    Debug.Log(mTickStack.Peek().NodeName);
                 }
                 mTickStack.Pop().Tick();
                 //temp.Tick();
-            }
-            public void RunBT()
-            {
-                Node temp;
-                while (true)
-                {
-                    if (mTickStack.Count == 0)
-                    {
-                        //mTickStack.Push(mChild);
-                    }
-                    temp = mTickStack.Pop();
-                    temp.Tick();
-                }
-            }
+            }            
         }
         public class Service : Node
         {
@@ -148,13 +141,7 @@ namespace Neremnem.AI
         }
         public class Decorator : Node
         {
-            public enum EObserverAborts
-            {
-                None,
-                Self,
-                LowerPriority,
-                Both
-            }
+            
             private string mNodeName;
             protected Node mParent;
             public Decorator()
@@ -169,27 +156,28 @@ namespace Neremnem.AI
         public class CompareString : Decorator
         {
             private string mKey;
-            private EObserverAborts mObserverAborts;
             private string mCompare;
             public CompareString(string key, EObserverAborts option, string compare, string name)
                 : base(name)
             {
                 mKey = key;
-                mObserverAborts = option;
+                AbortOption = option;
                 mCompare = compare;
             }
             public CompareString(string key, EObserverAborts option, string compare)
             {
                 mKey = key;
-                mObserverAborts = option;
+                AbortOption = option;
                 mCompare = compare;
             }
             public override EBTState Tick()
             {
-
+                Debug.Log(NodeName);
                 //Debug.Log(mKey + " " + BlackBoard.GetValueByBoolKey(mKey));
                 //is set
-
+                Debug.Log(BlackBoard.GetValueByStringKey(mKey));
+                Debug.Log(mCompare);
+                Debug.Log(BlackBoard.GetValueByStringKey(mKey) == mCompare);
 
                 if (mCompare == BlackBoard.GetValueByStringKey(mKey))
                 {
@@ -197,7 +185,7 @@ namespace Neremnem.AI
                 }
                 else
                 {
-                    return EBTState.False;
+                    return EBTState.Abort;
                 }
             }
         }
@@ -221,8 +209,6 @@ namespace Neremnem.AI
             }
             public override EBTState Tick()
             {
-                base.Tick();
-
                 //Debug.Log(mKey + " " + BlackBoard.GetValueByBoolKey(mKey));
                 //is set
 
@@ -232,7 +218,7 @@ namespace Neremnem.AI
                 }
                 else
                 {
-                    return EBTState.False;
+                    return EBTState.Abort;
                 }
             }
         }
@@ -352,27 +338,18 @@ namespace Neremnem.AI
                 {
                     for (int i = 0; i < mDecoratorList.Count; i++)
                     {
-                        if (mDecoratorList[i].Tick() == EBTState.False)
+                        if (mDecoratorList[i].Tick() == EBTState.Abort)
                         {
-                            Debug.Log("중단되어야댐");
-                            return EBTState.False;
+                            AbortOption = mDecoratorList[i].AbortOption;
+                            return EBTState.Abort;
                         }
                     }
                 }
                 if (mCursor < 0)
                 {
                     mCursor = 0;
-                }
-                if (bWillAbort == false)
-                {
-                    mCompare = mChildren[mCursor].Tick();
-                    //Debug.Log(mChildren[mCursor].NodeName);
-
-                }
-                else
-                {
-                    return EBTState.Abort;
-                }
+                }              
+                mCompare = mChildren[mCursor].Tick();                
                 if (mCompare == EBTState.True)
                 {
                     if (mCursor + 1 < mChildren.Count)
@@ -381,7 +358,6 @@ namespace Neremnem.AI
                     }
                     else
                     {
-                        
                         mCursor = -1;
                         return EBTState.True;
                     }
@@ -395,10 +371,37 @@ namespace Neremnem.AI
                 }
                 else if (mCompare == EBTState.Continue)
                 {
-                    mTickStack.Push(this);
+                    //mTickStack.Push(this);
                     return EBTState.Continue;
                 }
-                return EBTState.Running;
+                else if (mCompare == EBTState.Abort)
+                {
+                    switch (AbortOption)
+                    {
+                        case EObserverAborts.Both:
+                            {
+                                break;
+                            }
+                        case EObserverAborts.LowerPriority:
+                            {
+                                break;
+                            }
+                        case EObserverAborts.Self:
+                            {
+                                if (mCursor + 1 < mChildren.Count)
+                                {
+                                    ++mCursor;
+                                }
+                                else
+                                {
+                                    mCursor = -1;
+                                }
+                                break;
+                            }
+                    }
+                    return EBTState.Abort;
+                }
+                return EBTState.Continue;
             }
         }
         //true 만날때까지
@@ -422,8 +425,6 @@ namespace Neremnem.AI
             }
             public override EBTState Tick()
             {
-                base.Tick();
-
                 if (mServiceList.Count > 0)
                 {
                     for (int i = 0; i < mServiceList.Count; i++)
@@ -435,11 +436,23 @@ namespace Neremnem.AI
                         }
                     }
                 }
+                if (mDecoratorList.Count > 0)
+                {
+                    for (int i = 0; i < mDecoratorList.Count; i++)
+                    {
+                        if (mDecoratorList[i].Tick() == EBTState.False)
+                        {
+                            Debug.Log("중단되어야댐");
+                            return EBTState.Abort;
+                        }
+                    }
+                }
                 if (mCursor < 0)
                 {
                     mCursor = 0;
                 }
                 mCompare = mChildren[mCursor].Tick();
+                Debug.Log(NodeName +":" + mCompare);
 
                 if (mCompare
                     == EBTState.False)
@@ -477,6 +490,33 @@ namespace Neremnem.AI
                 {
                     mTickStack.Push(mChildren[mCursor]);
                     return EBTState.Continue;
+                }
+                else if (mCompare == EBTState.Abort)
+                {
+                    switch (mChildren[mCursor].AbortOption)
+                    {
+                        case EObserverAborts.Both:
+                            {
+                                break;
+                            }
+                        case EObserverAborts.LowerPriority:
+                            {
+                                break;
+                            }
+                        case EObserverAborts.Self:
+                            {
+                                if (mCursor + 1 < mChildren.Count)
+                                {
+                                    mTickStack.Push(mChildren[++mCursor]);
+                                }
+                                else
+                                {
+                                    mCursor = -1;
+                                }
+                                break;
+                            }
+                    }
+                    return EBTState.Abort;
                 }
                 return EBTState.Running;
             }
@@ -553,7 +593,7 @@ namespace Neremnem.AI
                 if (Vector3.Distance
                     (BlackBoard.GetValueByVector3Key(mKey)
                     , BlackBoard.GetValueByVector3Key(mCurrentPositionKey))
-                        < 1.0f)
+                        < 3.0f)
                 {
                     //Debug.Log("true!");
 
@@ -601,7 +641,7 @@ namespace Neremnem.AI
             public CanAttack()
             {
                 mNodeName = "CanAttack";
-                mRange = 0.5f;
+                mRange = 3f;
             }
             public override EBTState Tick()
             {
@@ -621,7 +661,7 @@ namespace Neremnem.AI
                 }
                 else
                 {
-                    Debug.Log("false");
+                    //Debug.Log("false");
                     return EBTState.False;
                 }
             }
