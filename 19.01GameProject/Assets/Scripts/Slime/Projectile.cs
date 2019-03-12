@@ -31,9 +31,16 @@ public class Projectile : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+<<<<<<< HEAD
         if (collision.gameObject.tag == "Player")
         {
             collision.gameObject.GetComponent<Playera>().TakeDamage(ProejctileDamage);
+=======
+        Debug.Log("Hit!");
+        if (collision.gameObject.tag == "Player")
+        {
+            collision.gameObject.GetComponent<Player>().TakeDamage(ProejctileDamage);
+>>>>>>> develop
             gameObject.SetActive(false);
         }
         gameObject.SetActive(false);

@@ -3,7 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [DisallowMultipleComponent]
+<<<<<<< HEAD
 public class RangeAttack : MonoBehaviour
+=======
+public class RangeAttack : EnemyAbility
+>>>>>>> develop
 {
     public float TargetOffRadius;   //타겟 off 범위
     public float TargetOnRadius;    //타겟 on 범위
@@ -22,12 +26,25 @@ public class RangeAttack : MonoBehaviour
     [HideInInspector]
     public SpriteRenderer RangeSpriteRenderer; //게임상에서 표시되는 2D 스프라이트(범위)
 
+<<<<<<< HEAD
+=======
+    ChangeSlimeColor ChangeColor;
+>>>>>>> develop
     private void Awake()
     {
         RangeSpriteRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
         RangeSpriteRenderer.transform.localScale = new Vector3(TargetOnRadius, TargetOnRadius, 0) * 10;
     }
 
+<<<<<<< HEAD
+=======
+    private void Start()
+    {
+        anim = GetComponent<Animator>();
+        ChangeColor = transform.GetChild(3).GetComponent<ChangeSlimeColor>();
+    }
+
+>>>>>>> develop
     IEnumerator FindTargetsWithDelay(float delay)
     {
         while (true)
@@ -66,12 +83,23 @@ public class RangeAttack : MonoBehaviour
                     bTargetOn = false;
                     DamageTime = 0.0f;
                     RangeSpriteRenderer.enabled = false;
+<<<<<<< HEAD
+=======
+                    ChangeColor.bIsAttack = false;
+>>>>>>> develop
                 }
             }
         }
         else
         {
+<<<<<<< HEAD
             DamageTime = 0.0f;
+=======
+            anim.SetBool("isAttack", false);
+            DamageTime = 0.0f;
+            RangeSpriteRenderer.enabled = false;
+            ChangeColor.bIsAttack = false;
+>>>>>>> develop
         }
     }
 
@@ -91,6 +119,12 @@ public class RangeAttack : MonoBehaviour
                     && TargetOnRadius < Vector3.Distance(transform.position, target.position))
                 {
                     if (bTargetOn) bTargetOn = false;
+<<<<<<< HEAD
+=======
+
+                    if (GetComponent<EnemyMovement>().enabled == false) GetComponent<EnemyMovement>().enabled = true;
+                    if (anim.GetBool("isAttack") == false) anim.SetBool("isWalk", true);
+>>>>>>> develop
                     Debug.Log("Target Off");
                 }
             }
@@ -105,13 +139,25 @@ public class RangeAttack : MonoBehaviour
                 float dstToTarget = Vector3.Distance(transform.position, target.position);
                 if (!Physics.Raycast(transform.position, dirToTarget, dstToTarget, ObstacleMask))
                 {
+<<<<<<< HEAD
+=======
+                    if (GetComponent<EnemyMovement>().enabled == true) GetComponent<EnemyMovement>().enabled = false;
+                    if (anim.GetBool("isAttack") == true) anim.SetBool("isWalk", false);
+
+>>>>>>> develop
                     if (!bTargetOn) bTargetOn = true;
 
                     if (bDamage)
                     {
                         //범위 대미지를 주는 함수//
                         AreaDamage(TargetsInOnRadius, 1.0f);
+<<<<<<< HEAD
                         bDamage = false;
+=======
+                        anim.SetBool("isAttack", true);
+                        bDamage = false;
+                        ChangeColor.bIsAttack = true;
+>>>>>>> develop
                     }
                 }
             }
@@ -131,9 +177,15 @@ public class RangeAttack : MonoBehaviour
     {
         foreach (Collider player in objects)
         {
+<<<<<<< HEAD
             if (player.GetComponent<Playera>() != null)
             {
                 player.GetComponent<Playera>().TakeDamage(damage);
+=======
+            if (player.GetComponent<Player>() != null)
+            {
+                player.GetComponent<Player>().TakeDamage(damage);
+>>>>>>> develop
             }
         }
     }

@@ -16,9 +16,15 @@ public class LongRangeAttackEditor : Editor
         Vector3 viewAngleB = fow.DirFromAngle(fow.LongTargetAngle / 2, false);
 
         Handles.color = Color.green;
+<<<<<<< HEAD
         if (fow.LongTargetOffRadius > fow.LongTargetOnRadius)
         {
             fow.LongTargetOffRadius = fow.LongTargetOnRadius;
+=======
+        if (fow.LongTargetOffRadius < fow.LongTargetOnRadius)
+        {
+            fow.LongTargetOnRadius = fow.LongTargetOffRadius;
+>>>>>>> develop
         }
         Handles.DrawWireArc(fow.transform.position, Vector3.up, Vector3.forward, 360, fow.LongTargetOnRadius);
         Vector3 DamageAngleA = fow.DirFromAngle(-fow.LongTargetAngle / 2, false);
