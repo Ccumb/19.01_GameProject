@@ -5,7 +5,8 @@ using UnityEngine;
 ///<summary>
 /// 적, 몬스터 클래스
 ///</summary>
-//
+
+[DisallowMultipleComponent]
 public class Enemy : Unit
 {
     private Vector3 mStartPos;

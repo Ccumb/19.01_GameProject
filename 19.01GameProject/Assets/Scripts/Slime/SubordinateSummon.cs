@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SubordinateSummon : MonoBehaviour
+[RequireComponent(typeof(SubordinatePool))]
+[DisallowMultipleComponent]
+public class SubordinateSummon : EnemyAbility
 {
     public int SummonCount = 3;
     public float cAccumulateSummonTime = 0.0f;
@@ -15,14 +17,12 @@ public class SubordinateSummon : MonoBehaviour
 
     SubordinatePool SummonPool = null;
 
-    // Start is called before the first frame update
     void Start()
     {
         SummonPool = GetComponent<SubordinatePool>();
         mTarget = GameObject.FindGameObjectWithTag("Player");
     }
 
-    // Update is called once per frame
     void Update()
     {
         transform.forward = new Vector3((mTarget.transform.position - transform.position).normalized.x, 0, (mTarget.transform.position - transform.position).normalized.z);
