@@ -16,7 +16,7 @@ public class HealthItem : Item
     {
         if(collision.gameObject.tag == "Player")
         {
-            Player player = collision.gameObject.GetComponent<Player>();
+            Playera player = collision.gameObject.GetComponent<Playera>();
             player.hp += amount;
 
             if(player.hp > player.max_hp)

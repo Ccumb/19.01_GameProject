@@ -23,7 +23,7 @@ public class CharacterAttack : CharacterAbility
     // Start is called before the first frame update
     void Start()
     {
-        Player owner = GetComponentInParent<Player>();
+        Playera owner = GetComponentInParent<Playera>();
         owner.RegisterAbility(this);
 
         mAttackBound = GetComponent<BoxCollider>();
@@ -34,7 +34,7 @@ public class CharacterAttack : CharacterAbility
         mAttackBound.isTrigger = true;
         mAttackBound.enabled = false;
 
-        mPower = gameObject.GetComponentInParent<Player>().power;
+        mPower = gameObject.GetComponentInParent<Playera>().power;
         mbIsPlaying = true;
     }
 
