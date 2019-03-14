@@ -10,29 +10,40 @@ public class RangeAttack : EnemyAbility
     [Range(0, 360)]
     public float TargetAngle;   //타겟을 인식할 각도
 
+    public float TargetOnTime = 0.5f; //타겟을 찾고 경과한 시간
+    public float DelayDamageTime = 0.5f; //타겟을 찾은 뒤 몇 초 뒤에 대미지를 줄 것인지
+    public float DelayCoolTime = 1.0f;
+    public float RangeDamage = 1.0f;
+    public float RepulsiveForce = 10.0f;
+
+    public bool bRepulsion = false;
+
     public LayerMask TargetMask;    //타겟 레이어
     public LayerMask ObstacleMask;  //장애물 레이어
 
-    bool bTargetOn = false; //타겟을 찾았는지 판별
-    bool bDamage = false; //대미지를 가할 때 true
-    float TargetOnTime = 0.5f; //타겟을 찾고 경과한 시간
-    float DelayDamageTime = 0.5f; //타겟을 찾은 뒤 몇 초 뒤에 대미지를 줄 것인지
-    float DamageTime = 0.0f;
+    private bool mbTargetOn = false; //타겟을 찾았는지 판별
+    private bool mbDamage = false; //대미지를 가할 때 true
+    private bool mbCool = false;
+    private float mCoolTime = 0.0f;
+    private float mDamageTime = 0.0f;
 
-    [HideInInspector]
-    public SpriteRenderer RangeSpriteRenderer; //게임상에서 표시되는 2D 스프라이트(범위)
+    private SpriteRenderer mRangeSpriteRenderer; //게임상에서 표시되는 2D 스프라이트(범위)
 
-    ChangeSlimeColor ChangeColor;
     private void Awake()
     {
-        RangeSpriteRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
-        RangeSpriteRenderer.transform.localScale = new Vector3(TargetOnRadius, TargetOnRadius, 0) * 10;
+        mRangeSpriteRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
     }
 
-    private void Start()
+    protected override void Initialization()
     {
-        anim = GetComponent<Animator>();
-        ChangeColor = transform.GetChild(3).GetComponent<ChangeSlimeColor>();
+        base.Initialization();
+
+        //초기화 할 것들
+        SetAnimBool("isAttack", false);
+        SetAnimBool("isWalk", false);
+        mRangeSpriteRenderer.transform.localScale = new Vector3(TargetOnRadius, TargetOnRadius, 0) * 10;
+        DelayDamageTime = DelayDamageTime + TargetOnTime;
+        Debug.Log("RangeAttackInit");
     }
 
     IEnumerator FindTargetsWithDelay(float delay)
@@ -40,60 +51,108 @@ public class RangeAttack : EnemyAbility
         while (true)
         {
             yield return new WaitForSeconds(delay);
-            FindVisibleTargets();
+            FindVisibleTargetsInternal();
         }
     }
 
+    /// <summary>
+    /// 스크립트가 켜졌을 때 스프라이트 렌더를 끄고 코루틴 실행 (스프라이트 렌더는 공격 시에만 켜지기 때문에 확인차 꺼줌)
+    /// </summary>
     private void OnEnable()
     {
         Debug.Log("On Script Range!");
-        DelayDamageTime = TargetOnTime * 2;
-        RangeSpriteRenderer.enabled = false;
+        mRangeSpriteRenderer.enabled = false;
         StartCoroutine(FindTargetsWithDelay(0.2f));
     }
 
+    /// <summary>
+    /// 스크립트가 꺼졌을 때 스프라이트 렌더를 끄고 코루틴 종료
+    /// </summary>
     private void OnDisable()
     {
-        RangeSpriteRenderer.enabled = false;
+        mRangeSpriteRenderer.enabled = false;
         StopCoroutine(FindTargetsWithDelay(0));
         Debug.Log("Off Script Range!");
     }
 
+    /// <summary>
+    /// 시간에 따른 공격, 애니메이션 false 등
+    /// </summary>
     void Update()
     {
-        if (bTargetOn)
+        if (mbTargetOn && !mbCool)
         {
-            DamageTime += Time.deltaTime;
-            if (DamageTime > TargetOnTime)
+            mDamageTime += Time.deltaTime;
+            if (mDamageTime > TargetOnTime)
             {
-                if (!RangeSpriteRenderer.enabled) RangeSpriteRenderer.enabled = true;
-                if (DamageTime > DelayDamageTime)
+                if (!mRangeSpriteRenderer.enabled) mRangeSpriteRenderer.enabled = true;
+                if ((mDamageTime > DelayDamageTime) )
+                    
                 {
-                    bDamage = true;
-                    bTargetOn = false;
-                    DamageTime = 0.0f;
-                    RangeSpriteRenderer.enabled = false;
-                    ChangeColor.bIsAttack = false;
+                    mbDamage = true;
+                    mDamageTime = 0.0f;
+                    mRangeSpriteRenderer.enabled = false;
+                    ChangeColor.bIsAttack = true;
+                    mbCool = true;
                 }
             }
         }
         else
         {
-            anim.SetBool("isAttack", false);
-            DamageTime = 0.0f;
-            RangeSpriteRenderer.enabled = false;
+            SetAnimBool("isAttack", false);
+            mDamageTime = 0.0f;
+            mRangeSpriteRenderer.enabled = false;
             ChangeColor.bIsAttack = false;
+        }
+
+        if(mbCool)
+        {
+            mCoolTime += Time.deltaTime;
+            if(mCoolTime > DelayCoolTime)
+            {
+                mbCool = false;
+                mCoolTime = 0.0f;
+            }
         }
     }
 
-    void FindVisibleTargets()
+    /// <summary>
+    /// 타겟을 찾아내는 함수 애니메이션 변경, 공격 실행 등을 여기에서 처리
+    /// </summary>
+    private void FindVisibleTargetsInternal()
     {
-        Collider[] TargetsInOnRadius = Physics.OverlapSphere(transform.position, TargetOnRadius, TargetMask);
-        Collider[] TargetsInOffRadius = Physics.OverlapSphere(transform.position, TargetOffRadius, TargetMask);
+        Collider[] targetsInOnRadius = Physics.OverlapSphere(transform.position, TargetOnRadius, TargetMask);
+        Collider[] targetsInOffRadius = Physics.OverlapSphere(transform.position, TargetOffRadius, TargetMask);
 
-        for (int i = 0; i < TargetsInOffRadius.Length; i++) //Target Off로 만듦
+        for (int i = 0; i < targetsInOnRadius.Length; i++)
         {
-            Transform target = TargetsInOffRadius[i].transform;
+            Transform target = targetsInOnRadius[i].transform;
+            Vector3 dirToTarget = (target.position - transform.position).normalized;
+            if (Vector3.Angle(transform.forward, dirToTarget) < TargetAngle / 2)
+            {
+                float dstToTarget = Vector3.Distance(transform.position, target.position);
+                if (!Physics.Raycast(transform.position, dirToTarget, dstToTarget, ObstacleMask))
+                {
+                    if (!mbTargetOn) mbTargetOn = true;
+                    if (_enemyMovement.enabled) _enemyMovement.enabled = false;
+                    if (GetAnimBool("isAttack") || mbTargetOn) SetAnimBool("isWalk", false);
+                    transform.forward = new Vector3(dirToTarget.x, 0, dirToTarget.z);
+
+                    if (mbDamage)
+                    {
+                        //범위 대미지를 주는 함수//
+                        DamageArea(targetsInOnRadius, RangeDamage);
+                        SetAnimBool("isAttack", true);
+                        mbDamage = false;
+                        ChangeColor.bIsAttack = false;
+                    }
+                }
+            }
+        }        
+
+        for (int i = 0; i < targetsInOffRadius.Length; i++) //Target Off로 만듦
+        {
+            Transform target = targetsInOffRadius[i].transform;
             Vector3 dirTotarget = (target.position - transform.position).normalized;
             if (Vector3.Angle(transform.forward, dirTotarget) < TargetAngle / 2)
             {
@@ -101,58 +160,32 @@ public class RangeAttack : EnemyAbility
                 if (!Physics.Raycast(transform.position, dirTotarget, dstToTarget, ObstacleMask)
                     && TargetOnRadius < Vector3.Distance(transform.position, target.position))
                 {
-                    if (bTargetOn) bTargetOn = false;
-
-                    if (GetComponent<EnemyMovement>().enabled == false) GetComponent<EnemyMovement>().enabled = true;
-                    if (anim.GetBool("isAttack") == false) anim.SetBool("isWalk", true);
-                    Debug.Log("Target Off");
+                    if (mbTargetOn) mbTargetOn = false;
+                    if (!_enemyMovement.enabled) _enemyMovement.enabled = true;
+                    if (!GetAnimBool("isAttack") && !mbTargetOn) SetAnimBool("isWalk", true);
                 }
             }
-        }
-
-        for (int i = 0; i < TargetsInOnRadius.Length; i++)
-        {
-            Transform target = TargetsInOnRadius[i].transform;
-            Vector3 dirToTarget = (target.position - transform.position).normalized;
-            if (Vector3.Angle(transform.forward, dirToTarget) < TargetAngle / 2)
-            {
-                float dstToTarget = Vector3.Distance(transform.position, target.position);
-                if (!Physics.Raycast(transform.position, dirToTarget, dstToTarget, ObstacleMask))
-                {
-                    if (GetComponent<EnemyMovement>().enabled == true) GetComponent<EnemyMovement>().enabled = false;
-                    if (anim.GetBool("isAttack") == true) anim.SetBool("isWalk", false);
-
-                    if (!bTargetOn) bTargetOn = true;
-
-                    if (bDamage)
-                    {
-                        //범위 대미지를 주는 함수//
-                        AreaDamage(TargetsInOnRadius, 1.0f);
-                        anim.SetBool("isAttack", true);
-                        bDamage = false;
-                        ChangeColor.bIsAttack = true;
-                    }
-                }
-            }
-        }
+        }        
     }
 
-    public Vector3 DirFromAngle(float angleInDegrees, bool angleIsGlobal)
+    /// <summary>
+    /// 범위 안으로 들어온 객체 중 플레이어에게만 대미지를 주는 함수
+    /// </summary>
+    /// <param name="plyaerObjects"></param>
+    /// <param name="damage"></param>
+    void DamageArea(Collider[] plyaerObjects, float damage)
     {
-        if (!angleIsGlobal)
-        {
-            angleInDegrees += transform.eulerAngles.y;
-        }
-        return new Vector3(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad), 0, Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
-    }
-
-    void AreaDamage(Collider[] objects, float damage)
-    {
-        foreach (Collider player in objects)
+        foreach (Collider player in plyaerObjects)
         {
             if (player.GetComponent<Player>() != null)
             {
                 player.GetComponent<Player>().TakeDamage(damage);
+
+                //나중에 True, False를 이용해서 끄고 키기로 사용/비사용 만들기
+                if(bRepulsion)
+                {
+                    player.GetComponent<Rigidbody>().velocity = transform.forward * RepulsiveForce;
+                }
             }
         }
     }

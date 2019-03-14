@@ -8,41 +8,40 @@ public class LongRangeAttack : EnemyAbility
 {
     public float LongTargetOffRadius;   //타겟 off 범위
     public float LongTargetOnRadius;    //타겟 on 범위
-
     [Range(0, 360)]
     public float LongTargetAngle;   //타겟을 인식할 각도
+
+    public float TargetOnTime = 0.5f; //타겟을 찾고 경과한 시간
+    public float DelayDamageTime = 3.3f; //타겟을 찾은 뒤 몇 초 뒤에 대미지를 줄 것인지
+    public float DelayCoolTime = 1.0f;
 
     public LayerMask TargetMask;    //타겟 레이어
     public LayerMask ObstacleMask;  //장애물 레이어
 
-    bool bTargetOn = false; //타겟을 찾았는지 판별
-    bool bDamage = false; //대미지를 가할 때 true
-    bool bPos = false;
-    float TargetOnTime = 0.5f; //타겟을 찾고 경과한 시간
-    float DelayDamageTime = 3.3f; //타겟을 찾은 뒤 몇 초 뒤에 대미지를 줄 것인지
-    float DamageTime = 0.0f;
+    private bool mbTargetOn = false; //타겟을 찾았는지 판별
+    private bool mbDamage = false; //대미지를 가할 때 true
+    private bool mbCool = false;
+    public float mCoolTime = 0.0f;
+    public float mDamageTime = 0.0f;
 
-    ChangeSlimeColor ChangeColor;
+    private SpriteRenderer mRangeSpriteRenderer; //게임상에서 표시되는 2D 스프라이트(범위)
 
-    Vector3 PlayerPos = Vector3.zero;
-
-    private SpriteRenderer RangeSpriteRenderer; //게임상에서 표시되는 2D 스프라이트(범위)
-
-    ProjectilePool ProjectilePooling;
-
-    //임시
-    public GameObject ProejctileObejct;
+    private ProjectilePool mProjectilePooling;
 
     private void Awake()
     {
-        this.RangeSpriteRenderer = transform.GetChild(1).GetComponent<SpriteRenderer>();
+        mRangeSpriteRenderer = transform.GetChild(1).GetComponent<SpriteRenderer>();
     }
 
-    private void Start()
+    protected override void Initialization()
     {
-        anim = GetComponent<Animator>();
-        ProjectilePooling = GetComponent<ProjectilePool>();
-        ChangeColor = transform.GetChild(3).GetComponent<ChangeSlimeColor>();
+        base.Initialization();
+
+        //초기화 할 것들
+        SetAnimBool("isAttack", false);
+        SetAnimBool("isWalk", false);
+        mProjectilePooling = GetComponent<ProjectilePool>();
+        Debug.Log("LongRangeAttackInit");
     }
 
     IEnumerator FindTargetsWithDelay(float delay)
@@ -58,42 +57,51 @@ public class LongRangeAttack : EnemyAbility
     {
         Debug.Log("On Script LongRange!");
         DelayDamageTime = TargetOnTime * 2;
-        RangeSpriteRenderer.enabled = false;
+        mRangeSpriteRenderer.enabled = false;
         StartCoroutine(FindTargetsWithDelay(0.2f));
     }
 
     private void OnDisable()
     {
-        RangeSpriteRenderer.enabled = false;
+        mRangeSpriteRenderer.enabled = false;
         StopCoroutine(FindTargetsWithDelay(0));
         Debug.Log("Off Script LongRange!");
     }
 
     void Update()
     {
-        if (bTargetOn)
+        if (mbTargetOn && !mbCool)
         {
-            DamageTime += Time.deltaTime;
-            if (DamageTime > TargetOnTime)
+            mDamageTime += Time.deltaTime;
+            if (mDamageTime > TargetOnTime)
             {
-                if (!bPos) bPos = true;
-                if (!RangeSpriteRenderer.enabled) RangeSpriteRenderer.enabled = true;
-                if (DamageTime > DelayDamageTime)
+                if (!mRangeSpriteRenderer.enabled) mRangeSpriteRenderer.enabled = true;
+                if ((mDamageTime > DelayDamageTime) )
                 {
-                    bDamage = true;
-                    bTargetOn = false;
-                    DamageTime = 0.0f;
-                    RangeSpriteRenderer.enabled = false;
-                    ChangeColor.bIsAttack = false;
+                    mbDamage = true;
+                    mDamageTime = 0.0f;
+                    mRangeSpriteRenderer.enabled = false;
+                    ChangeColor.bIsAttack = true;
+                    mbCool = true;
                 }
             }
         }
         else
         {
-            anim.SetBool("isAttack", false);
-            RangeSpriteRenderer.enabled = false;
-            DamageTime = 0.0f;
-            ChangeColor.bIsAttack = false;
+            SetAnimBool("isAttack", false);
+            mRangeSpriteRenderer.enabled = false;
+            mDamageTime = 0.0f;
+        }
+
+
+        if (mbCool)
+        {
+            mCoolTime += Time.deltaTime;
+            if (mCoolTime > DelayCoolTime)
+            {
+                mbCool = false;
+                mCoolTime = 0.0f;
+            }
         }
     }
 
@@ -112,30 +120,23 @@ public class LongRangeAttack : EnemyAbility
                 if (!Physics.Raycast(transform.position, dirTotarget, dstToTarget, ObstacleMask)
                     && LongTargetOnRadius > Vector3.Distance(transform.position, target.position))
                 {
-                    if (GetComponent<EnemyMovement>().enabled == true) GetComponent<EnemyMovement>().enabled = false;
-                    if(anim.GetBool("isAttack") == true) anim.SetBool("isWalk", false);
+                    if (!mbTargetOn) mbTargetOn = true;
+                    if (_enemyMovement.enabled) _enemyMovement.enabled = false;
+                    if(GetAnimBool("isAttack") || mbTargetOn) SetAnimBool("isWalk", false);
                     transform.forward = new Vector3 (dirTotarget.x, 0, dirTotarget.z);
-                    Debug.Log("Find");
-                    if (!bTargetOn) bTargetOn = true;
 
-                    if (bPos && PlayerPos == Vector3.zero) //프로젝타일 쏠 위치
-                    {
-                        PlayerPos = target.position;
-                    }
-                    if (bDamage)
+                    if (mbDamage)
                     {
                         //프로젝타일 발사//
-                        ProjectilePooling.Pooling();
-                        anim.SetBool("isAttack", true);
-                        PlayerPos = Vector3.zero;
-                        bDamage = false;
-                        bPos = false;
-                        ChangeColor.bIsAttack = true;
+                        mProjectilePooling.Pooling();
+                        SetAnimBool("isAttack", true); 
+                        mbDamage = false;
+                        ChangeColor.bIsAttack = false;
                     }
                 }
             }
         }
-
+        //Target off
         for (int i = 0; i < TargetsInOffRadius.Length; i++)
         {
             Transform target = TargetsInOffRadius[i].transform;
@@ -146,21 +147,11 @@ public class LongRangeAttack : EnemyAbility
                 if (!Physics.Raycast(transform.position, dirToTarget, dstToTarget, ObstacleMask)
                      && LongTargetOnRadius < Vector3.Distance(transform.position, target.position))
                 {
-                    Debug.Log("Not Find");
-                    if (bTargetOn) bTargetOn = false;
-                    if (GetComponent<EnemyMovement>().enabled == false) GetComponent<EnemyMovement>().enabled = true;
-                    if (anim.GetBool("isAttack") == false) anim.SetBool("isWalk", true);
+                    if (mbTargetOn) mbTargetOn = false;
+                    if (!_enemyMovement.enabled) _enemyMovement.enabled = true;
+                    if (!GetAnimBool("isAttack") && !mbTargetOn) SetAnimBool("isWalk", true);
                 }
             }
         }
-    }
-
-    public Vector3 DirFromAngle(float angleInDegrees, bool angleIsGlobal)
-    {
-        if (!angleIsGlobal)
-        {
-            angleInDegrees += transform.eulerAngles.y;
-        }
-        return new Vector3(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad), 0, Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
     }
 }

@@ -11,15 +11,20 @@ public class SubordinateSummon : EnemyAbility
     public float cSummonTime = 10.0f;
     public Transform[] tSummonTransform = new Transform[5];
 
-    private GameObject mTarget;
+    private GameObject mTarget = null;
     private bool bSummon = false;
     private int iFalseCount = 0;
 
     SubordinatePool SummonPool = null;
 
-    void Start()
+    private void Awake()
     {
         SummonPool = GetComponent<SubordinatePool>();
+    }
+
+    protected override void Start()
+    {
+        base.Start();
         mTarget = GameObject.FindGameObjectWithTag("Player");
     }
 
@@ -34,6 +39,7 @@ public class SubordinateSummon : EnemyAbility
                 iFalseCount++;
             }
         }
+
         if(iFalseCount == transform.parent.GetChild(1).childCount)
         {
             bSummon = true;
