@@ -21,8 +21,8 @@ public class LongRangeAttack : EnemyAbility
     private bool mbTargetOn = false; //타겟을 찾았는지 판별
     private bool mbDamage = false; //대미지를 가할 때 true
     private bool mbCool = false;
-    public float mCoolTime = 0.0f;
-    public float mDamageTime = 0.0f;
+    private float mCoolTime = 0.0f;
+    private float mDamageTime = 0.0f;
 
     private SpriteRenderer mRangeSpriteRenderer; //게임상에서 표시되는 2D 스프라이트(범위)
 
