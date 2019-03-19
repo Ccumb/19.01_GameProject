@@ -33,11 +33,7 @@ public class ProjectilePool : MonoBehaviour
             if (PoolList[i].activeSelf == false)
             {
                 PoolList[i].SetActive(true);
-<<<<<<< HEAD
-                PoolList[i].transform.position = gameObject.transform.position;
-=======
                 PoolList[i].transform.position = new Vector3( gameObject.transform.position.x, gameObject.transform.position.y + 1, gameObject.transform.position.z);
->>>>>>> develop
                 return;
             }
         }

@@ -46,30 +46,18 @@ namespace Neremnem.AI
             public Node()
             {
                 mNodeName = "Node";
-<<<<<<< HEAD
-                mbLoop = false;
-                mServiceList = new List<Service>();
-                mDecoratorList = new List<Decorator>();
-=======
                 //mbLoop = false;
                 mServiceList = new List<Service>();
                 mDecoratorList = new List<Decorator>();
                 AbortOption = EObserverAborts.None;
->>>>>>> develop
             }
             public Node(string name)
             {
                 mNodeName = name;
-<<<<<<< HEAD
-                mbLoop = false;
-                mServiceList = new List<Service>();
-                mDecoratorList = new List<Decorator>();
-=======
                 //mbLoop = false;
                 mServiceList = new List<Service>();
                 mDecoratorList = new List<Decorator>();
                 AbortOption = EObserverAborts.None;
->>>>>>> develop
             }
             public string NodeName
             {
@@ -106,32 +94,11 @@ namespace Neremnem.AI
                 {
                     mTickStack.Push(mChild);
                     //Debug.Log("추가");
-<<<<<<< HEAD
-                    Debug.Log("adf");
-                }
-                mTickStack.Pop().Tick();
-                //temp.Tick();
-            }
-            public void RunBT()
-            {
-                Node temp;
-                while (true)
-                {
-                    if (mTickStack.Count == 0)
-                    {
-                        //mTickStack.Push(mChild);
-                    }
-                    temp = mTickStack.Pop();
-                    temp.Tick();
-                }
-            }
-=======
                     Debug.Log(mTickStack.Peek().NodeName);
                 }
                 mTickStack.Pop().Tick();
                 //temp.Tick();
             }            
->>>>>>> develop
         }
         public class Service : Node
         {
@@ -170,17 +137,7 @@ namespace Neremnem.AI
         }
         public class Decorator : Node
         {
-<<<<<<< HEAD
-            public enum EObserverAborts
-            {
-                None,
-                Self,
-                LowerPriority,
-                Both
-            }
-=======
             
->>>>>>> develop
             private string mNodeName;
             protected Node mParent;
             public Decorator()
@@ -195,47 +152,28 @@ namespace Neremnem.AI
         public class CompareString : Decorator
         {
             private string mKey;
-<<<<<<< HEAD
-            private EObserverAborts mObserverAborts;
-=======
->>>>>>> develop
             private string mCompare;
             public CompareString(string key, EObserverAborts option, string compare, string name)
                 : base(name)
             {
                 mKey = key;
-<<<<<<< HEAD
-                mObserverAborts = option;
-=======
                 AbortOption = option;
->>>>>>> develop
                 mCompare = compare;
             }
             public CompareString(string key, EObserverAborts option, string compare)
             {
                 mKey = key;
-<<<<<<< HEAD
-                mObserverAborts = option;
-=======
                 AbortOption = option;
->>>>>>> develop
                 mCompare = compare;
             }
             public override EBTState Tick()
             {
-<<<<<<< HEAD
-
-                //Debug.Log(mKey + " " + BlackBoard.GetValueByBoolKey(mKey));
-                //is set
-
-=======
                 Debug.Log(NodeName);
                 //Debug.Log(mKey + " " + BlackBoard.GetValueByBoolKey(mKey));
                 //is set
                 Debug.Log(BlackBoard.GetValueByStringKey(mKey));
                 Debug.Log(mCompare);
                 Debug.Log(BlackBoard.GetValueByStringKey(mKey) == mCompare);
->>>>>>> develop
 
                 if (mCompare == BlackBoard.GetValueByStringKey(mKey))
                 {
@@ -243,11 +181,7 @@ namespace Neremnem.AI
                 }
                 else
                 {
-<<<<<<< HEAD
-                    return EBTState.False;
-=======
                     return EBTState.Abort;
->>>>>>> develop
                 }
             }
         }
@@ -271,11 +205,6 @@ namespace Neremnem.AI
             }
             public override EBTState Tick()
             {
-<<<<<<< HEAD
-                base.Tick();
-
-=======
->>>>>>> develop
                 //Debug.Log(mKey + " " + BlackBoard.GetValueByBoolKey(mKey));
                 //is set
 
@@ -285,74 +214,11 @@ namespace Neremnem.AI
                 }
                 else
                 {
-<<<<<<< HEAD
-                    return EBTState.False;
-=======
                     return EBTState.Abort;
->>>>>>> develop
                 }
             }
         }
 
-<<<<<<< HEAD
-        public class ConditionalLoop : Decorator
-        {
-            private bool mbSet;
-            private string mKey;
-            public bool IsSet
-            {
-                get { return mbSet; }
-                set { mbSet = value; }
-            }
-            public string Key
-            {
-                get { return mKey; }
-                set { mKey = value; }
-            }
-            public ConditionalLoop(string key, bool offset, Node parent)
-                : base("Conditional Loop")
-            {
-                mbSet = offset;
-                mKey = key;
-                mParent = parent;
-            }
-            public ConditionalLoop(string name, string key, bool offset, Node parent)
-                : base(name)
-            {
-                mbSet = offset;
-                mKey = key;
-                mParent = parent;
-            }
-            public override EBTState Tick()
-            {
-                base.Tick();
-
-                if (mbSet)
-                {
-                    if (BlackBoard.GetValueByBoolKey(mKey) != null)
-                    {
-                        mParent.isLoop = true;
-                    }
-                    else
-                    {
-                        mParent.isLoop = false;
-                    }
-                }
-                else // is not true
-                {
-                    if (BlackBoard.GetValueByBoolKey(mKey) == null)
-                    {
-                        mParent.isLoop = false;
-                    }
-                    else
-                    {
-                        mParent.isLoop = true;
-                    }
-                }
-                return EBTState.True;
-            }
-        }
-=======
         //public class ConditionalLoop : Decorator
         //{
         //    private bool mbSet;
@@ -410,7 +276,6 @@ namespace Neremnem.AI
         //        return EBTState.True;
         //    }
         //}
->>>>>>> develop
         public class Composite : Node
         {
             protected int mCursor;
@@ -420,22 +285,13 @@ namespace Neremnem.AI
             public Composite() : base()
             {
                 mCursor = -1;
-<<<<<<< HEAD
-                mbLoop = false;
-=======
                 //mbLoop = false;
->>>>>>> develop
             }
             public Composite(string nodeName) : base(nodeName)
             {
                 mCursor = -1;
-<<<<<<< HEAD
-                mbLoop = false;
-            }
-=======
                 //mbLoop = false;
             }//
->>>>>>> develop
             public bool WillAbort
             {
                 get { return bWillAbort; }
@@ -478,39 +334,18 @@ namespace Neremnem.AI
                 {
                     for (int i = 0; i < mDecoratorList.Count; i++)
                     {
-<<<<<<< HEAD
-                        if (mDecoratorList[i].Tick() == EBTState.False)
-                        {
-                            Debug.Log("중단되어야댐");
-                            return EBTState.False;
-=======
                         if (mDecoratorList[i].Tick() == EBTState.Abort)
                         {
                             AbortOption = mDecoratorList[i].AbortOption;
                             return EBTState.Abort;
->>>>>>> develop
                         }
                     }
                 }
                 if (mCursor < 0)
                 {
                     mCursor = 0;
-<<<<<<< HEAD
-                }
-                if (bWillAbort == false)
-                {
-                    mCompare = mChildren[mCursor].Tick();
-                    //Debug.Log(mChildren[mCursor].NodeName);
-
-                }
-                else
-                {
-                    return EBTState.Abort;
-                }
-=======
                 }              
                 mCompare = mChildren[mCursor].Tick();                
->>>>>>> develop
                 if (mCompare == EBTState.True)
                 {
                     if (mCursor + 1 < mChildren.Count)
@@ -519,43 +354,19 @@ namespace Neremnem.AI
                     }
                     else
                     {
-<<<<<<< HEAD
-                        if (mbLoop == true)
-                        {
-                            mCursor = -1;
-                            mTickStack.Push(this);
-                            return EBTState.True;
-                        }
-=======
->>>>>>> develop
                         mCursor = -1;
                         return EBTState.True;
                     }
                 }
                 else if (mCompare == EBTState.False)
                 {
-<<<<<<< HEAD
-                    if (mbLoop == true)
-                    {
-                        mCursor = -1;
-                        mTickStack.Push(this);
-                        return EBTState.True;
-                    }
-=======
                     
->>>>>>> develop
                     mCursor = -1;
                     return EBTState.False;
 
                 }
                 else if (mCompare == EBTState.Continue)
                 {
-<<<<<<< HEAD
-                    mTickStack.Push(this);
-                    return EBTState.Continue;
-                }
-                return EBTState.Running;
-=======
                     //mTickStack.Push(this);
                     return EBTState.Continue;
                 }
@@ -587,7 +398,6 @@ namespace Neremnem.AI
                     return EBTState.Abort;
                 }
                 return EBTState.Continue;
->>>>>>> develop
             }
         }
         //true 만날때까지
@@ -610,11 +420,7 @@ namespace Neremnem.AI
                 mChildren = new List<Node>();
             }
             public override EBTState Tick()
-<<<<<<< HEAD
-            { 
-=======
             {
->>>>>>> develop
                 if (mServiceList.Count > 0)
                 {
                     for (int i = 0; i < mServiceList.Count; i++)
@@ -626,8 +432,6 @@ namespace Neremnem.AI
                         }
                     }
                 }
-<<<<<<< HEAD
-=======
                 if (mDecoratorList.Count > 0)
                 {
                     for (int i = 0; i < mDecoratorList.Count; i++)
@@ -639,16 +443,12 @@ namespace Neremnem.AI
                         }
                     }
                 }
->>>>>>> develop
                 if (mCursor < 0)
                 {
                     mCursor = 0;
                 }
                 mCompare = mChildren[mCursor].Tick();
-<<<<<<< HEAD
-=======
                 Debug.Log(NodeName +":" + mCompare);
->>>>>>> develop
 
                 if (mCompare
                     == EBTState.False)
@@ -659,21 +459,12 @@ namespace Neremnem.AI
                     }
                     else
                     {
-<<<<<<< HEAD
-                        if (mbLoop)
-                        {
-                            mCursor = -1;
-                            mTickStack.Push(this);
-                            return EBTState.True;
-                        }
-=======
                         //if (mbLoop)
                         //{
                         //    mCursor = -1;
                         //    mTickStack.Push(this);
                         //    return EBTState.True;
                         //}
->>>>>>> develop
                         mCursor = -1;
                         return EBTState.False;
                     }
@@ -681,21 +472,12 @@ namespace Neremnem.AI
                 else if (mCompare
                     == EBTState.True)
                 {
-<<<<<<< HEAD
-                    if (mbLoop)
-                    {
-                        mCursor = -1;
-                        mTickStack.Push(this);
-                        return EBTState.True;
-                    }
-=======
                     //if (mbLoop)
                     //{
                     //    mCursor = -1;
                     //    mTickStack.Push(this);
                     //    return EBTState.True;
                     //}
->>>>>>> develop
                     mCursor = -1;
                     return EBTState.True;
                 }
@@ -705,8 +487,6 @@ namespace Neremnem.AI
                     mTickStack.Push(mChildren[mCursor]);
                     return EBTState.Continue;
                 }
-<<<<<<< HEAD
-=======
                 else if (mCompare == EBTState.Abort)
                 {
                     switch (mChildren[mCursor].AbortOption)
@@ -734,7 +514,6 @@ namespace Neremnem.AI
                     }
                     return EBTState.Abort;
                 }
->>>>>>> develop
                 return EBTState.Running;
             }
         }
@@ -810,11 +589,7 @@ namespace Neremnem.AI
                 if (Vector3.Distance
                     (BlackBoard.GetValueByVector3Key(mKey)
                     , BlackBoard.GetValueByVector3Key(mCurrentPositionKey))
-<<<<<<< HEAD
-                        < 1.0f)
-=======
                         < 3.0f)
->>>>>>> develop
                 {
                     //Debug.Log("true!");
 
@@ -862,47 +637,27 @@ namespace Neremnem.AI
             public CanAttack()
             {
                 mNodeName = "CanAttack";
-<<<<<<< HEAD
-                mRange = 0.5f;
-=======
                 mRange = 3f;
->>>>>>> develop
             }
             public override EBTState Tick()
             {
                 base.Tick();
 
-<<<<<<< HEAD
-                Debug.Log(Vector3.Distance(
-                    BlackBoard.GetValueByVector3Key("TargetPlayer")
-                    , BlackBoard.GetValueByVector3Key("CurrentPosition")));
-                Debug.Log(BlackBoard.GetValueByVector3Key("TargetPlayer"));
-                Debug.Log(BlackBoard.GetValueByVector3Key("CurrentPosition"));
-=======
                 //Debug.Log(Vector3.Distance(
                 //    BlackBoard.GetValueByVector3Key("TargetPlayer")
                 //    , BlackBoard.GetValueByVector3Key("CurrentPosition")));
                 //Debug.Log(BlackBoard.GetValueByVector3Key("TargetPlayer"));
                 //Debug.Log(BlackBoard.GetValueByVector3Key("CurrentPosition"));
->>>>>>> develop
                 if (mRange >= Vector3.Distance(
                     BlackBoard.GetValueByVector3Key("TargetPlayer")
                     , BlackBoard.GetValueByVector3Key("CurrentPosition")))
                 {
-<<<<<<< HEAD
-                    Debug.Log("true");
-=======
                     //Debug.Log("true");
->>>>>>> develop
                     return EBTState.True;
                 }
                 else
                 {
-<<<<<<< HEAD
-                    Debug.Log("false");
-=======
                     //Debug.Log("false");
->>>>>>> develop
                     return EBTState.False;
                 }
             }

@@ -39,11 +39,7 @@ namespace Neremnem.AI
             {
                 mHP = 80;
                 Debug.Log(mHP);
-<<<<<<< HEAD
-                BlackBoard.SetValueByStringKey("Phase","Phase2");
-=======
                 BlackBoard.SetValueByStringKey("Phase", "Phase2");
->>>>>>> develop
                 EventManager.TriggerCommonEvent("ActiveBoundary");
             }
         }

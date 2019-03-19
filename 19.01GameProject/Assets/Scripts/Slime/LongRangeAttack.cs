@@ -4,11 +4,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(ProjectilePool))]
 [DisallowMultipleComponent]
-<<<<<<< HEAD
-public class LongRangeAttack : MonoBehaviour
-=======
 public class LongRangeAttack : EnemyAbility
->>>>>>> develop
 {
     public float LongTargetOffRadius;   //타겟 off 범위
     public float LongTargetOnRadius;    //타겟 on 범위
@@ -26,11 +22,8 @@ public class LongRangeAttack : EnemyAbility
     float DelayDamageTime = 3.3f; //타겟을 찾은 뒤 몇 초 뒤에 대미지를 줄 것인지
     float DamageTime = 0.0f;
 
-<<<<<<< HEAD
-=======
     ChangeSlimeColor ChangeColor;
 
->>>>>>> develop
     Vector3 PlayerPos = Vector3.zero;
 
     private SpriteRenderer RangeSpriteRenderer; //게임상에서 표시되는 2D 스프라이트(범위)
@@ -47,13 +40,9 @@ public class LongRangeAttack : EnemyAbility
 
     private void Start()
     {
-<<<<<<< HEAD
-        ProjectilePooling = GetComponent<ProjectilePool>();
-=======
         anim = GetComponent<Animator>();
         ProjectilePooling = GetComponent<ProjectilePool>();
         ChangeColor = transform.GetChild(3).GetComponent<ChangeSlimeColor>();
->>>>>>> develop
     }
 
     IEnumerator FindTargetsWithDelay(float delay)
@@ -95,23 +84,16 @@ public class LongRangeAttack : EnemyAbility
                     bTargetOn = false;
                     DamageTime = 0.0f;
                     RangeSpriteRenderer.enabled = false;
-<<<<<<< HEAD
-=======
                     ChangeColor.bIsAttack = false;
->>>>>>> develop
                 }
             }
         }
         else
         {
-<<<<<<< HEAD
-            DamageTime = 0.0f;
-=======
             anim.SetBool("isAttack", false);
             RangeSpriteRenderer.enabled = false;
             DamageTime = 0.0f;
             ChangeColor.bIsAttack = false;
->>>>>>> develop
         }
     }
 
@@ -128,17 +110,11 @@ public class LongRangeAttack : EnemyAbility
             {
                 float dstToTarget = Vector3.Distance(transform.position, target.position);
                 if (!Physics.Raycast(transform.position, dirTotarget, dstToTarget, ObstacleMask)
-<<<<<<< HEAD
-                    && LongTargetOffRadius < Vector3.Distance(transform.position, target.position))
-                {
-                    transform.forward = dirTotarget;
-=======
                     && LongTargetOnRadius > Vector3.Distance(transform.position, target.position))
                 {
                     if (GetComponent<EnemyMovement>().enabled == true) GetComponent<EnemyMovement>().enabled = false;
                     if(anim.GetBool("isAttack") == true) anim.SetBool("isWalk", false);
                     transform.forward = new Vector3 (dirTotarget.x, 0, dirTotarget.z);
->>>>>>> develop
                     Debug.Log("Find");
                     if (!bTargetOn) bTargetOn = true;
 
@@ -150,18 +126,11 @@ public class LongRangeAttack : EnemyAbility
                     {
                         //프로젝타일 발사//
                         ProjectilePooling.Pooling();
-<<<<<<< HEAD
-
-                        PlayerPos = Vector3.zero;
-                        bDamage = false;
-                        bPos = false;
-=======
                         anim.SetBool("isAttack", true);
                         PlayerPos = Vector3.zero;
                         bDamage = false;
                         bPos = false;
                         ChangeColor.bIsAttack = true;
->>>>>>> develop
                     }
                 }
             }
@@ -174,12 +143,6 @@ public class LongRangeAttack : EnemyAbility
             if (Vector3.Angle(transform.forward, dirToTarget) < LongTargetAngle / 2)
             {
                 float dstToTarget = Vector3.Distance(transform.position, target.position);
-<<<<<<< HEAD
-                if (!Physics.Raycast(transform.position, dirToTarget, dstToTarget, ObstacleMask))
-                {
-                    Debug.Log("Not Find");
-                    //if (bTargetOn) bTargetOn = false;
-=======
                 if (!Physics.Raycast(transform.position, dirToTarget, dstToTarget, ObstacleMask)
                      && LongTargetOnRadius < Vector3.Distance(transform.position, target.position))
                 {
@@ -187,7 +150,6 @@ public class LongRangeAttack : EnemyAbility
                     if (bTargetOn) bTargetOn = false;
                     if (GetComponent<EnemyMovement>().enabled == false) GetComponent<EnemyMovement>().enabled = true;
                     if (anim.GetBool("isAttack") == false) anim.SetBool("isWalk", true);
->>>>>>> develop
                 }
             }
         }
