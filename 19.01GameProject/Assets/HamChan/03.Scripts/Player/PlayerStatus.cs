@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Neremnem.Tools;
 public class PlayerStatus :MonoBehaviour
 {
     private float mPrimarySpeed;
@@ -12,14 +12,14 @@ public class PlayerStatus :MonoBehaviour
     private int mPrimarySP;
     private int mPrimaryMaxSkillCost;
     private int mPrimarySkillCost;
-    private float mPrimaryAvoidDistance;
+    private float mPrimaryDashDistance;
 
     private float mIncreasedSpeed;
     private int mIncreasedDamage;
     private int mIncreasedMaxHP;
     private int mIncreasedMaxSP;
     private int mIncreasedMaxSkillCost;
-    private float mIncreasedAvoidDistance;
+    private float mIncreasedDashDistance;
 
     private float mSpeed;
     private int mDamage;
@@ -29,21 +29,29 @@ public class PlayerStatus :MonoBehaviour
     private int mSP;
     private int mMaxSkillCost;
     private int mSkillCost;
-    private float mAvoidDistance;
+    private float mDashDistance;
 
     public float Speed { get { return mSpeed; } }
-    public float Damage { get { return mDamage; } }
-    public float MaxHP { get { return mMaxHP; } }
-    public float HP { get { return mHP; } }
-    public float MaxSP { get { return mMaxSP; } }
-    public float SP { get { return mSP; } }
-    public float MaxSkillCost { get { return mMaxSkillCost; } }
-    public float SkillCost { get { return mSkillCost; } }
-    public float AvoidDistance { get { return mAvoidDistance; } }
+    public int Damage { get { return mDamage; } }
+    public int MaxHP { get { return mMaxHP; } }
+    public int HP { get { return mHP; } }
+    public int MaxSP { get { return mMaxSP; } }
+    public int SP { get { return mSP; } }
+    public int MaxSkillCost { get { return mMaxSkillCost; } }
+    public int SkillCost { get { return mSkillCost; } }
+    public float DashDistance { get { return mDashDistance; } }
 
     private void Awake()
     {
         InitializeStatus();
+    }
+    private void OnEnable()
+    {
+        EventManager.StartListeningIntEvent("CastSkill", SetSP);
+    }
+    private void OnDisable()
+    {
+        EventManager.StopListeningIntEvent("CastSkill", SetSP);
     }
     private void InitializeStatus()
     {
@@ -55,7 +63,7 @@ public class PlayerStatus :MonoBehaviour
         mPrimarySkillCost = 6;
         mPrimaryMaxSP = 100;
         mPrimarySP = 100;
-        mPrimaryAvoidDistance = 5f;
+        mPrimaryDashDistance = 5f;
 
         mSpeed = mPrimarySpeed;
         mDamage = mPrimaryDamage;
@@ -65,7 +73,7 @@ public class PlayerStatus :MonoBehaviour
         mSP = mPrimarySP;
         mMaxSkillCost = mPrimaryMaxSkillCost;
         mSkillCost = mPrimarySkillCost;
-        mAvoidDistance = mPrimaryAvoidDistance;
+        mDashDistance = mPrimaryDashDistance;
 
     }
     private void UpdateStatus()
@@ -75,6 +83,21 @@ public class PlayerStatus :MonoBehaviour
         mMaxHP = mPrimaryMaxHP + mIncreasedMaxHP;
         mMaxSP = mPrimaryMaxSP + mIncreasedMaxSP;
         mMaxSkillCost = mPrimaryMaxSkillCost + mIncreasedMaxSkillCost;
-        mAvoidDistance = mPrimaryAvoidDistance + mIncreasedAvoidDistance;
+        mDashDistance = mPrimaryDashDistance + mIncreasedDashDistance;
+    }
+    private void SetSP(int i)
+    {
+        if(mSP +i > mMaxSP)
+        {
+            mSP = mMaxSP;
+        }
+        else if(mSP + i < 0)
+        {
+            mSP = 0;
+        }
+        else
+        {
+            mSP += i;
+        }
     }
 }

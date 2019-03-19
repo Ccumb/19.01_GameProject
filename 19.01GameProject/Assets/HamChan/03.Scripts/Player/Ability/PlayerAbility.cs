@@ -6,6 +6,7 @@ using Neremnem.Tools;
 public class PlayerAbility : MonoBehaviour
 {
     protected Player mPlayer;
+    protected GameObject mPlayerObject;
     protected InputManager mInputManager;
     protected PlayerStatus mPlayerStatus;
     protected virtual void Start()
@@ -16,6 +17,7 @@ public class PlayerAbility : MonoBehaviour
     protected virtual void Initialization()
     {
         mPlayer = GetComponent<Player>();
+        mPlayerObject = mPlayer.gameObject;
         mInputManager = mPlayer.linkedInputManager;
         mPlayerStatus = mPlayer.playerStatus;
     }

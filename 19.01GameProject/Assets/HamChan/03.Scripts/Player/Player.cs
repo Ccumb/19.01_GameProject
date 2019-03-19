@@ -11,15 +11,14 @@ public class Player : MonoBehaviour
     protected virtual void Awake()
     {
         playerStatus = GetComponent<PlayerStatus>();
-    }
-    void Start()
-    {
         GetInputManager();
     }
     protected virtual void GetInputManager()
     {
         linkedInputManager = null;
-        InputManager[] foundInputManagers = FindObjectsOfType(typeof(InputManager)) as InputManager[];
+        InputManager[] foundInputManagers
+            = FindObjectsOfType(typeof(InputManager))
+            as InputManager[];
         foreach (InputManager foundInputManager in foundInputManagers)
         {
             if (foundInputManager.PlayerID == playerID)

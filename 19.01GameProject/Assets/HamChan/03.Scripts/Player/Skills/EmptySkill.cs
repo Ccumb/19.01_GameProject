@@ -2,17 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EmptySkill : MonoBehaviour
+public class EmptySkill : Skill
 {
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        
+        base.Awake();
+        Initialization("Empty", -1, -1);
     }
-
-    // Update is called once per frame
-    void Update()
+    public override void Active()
     {
-        
+        Debug.Log("This slot is empty!");
     }
 }
