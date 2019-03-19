@@ -62,17 +62,17 @@ namespace Neremnem.Tools
             mAxisSecondaryVertical = PlayerID + "_SecondaryVertical";
         }
         
-        protected virtual void LateUpdate()
-        {
-            ProcessButtonStates();
-        }
-        
         protected virtual void Update()
         {
             SetMovement();
             GetInputButtons();
         }
-        
+
+        protected virtual void LateUpdate()
+        {
+            ProcessButtonStates();
+        }
+
         protected virtual void GetInputButtons()
         {
             foreach (NRMInput.Button button in ButtonList)
@@ -107,7 +107,20 @@ namespace Neremnem.Tools
                 }
             }
         }
-        
+        public virtual bool IsMoving()
+        {
+            if(Input.GetKey(KeyCode.UpArrow)
+                || Input.GetKey(KeyCode.DownArrow)
+                || Input.GetKey(KeyCode.LeftArrow)
+                || Input.GetKey(KeyCode.RightArrow))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         public virtual void SetMovement()
         {
             if (SmoothMovement)
