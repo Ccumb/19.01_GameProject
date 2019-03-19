@@ -64,7 +64,7 @@ public class EnemyAttack_Box : EnemyAbility
         if (other.tag == "Player")
         {
             Debug.Log("Hit Player(Box)");
-            Playera player = other.gameObject.GetComponent<Playera>();
+            Player player = other.gameObject.GetComponent<Player>();
             player.TakeDamage(attackPower);
         }
     }

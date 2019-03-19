@@ -17,7 +17,7 @@ public class Coin : MonoBehaviour
     {
         if(collision.gameObject.tag == "Player")
         {
-            Playera player = collision.gameObject.GetComponent<Playera>();
+            Player player = collision.gameObject.GetComponent<Player>();
             player.UpdateGold(gold);
             this.gameObject.SetActive(false);
         }

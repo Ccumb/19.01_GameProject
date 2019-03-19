@@ -16,13 +16,13 @@ public class ShowPlayerHP : MonoBehaviour
     {
         mText = GetComponentInChildren<Text>();
         mHealthBar = GetComponent<Image>();
-        mMax_hp = GameObject.Find("Player").GetComponent<Playera>().max_hp;
+        mMax_hp = GameObject.Find("Player").GetComponent<Player>().max_hp;
     }
 
     // Update is called once per frame
     void Update()
     {
-        mHp = GameObject.Find("Player").GetComponent<Playera>().hp;
+        mHp = GameObject.Find("Player").GetComponent<Player>().hp;
         string text = "HP : " + mHp + " / " + mMax_hp;
         mText.text = text;
         mHealthBar.fillAmount = mHp / mMax_hp;

@@ -11,12 +11,12 @@ public class HealthPotion : ItemIconVersion, IUseable
 
     public void Use()
     {
-        Playera player = GameObject.FindGameObjectWithTag("Player").GetComponent<Playera>();
+        Player player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         if(player.hp < player.max_hp)
         {
             Remove();
 
             player.hp += mHealthRec;
-        }
+        }        
     }
 }
