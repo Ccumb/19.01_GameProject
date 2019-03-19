@@ -1,18 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class Skill : MonoBehaviour
+using Neremnem.Tools;
+public class Skill : Singleton<Skill>
 {
-    protected string mName = "Empty";
-    protected int mCost = -1;
-    protected int mCastCost = -1;
+    protected string mName;
+    protected int mCost;
+    protected int mCastCost;
 
     public string Name { get { return mName; } }
     public int Cost { get { return mCost; } }
     public int CastCost { get { return mCastCost; } }
+    protected void Awake()
+    {
+        base.Awake();
+    }
     public virtual void Active()
     {
+        Debug.Log("This slot is empty!");
     }
     protected virtual void Initialization(string name, int cost, int castCost)
     {
