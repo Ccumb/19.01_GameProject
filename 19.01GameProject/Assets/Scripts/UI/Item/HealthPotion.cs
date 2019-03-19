@@ -11,7 +11,8 @@ public class HealthPotion : ItemIconVersion, IUseable
 
     public void Use()
     {
-        Player player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        // 플레이어 클래스 겹쳐서 일단 playera로 수정, 확인바람
+        Playera player = GameObject.FindGameObjectWithTag("Player").GetComponent<Playera>();
         if(player.hp < player.max_hp)
         {
             Remove();

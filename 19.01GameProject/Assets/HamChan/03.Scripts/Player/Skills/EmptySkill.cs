@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EmptySkill : Skill
+public class EmptySkill : Skill_Ham
 {
     private void Awake()
     {

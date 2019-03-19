@@ -13,6 +13,15 @@ namespace Neremnem.AI
         Continue,
         Abort
     }
+    public enum EObserverAborts
+    {
+        Self,
+        None,
+        LowerPriority,
+        Both
+    }
+
+
     //IEnumerator Run()
     //{
     //    yield return new WaitForSeconds(0.5f); 
@@ -29,6 +38,13 @@ namespace Neremnem.AI
             protected List<Decorator> mDecoratorList;
             protected bool mbLoop;
             protected string mNodeName;
+            protected EObserverAborts mAbortOption;
+            public EObserverAborts AbortOption
+            {
+                get { return mAbortOption; }
+                set { mAbortOption = value; }
+            }
+
             public bool isLoop
             {
                 get { return mbLoop; }

@@ -12,10 +12,4 @@ public class ShowPlayerGold : MonoBehaviour
         mText = GetComponent<Text>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        string text = "[" + GameObject.Find("Player").GetComponent<Player>().Gold + "]";
-        mText.text = text;
-    }
 }

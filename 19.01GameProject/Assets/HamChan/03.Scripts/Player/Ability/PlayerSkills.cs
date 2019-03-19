@@ -5,7 +5,7 @@ using Neremnem.Tools;
 public class PlayerSkills : PlayerAbility
 {
     private const int mMaxSkillAmount = 4;
-    protected Skill[] mSkills = new Skill[mMaxSkillAmount];
+    protected Skill_Ham[] mSkills = new Skill_Ham[mMaxSkillAmount];
     private void Start()
     {
         base.Start();
@@ -47,7 +47,7 @@ public class PlayerSkills : PlayerAbility
             mSkills[3].Active();
         }
     }
-    protected virtual void RegistSkill(Skill skill)
+    protected virtual void RegistSkill(Skill_Ham skill)
     {
         for(int i = 0; i<mMaxSkillAmount; i++)
         {

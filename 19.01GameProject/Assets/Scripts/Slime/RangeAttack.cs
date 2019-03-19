@@ -150,9 +150,9 @@ public class RangeAttack : EnemyAbility
     {
         foreach (Collider player in objects)
         {
-            if (player.GetComponent<Player>() != null)
+            if (player.GetComponent<Playera>() != null)
             {
-                player.GetComponent<Player>().TakeDamage(damage);
+                player.GetComponent<Playera>().TakeDamage(damage);
             }
         }
     }

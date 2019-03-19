@@ -62,7 +62,7 @@ public class EnemyAttack_Sphere : EnemyAbility
         if (other.tag == "Player")
         {
             Debug.Log("Hit Player(Sphere)");
-            Player player = other.gameObject.GetComponent<Player>();
+            Playera player = other.gameObject.GetComponent<Playera>();
             player.TakeDamage(attackPower);
         }
     }

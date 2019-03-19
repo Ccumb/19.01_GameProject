@@ -5,7 +5,6 @@ using Neremnem.AI;
 using Neremnem.Tools;
 [RequireComponent(typeof(SphereCollider))]
 [RequireComponent(typeof(Rigidbody))]
-
 public class CheckBoundary : MonoBehaviour
 {
     private SphereCollider mSphereCollider;
@@ -65,6 +64,7 @@ public class CheckBoundary : MonoBehaviour
             if (mTime >= 0.5f)
             {
                 BlackBoard.SetValue("Whirlwind", true);
+                Debug.Log("tre");
             }
         }
     }
@@ -72,7 +72,9 @@ public class CheckBoundary : MonoBehaviour
     {
         if (other.tag.Equals("Player"))
         {
-            mCountInBoundary--; 
+            mTime = 0f;
+            mCountInBoundary--;
+            BlackBoard.SetValue("Whirlwind", false);
         }
     }
 }
