@@ -5,7 +5,7 @@ using UnityEngine;
 ///<summary>
 /// 플레이어 캐릭터 클래스
 ///</summary>
-public class Player : Unit
+public class Playera : Unit
 {
     private int mGold;
     private List<CharacterAbility> mAbilities;

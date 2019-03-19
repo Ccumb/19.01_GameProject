@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Neremnem.Tools;
-public class Skill : Singleton<Skill>
+public class Skill_Ham : Singleton<Skill_Ham>
 {
     protected string mName;
     protected int mCost;
