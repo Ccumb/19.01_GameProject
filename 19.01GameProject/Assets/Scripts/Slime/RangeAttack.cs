@@ -179,7 +179,7 @@ public class RangeAttack : EnemyAbility
         {
             if (player.GetComponent<Player>() != null)
             {
-                player.GetComponent<Player>().TakeDamage(damage);
+                //player.GetComponent<Player>().TakeDamage(damage);
 
                 //나중에 True, False를 이용해서 끄고 키기로 사용/비사용 만들기
                 if(bRepulsion)
