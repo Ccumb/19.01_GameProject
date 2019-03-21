@@ -2,27 +2,32 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SubordinateSummon : MonoBehaviour
+[RequireComponent(typeof(SubordinatePool))]
+[DisallowMultipleComponent]
+public class SubordinateSummon : EnemyAbility
 {
     public int SummonCount = 3;
     public float cAccumulateSummonTime = 0.0f;
     public float cSummonTime = 10.0f;
     public Transform[] tSummonTransform = new Transform[5];
 
-    private GameObject mTarget;
+    private GameObject mTarget = null;
     private bool bSummon = false;
     private int iFalseCount = 0;
 
     SubordinatePool SummonPool = null;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         SummonPool = GetComponent<SubordinatePool>();
+    }
+
+    protected override void Start()
+    {
+        base.Start();
         mTarget = GameObject.FindGameObjectWithTag("Player");
     }
 
-    // Update is called once per frame
     void Update()
     {
         transform.forward = new Vector3((mTarget.transform.position - transform.position).normalized.x, 0, (mTarget.transform.position - transform.position).normalized.z);
@@ -34,6 +39,7 @@ public class SubordinateSummon : MonoBehaviour
                 iFalseCount++;
             }
         }
+
         if(iFalseCount == transform.parent.GetChild(1).childCount)
         {
             bSummon = true;

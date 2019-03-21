@@ -9,8 +9,9 @@ public class EnemyMovement : EnemyAbility
 
     private GameObject mTarget;
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         Enemy owner = GetComponent<Enemy>();
         owner.RegisterAbility(this);
 

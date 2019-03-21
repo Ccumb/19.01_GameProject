@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 4806939737492747056}
   - component: {fileID: 2971120810515232502}
   - component: {fileID: 6841893703086814440}
+  - component: {fileID: 1394088101006705218}
   m_Layer: 0
   m_Name: Slime
   m_TagString: Untagged
@@ -78,6 +79,10 @@ MonoBehaviour:
   max_hp: 5
   power: 3
   respawnTime: 10
+  PhaseOne: 
+  PhaseTwo: 
+  PhaseThree: 
+  PhaseFour: 
 --- !u!114 &1533786957935806788
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -146,13 +151,18 @@ MonoBehaviour:
   TargetOffRadius: 0
   TargetOnRadius: 0
   TargetAngle: 0
+  TargetOnTime: 0.5
+  DelayDamageTime: 0.5
+  DelayCoolTime: 1
+  RangeDamage: 1
+  RepulsiveForce: 10
+  bRepulsion: 0
   TargetMask:
     serializedVersion: 2
     m_Bits: 0
   ObstacleMask:
     serializedVersion: 2
     m_Bits: 0
-  RangeSpriteRenderer: {fileID: 0}
 --- !u!114 &2971120810515232502
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,13 +178,15 @@ MonoBehaviour:
   LongTargetOffRadius: 0
   LongTargetOnRadius: 0
   LongTargetAngle: 360
+  TargetOnTime: 0.5
+  DelayDamageTime: 3.3
+  DelayCoolTime: 1
   TargetMask:
     serializedVersion: 2
     m_Bits: 0
   ObstacleMask:
     serializedVersion: 2
     m_Bits: 0
-  ProejctileObejct: {fileID: 0}
 --- !u!114 &6841893703086814440
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -196,6 +208,20 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+--- !u!114 &1394088101006705218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 397123756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab38c2ff69862fc4788de0357a33b414, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DeleteMapObject: {fileID: 0}
+  DelayDeleteMapTime: 3
 --- !u!1 &509168237
 GameObject:
   m_ObjectHideFlags: 0
