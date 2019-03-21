@@ -33,17 +33,6 @@ public class BagScript : MonoBehaviour
             mSlots[item.slotPosition].AddItem(item);
             return true;
         }
-        /*foreach (SlotScript slot in mSlots)
-        {            
-            // 빈 슬롯이 있으면
-            if (slot.IsEmpty)
-            {
-                // 해당 슬롯에 아이템을 추가한다.
-                slot.AddItem(item);
-                return true;
-            }
-        }*/
-
         return false;
     }
 }

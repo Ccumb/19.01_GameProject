@@ -9,6 +9,7 @@ public class ObservableStack<T> : Stack<T>
     public event UpdateStackEvent OnPush;
     public event UpdateStackEvent OnPop;
     public event UpdateStackEvent OnClear;
+    public event UpdateStackEvent OnPeek;
 
     public new void Push(T item)
     {
@@ -40,6 +41,27 @@ public class ObservableStack<T> : Stack<T>
         {
             OnClear();
         }
+    }
+
+    public new T Peek()
+    {
+        T item = base.Peek();
+
+        if(OnPeek != null)
+        {
+            OnPeek();
+        }
+        return item;
+    }
+
+    public ObservableStack(ObservableStack<T> items) : base(items)
+    {
+
+    }
+    
+    public ObservableStack()
+    {
+
     }
 
 }

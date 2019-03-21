@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 
-public abstract class ItemIconVersion : ScriptableObject
+/// <summary>
+/// 사용이 되는 아이템들의 베이스 abstract class
+/// </summary>
+public abstract class ItemIconVersion : ScriptableObject, IMoveable
 {
     public int slotPosition = 0;
     [SerializeField]
@@ -13,8 +16,6 @@ public abstract class ItemIconVersion : ScriptableObject
     private int mStackSize;
 
     private SlotScript slot;
-
-
 
     public Sprite MyIcon
     {

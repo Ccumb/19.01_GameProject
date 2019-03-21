@@ -34,7 +34,7 @@ public class Projectile : MonoBehaviour
         Debug.Log("Hit!");
         if (collision.gameObject.tag == "Player")
         {
-            collision.gameObject.GetComponent<Player>().TakeDamage(ProejctileDamage);
+            collision.gameObject.GetComponent<Playera>().TakeDamage(ProejctileDamage);
             gameObject.SetActive(false);
         }
         gameObject.SetActive(false);

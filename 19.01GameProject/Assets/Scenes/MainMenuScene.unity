@@ -319,7 +319,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5902103227dc1c24494b474e8220fc6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: {fileID: 0}
+  buttonText: {fileID: 0}
   changeColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &102085285
 MonoBehaviour:
@@ -512,7 +512,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5902103227dc1c24494b474e8220fc6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: {fileID: 0}
+  buttonText: {fileID: 0}
   changeColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &131644059
 MonoBehaviour:
@@ -876,7 +876,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5902103227dc1c24494b474e8220fc6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: {fileID: 0}
+  buttonText: {fileID: 0}
   changeColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &646977633
 MonoBehaviour:
@@ -1164,7 +1164,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   changeTextColor: {r: 0.7735849, g: 0.3247597, b: 0.54565984, a: 0}
-  menuButtons:
+  mMenuButtons:
   - {fileID: 102085286}
   - {fileID: 131644060}
   - {fileID: 646977634}

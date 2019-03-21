@@ -15,7 +15,7 @@ public class CharacterMovement : CharacterAbility
     // Start is called before the first frame update
     void Start()
     {
-        Player owner = GetComponent<Player>();
+        Playera owner = GetComponent<Playera>();
         owner.RegisterAbility(this);
 
         mRigid = GetComponent<Rigidbody>();
