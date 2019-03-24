@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Neremnem.Tools;
 [RequireComponent(typeof(PlayerAbility))]
+[DisallowMultipleComponent]
 public class PlayerAttack : PlayerAbility
 {
     protected bool mbCanAttack = true;

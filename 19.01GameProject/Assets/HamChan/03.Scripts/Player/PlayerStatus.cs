@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Neremnem.Tools;
+[DisallowMultipleComponent]
 public class PlayerStatus :MonoBehaviour
 {
     private float mPrimarySpeed;

@@ -4,6 +4,7 @@ using UnityEngine;
 using Neremnem.AI;
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(PlayerAbility))]
+[DisallowMultipleComponent]
 public class PlayerMove : PlayerAbility
 {
     protected Rigidbody mRigidbody;

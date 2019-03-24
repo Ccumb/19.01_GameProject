@@ -4,6 +4,7 @@ using UnityEngine;
 using Neremnem.Tools;
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(PlayerAbility))]
+[DisallowMultipleComponent]
 public class PlayerDash : PlayerAbility
 {
     private Rigidbody mRigidbody;
