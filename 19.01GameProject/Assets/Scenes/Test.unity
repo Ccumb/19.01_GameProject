@@ -2255,7 +2255,7 @@ PrefabInstance:
         type: 3}
       propertyPath: SubordinateObject
       value: 
-      objectReference: {fileID: 4313934061025202186, guid: 2be18667a4c41804a9fbd0c597372cc9,
+      objectReference: {fileID: 8734943613326918087, guid: ce6c5c5fd3b74314aa78c15309112097,
         type: 3}
     - target: {fileID: 6841893703086814440, guid: 28cd46e6232d044448311086b891f6f5,
         type: 3}
@@ -2348,7 +2348,7 @@ PrefabInstance:
     - target: {fileID: 5226352170077000097, guid: 28cd46e6232d044448311086b891f6f5,
         type: 3}
       propertyPath: hp
-      value: 100
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5226352170077000097, guid: 28cd46e6232d044448311086b891f6f5,
         type: 3}

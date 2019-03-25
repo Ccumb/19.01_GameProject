@@ -45,14 +45,14 @@ public class Enemy : Unit
         InitHP();
         this.gameObject.tag = "Enemy";
 
-        mStartPos = this.transform.position; AbilityComponent = GetComponentsInParent(typeof(EnemyAbility));
+        mStartPos = this.transform.position;
+        AbilityComponent = GetComponentsInParent(typeof(EnemyAbility));
 
         if (AbilityComponent != null)
         {
             foreach (EnemyAbility ability in AbilityComponent)
             {
                 RegisterAbility(ability);
-                Debug.Log("Component");
             }
         }
     }
@@ -125,12 +125,11 @@ public class Enemy : Unit
 
     protected override void Die() 
     {
-        hp = max_hp;
-
         DisableAbilities();
         SpawnCoin(this.transform.position);
         
         InActive();
+        GetComponent<Rigidbody>().isKinematic = true;
 
         StartCoroutine("Respawn");
     }
@@ -138,8 +137,8 @@ public class Enemy : Unit
     protected override void Active()
     {
         base.Active();
-        
-        AbleAbilities();
+        hp = max_hp;
+        GetComponent<Rigidbody>().isKinematic = false;
         this.transform.position = mStartPos;
     }
 
