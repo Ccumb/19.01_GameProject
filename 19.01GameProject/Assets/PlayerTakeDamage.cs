@@ -17,6 +17,7 @@ public class PlayerTakeDamage : PlayerAbility
         if(gameObject == this.gameObject)
         {
             EventManager.TriggerIntEvent("TakeDamage", damage);
+            Debug.Log(mPlayerStatus.HP);
         }
     }
 }

@@ -180,6 +180,7 @@ public class RangeAttack : EnemyAbility
         {
             if (player.GetComponent<Player>() != null)
             {
+                Debug.Log(player.gameObject.name);
                 //player.GetComponent<Player>().TakeDamage(damage);
                 EventManager.TriggerTakeDamageEvent("EnemysAttack" ,player.gameObject, (int)damage);
                 Debug.Log("Damage!!");

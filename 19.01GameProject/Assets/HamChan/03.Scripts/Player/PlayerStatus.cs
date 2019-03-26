@@ -49,12 +49,12 @@ public class PlayerStatus :MonoBehaviour
     private void OnEnable()
     {
         EventManager.StartListeningIntEvent("CastSkill", SetSP);
-        EventManager.StartListeningIntEvent("TakeDamage", SetHP);
+        EventManager.StartListeningIntEvent("TakeDamage", TakeDamage);
     }
     private void OnDisable()
     {
         EventManager.StopListeningIntEvent("CastSkill", SetSP);
-        EventManager.StopListeningIntEvent("TakeDamage", SetHP);
+        EventManager.StopListeningIntEvent("TakeDamage", TakeDamage);
     }
     private void InitializeStatus()
     {
@@ -103,6 +103,18 @@ public class PlayerStatus :MonoBehaviour
             mSP += i;
         }
     }
+    private void TakeDamage(int i)
+    {
+        
+        if (mHP - i < 0)
+        {
+            mHP = 0;
+        }
+        else
+        {
+            mHP -= i;
+        }
+    }
     private void SetHP(int i)
     {
         if(mHP + i > mMaxHP)
@@ -115,7 +127,7 @@ public class PlayerStatus :MonoBehaviour
         }
         else
         {
-            mHP = +i;
+            mHP +=i;
         }
     }
 }
