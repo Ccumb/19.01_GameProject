@@ -8,7 +8,7 @@ public class DeleteMaps : EnemyAbility
     public float DelayDeleteMapTime = 3.0f; //지연 시간
 
     private float mDeleteTime = 0.0f;
-    private bool bDeleteMap = false; //true일 경우 시간이 지나감
+    private bool mbDeleteMap = false; //true일 경우 시간이 지나감
 
     private void OnEnable()
     {
@@ -17,12 +17,12 @@ public class DeleteMaps : EnemyAbility
 
     private void Update()
     {
-        if(bDeleteMap == true)
+        if(mbDeleteMap == true)
         {
             mDeleteTime += Time.deltaTime;
             if(mDeleteTime > DelayDeleteMapTime)
             {
-                bDeleteMap = false;
+                mbDeleteMap = false;
                 mDeleteTime = 0.0f;
                 DeleteMapObject.SetActive(false);
             }
@@ -34,8 +34,8 @@ public class DeleteMaps : EnemyAbility
     /// </summary>
     private void DeleteMap()
     {
-        DeleteMapObject.GetComponent<Renderer>().material.color = Color.red;
-        bDeleteMap = true;
+        mbDeleteMap = true;
         //닿을 경우 대미지 주는 스크립트를 오브젝트에 추가
+        DeleteMapObject.GetComponent<DamageArea>().enabled = true;
     }
 }
