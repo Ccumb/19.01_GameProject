@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Neremnem.Tools;
 [RequireComponent(typeof(PlayerAbility))]
+[DisallowMultipleComponent]
 public class PlayerAttack : PlayerAbility
 {
     protected bool mbCanAttack = true;
@@ -53,7 +54,8 @@ public class PlayerAttack : PlayerAbility
     }
     private void OnTriggerEnter(Collider other)
     {
-        EventManager.TriggerCommonEvent("PlayerAttack");
-        Debug.Log(other.tag.ToString());
+        EventManager.TriggerTakeDamageEvent("PlayersAttack",
+            other.gameObject,mPlayer.playerStatus.Damage);
+        //Debug.Log(other.tag.ToString());
     }
 }

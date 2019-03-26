@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+[DisallowMultipleComponent]
 public class PlayerUseItem : PlayerAbility
 {
     protected string mSelectedItem = "메인아이템";

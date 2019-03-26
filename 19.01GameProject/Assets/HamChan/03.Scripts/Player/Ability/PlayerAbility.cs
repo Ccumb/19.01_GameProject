@@ -13,7 +13,6 @@ public class PlayerAbility : MonoBehaviour
     {
         Initialization();
     }
-
     protected virtual void Initialization()
     {
         mPlayer = GetComponent<Player>();

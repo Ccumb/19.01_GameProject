@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Neremnem.Tools;
+[DisallowMultipleComponent]
 public class PlayerSkills : PlayerAbility
 {
     private const int mMaxSkillAmount = 4;
@@ -24,6 +25,7 @@ public class PlayerSkills : PlayerAbility
         {
             EventManager.TriggerIntEvent("CastSkill", mSkills[0].CastCost);
             mSkills[0].Active();
+            Debug.Log(mPlayer.playerStatus.SP);
         }
         if (mInputManager.Skill2Button.State.CurrentState == NRMInput.EButtonStates.Down
             || mInputManager.Skill2Button.State.CurrentState == NRMInput.EButtonStates.Pressed 
@@ -31,6 +33,7 @@ public class PlayerSkills : PlayerAbility
         {
             EventManager.TriggerIntEvent("CastSkill", mSkills[1].CastCost);
             mSkills[1].Active();
+            Debug.Log(mPlayer.playerStatus.SP);
         }
         if (mInputManager.Skill3Button.State.CurrentState == NRMInput.EButtonStates.Down
             || mInputManager.Skill3Button.State.CurrentState == NRMInput.EButtonStates.Pressed
@@ -38,6 +41,7 @@ public class PlayerSkills : PlayerAbility
         {
             EventManager.TriggerIntEvent("CastSkill", mSkills[2].CastCost);
             mSkills[2].Active();
+            Debug.Log(mPlayer.playerStatus.SP);
         }
         if (mInputManager.Skill4Button.State.CurrentState == NRMInput.EButtonStates.Down
             || mInputManager.Skill4Button.State.CurrentState == NRMInput.EButtonStates.Pressed
@@ -45,6 +49,7 @@ public class PlayerSkills : PlayerAbility
         {
             EventManager.TriggerIntEvent("CastSkill", mSkills[3].CastCost);
             mSkills[3].Active();
+            Debug.Log(mPlayer.playerStatus.SP);
         }
     }
     protected virtual void RegistSkill(Skill_Ham skill)
