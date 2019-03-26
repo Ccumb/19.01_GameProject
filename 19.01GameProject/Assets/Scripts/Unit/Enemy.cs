@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Neremnem.Tools;
 ///<summary>
 /// 적, 몬스터 클래스
 ///</summary>
@@ -37,7 +37,14 @@ public class Enemy : Unit
     {
         mAbilities = new List<EnemyAbility>();    
     }
-
+    private void OnEnable()
+    {
+        EventManager.StartListeningTakeDamageEvent("PlayersAttack", TakeDamage);   
+    }
+    private void OnDisable()
+    {
+        EventManager.StopListeningTakeDamageEvent("PlayersAttack", TakeDamage);
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -87,7 +94,14 @@ public class Enemy : Unit
             PatternManager(mPresentPhase);
         }
     }
-
+    private void TakeDamage(GameObject gameObject, int i)
+    {
+        if(gameObject == this.gameObject)
+        {
+            hp -= i;
+            Debug.Log("monster: " + hp);
+        }
+    }
 
     private void PatternManager(EPhase phaseNum)
     {
