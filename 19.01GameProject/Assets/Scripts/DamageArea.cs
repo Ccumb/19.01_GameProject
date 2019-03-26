@@ -1,15 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Neremnem.Tools;
 
 public class DamageArea : MonoBehaviour
 {
     [HideInInspector]
     public bool bDamaged = false;
     public float DamageDelayTime = 1.0f;
+    public float Damage = 1.0f;
 
     private float mDamageTime = 0.0f;
     private GameObject mDamageObject = null;
+    
 
     private void OnEnable()
     {
@@ -32,6 +35,7 @@ public class DamageArea : MonoBehaviour
                 if (mDamageObject != null)
                 {
                     //플레이어의 컴포넌트를 가지고 와서 대미지 주는 함수
+                    EventManager.TriggerTakeDamageEvent("EnemysAttack", mDamageObject, (int)Damage);
                 }
                 mDamageTime = 0.0f;
             }
