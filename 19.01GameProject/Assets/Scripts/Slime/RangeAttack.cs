@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Neremnem.Tools;
 
 [DisallowMultipleComponent]
 public class RangeAttack : EnemyAbility
@@ -180,8 +181,9 @@ public class RangeAttack : EnemyAbility
             if (player.GetComponent<Player>() != null)
             {
                 //player.GetComponent<Player>().TakeDamage(damage);
+                EventManager.TriggerTakeDamageEvent("EnemysAttack" ,player.gameObject, (int)damage);
                 Debug.Log("Damage!!");
-                //나중에 True, False를 이용해서 끄고 키기로 사용/비사용 만들기
+                //True, False를 이용해서 끄고 키기로 사용/비사용
                 if(bRepulsion)
                 {
                     player.GetComponent<Rigidbody>().velocity = transform.forward * RepulsiveForce;
