@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Neremnem.Tools;
 ///<summary>
 /// 체력과 공격력을 가진 유닛이 상속받는 베이스 클래스
 ///</summary>
@@ -23,7 +23,14 @@ public class Unit : MonoBehaviour
             return mbIsActive;
         }
     }
-
+    private void OnEnable()
+    {
+        EventManager.StartListeningTakeDamageEvent("PlayersAttack", TakeDamage);
+    }
+    private void OnDisable()
+    {
+        EventManager.StopListeningTakeDamageEvent("PlayersAttack", TakeDamage);
+    }
 
     // 죽을때 처리 함수
     protected virtual void Die()
@@ -38,7 +45,14 @@ public class Unit : MonoBehaviour
             max_hp = hp;
         }
     }
+    protected virtual void TakeDamage(GameObject gameObejct,int damage)
+    {
+        if(gameObejct == this.gameObject)
+        {
+            hp -= damage;
+        }
 
+    }
     // 데미지를 입는 함수
     public void TakeDamage(float damage)
     {

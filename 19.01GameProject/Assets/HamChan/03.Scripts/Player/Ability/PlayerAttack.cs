@@ -54,7 +54,8 @@ public class PlayerAttack : PlayerAbility
     }
     private void OnTriggerEnter(Collider other)
     {
-        EventManager.TriggerCommonEvent("PlayerAttack");
-        Debug.Log(other.tag.ToString());
+        EventManager.TriggerTakeDamageEvent("PlayersAttack",
+            other.gameObject,mPlayer.playerStatus.Damage);
+        //Debug.Log(other.tag.ToString());
     }
 }
