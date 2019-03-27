@@ -27,6 +27,8 @@ public class InventoryScript : MonoBehaviour
     private SlotScript mFromSlot;
     private static InventoryScript mInstance;
 
+    private int mGold;
+
     public static InventoryScript MyInstance
     {
         get
@@ -60,6 +62,15 @@ public class InventoryScript : MonoBehaviour
             }
         }
     }
+
+    public int Gold
+    {
+        get
+        {
+            return mGold;
+        }
+    }
+
     public void AddItem(ItemIconVersion item)
     {
         if (item.MyStackSize > 0)
@@ -138,6 +149,11 @@ public class InventoryScript : MonoBehaviour
         {
             mItemQuickSlots[i] = action[i];
         }
+    }
+
+    public void UpdateGold(int amount)
+    {
+        mGold += amount;
     }
 
     private bool IsPlaceInStack(ItemIconVersion item)
