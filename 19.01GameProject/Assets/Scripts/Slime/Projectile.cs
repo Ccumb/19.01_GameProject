@@ -8,6 +8,7 @@ public class Projectile : MonoBehaviour
 {
     Rigidbody ProejctileRigid;
     public int ProejctileDamage = 1;
+    public float DelayActive = 1.0f;
 
     private void Awake()
     {
@@ -22,11 +23,13 @@ public class Projectile : MonoBehaviour
 
     private void OnEnable()
     {
+        StartCoroutine(RemoveProjectile(DelayActive));
         ProejctileRigid.velocity = new Vector3(transform.parent.GetChild(0).forward.x, 0, transform.parent.GetChild(0).forward.z) * 10;
     }
 
     private void OnDisable()
     {
+        StopCoroutine(RemoveProjectile(0));
         ProejctileRigid.velocity = Vector3.zero;
     }
 
@@ -39,5 +42,12 @@ public class Projectile : MonoBehaviour
             gameObject.SetActive(false);
         }
         gameObject.SetActive(false);
+    }
+
+    IEnumerator RemoveProjectile(float delay)
+    {
+        Debug.Log("RmoveStart");
+        yield return new WaitForSeconds(delay);
+        gameObject.SetActive(false); Debug.Log("Rmove");
     }
 }

@@ -146,6 +146,7 @@ public class RangeAttack : EnemyAbility
                         SetAnimBool("isAttack", true);
                         mbDamage = false;
                         ChangeColor.bIsAttack = false;
+                        return;
                     }
                 }
             }
@@ -180,10 +181,9 @@ public class RangeAttack : EnemyAbility
         {
             if (player.GetComponent<Player>() != null)
             {
-                Debug.Log(player.gameObject.name);
-                //player.GetComponent<Player>().TakeDamage(damage);
+                Debug.Log("Damage[RangeAttackScript]: " + damage);
                 EventManager.TriggerTakeDamageEvent("EnemysAttack" ,player.gameObject, (int)damage);
-                Debug.Log("Damage!!");
+
                 //True, False를 이용해서 끄고 키기로 사용/비사용
                 if(bRepulsion)
                 {

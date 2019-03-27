@@ -17,6 +17,13 @@ public class SubordinateSummon : EnemyAbility
 
     SubordinatePool SummonPool = null;
 
+    private void OnEnable()
+    {
+        SummonCount = 3;
+        cAccumulateSummonTime = 0.0f;
+        bSummon = false;
+    }
+
     private void Awake()
     {
         SummonPool = GetComponent<SubordinatePool>();

@@ -12,7 +12,7 @@ public class SubordinateBoom : MonoBehaviour
         {
             //대미지 주는 함수
             EventManager.TriggerTakeDamageEvent("EnemysAttack", collision.gameObject, Damage);
-            Debug.Log("Damage!");
+            Debug.Log("Damage[SubordinateBoom]: " + Damage);
             gameObject.SetActive(false);
         }
     }

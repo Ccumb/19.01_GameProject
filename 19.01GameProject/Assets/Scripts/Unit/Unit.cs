@@ -10,9 +10,11 @@ public class Unit : MonoBehaviour
     public float hp;    // 체력
     public float max_hp;        // 최대 체력
 
-    public float power; // 공격력
+    public float power;
 
     public float respawnTime;
+
+    public float activeFalseTime;
 
     protected bool mbIsActive;
 

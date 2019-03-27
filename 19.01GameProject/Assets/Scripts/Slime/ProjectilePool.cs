@@ -7,8 +7,7 @@ public class ProjectilePool : MonoBehaviour
     public int ObjectCount;
     public GameObject ProjectileObject;
     private List<GameObject> PoolList = new List<GameObject>();
-
-    // Start is called before the first frame update
+    
     void Start()
     {
         ObjectPool();

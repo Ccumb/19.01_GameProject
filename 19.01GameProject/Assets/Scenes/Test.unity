@@ -477,6 +477,7 @@ MonoBehaviour:
   max_hp: 100
   power: 1
   respawnTime: 0
+  activeFalseTime: 0
 --- !u!1 &305092433
 GameObject:
   m_ObjectHideFlags: 0
@@ -2375,7 +2376,7 @@ GameObject:
   - component: {fileID: 1885475898}
   - component: {fileID: 1885475899}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: MapSample
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2467,6 +2468,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bDamaged: 0
   DamageDelayTime: 1
+  Damage: 1
 --- !u!54 &1885475899
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2862,6 +2864,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Monster
       objectReference: {fileID: 0}
+    - target: {fileID: 7815265990575892782, guid: f8451995a85542a499c13fd3da35be57,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7815265990575892783, guid: f8451995a85542a499c13fd3da35be57,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2916,6 +2923,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2662432880600523826, guid: f8451995a85542a499c13fd3da35be57,
+        type: 3}
+      propertyPath: hp
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 9164170753645557713, guid: f8451995a85542a499c13fd3da35be57,
         type: 3}

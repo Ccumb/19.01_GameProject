@@ -43,6 +43,7 @@ public class Enemy : Unit
     }
     private void OnDisable()
     {
+        StopCoroutine("ActiveFalseDelay");
         EventManager.StopListeningTakeDamageEvent("PlayersAttack", TakeDamage);
     }
     // Start is called before the first frame update
@@ -145,7 +146,7 @@ public class Enemy : Unit
         InActive();
         GetComponent<Rigidbody>().isKinematic = true;
 
-        StartCoroutine("Respawn");
+        StartCoroutine("ActiveFalseDelay");
     }
 
     protected override void Active()
@@ -202,6 +203,12 @@ public class Enemy : Unit
     {
         yield return new WaitForSeconds(respawnTime);
         Active();
+    }
+
+    IEnumerator ActiveFalseDelay()
+    {
+        yield return new WaitForSeconds(activeFalseTime);
+        gameObject.SetActive(false);
     }
 
 }

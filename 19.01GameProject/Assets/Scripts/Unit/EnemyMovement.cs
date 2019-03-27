@@ -17,10 +17,8 @@ public class EnemyMovement : EnemyAbility
 
         mTarget = GameObject.FindGameObjectWithTag("Player");
         Rigidbody rigid = GetComponent<Rigidbody>();
-        //rigid.isKinematic = true;
     }
 
-    // Update is called once per frame
     void Update()
     {
         float step = speed * Time.deltaTime;
