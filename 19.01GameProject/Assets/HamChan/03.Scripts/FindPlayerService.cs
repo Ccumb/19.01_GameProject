@@ -13,13 +13,13 @@ public class FindPlayerService : BehaviorTree.Service
     {
         mTarget = target;
     }
-    public override EBTState Tick()
+    public override bool Tick()
     {
         //Debug.Log(BlackBoard.GetValueByVector3Key("TargetPlayer"));
         BlackBoard.SetValueByVector3Key("TargetPlayer"
             , mTarget.transform.position);
         BlackBoard.SetValueByVector3Key("Destination",
             BlackBoard.GetValueByVector3Key("TargetPlayer"));
-        return EBTState.True;
+        return true;
     }
 }
