@@ -21,15 +21,18 @@ public class PlayerMove : PlayerAbility
 
     private void Update()
     {
-        mHorizontalMove = mInputManager.PrimaryMovement.x;
-        mVerticalMove = mInputManager.PrimaryMovement.y;
+        mHorizontalMove = mPlayer.linkedInputManager.PrimaryMovement.x;
+        mVerticalMove = mPlayer.linkedInputManager.PrimaryMovement.y;
         mDirectionVector = Vector3.forward * mVerticalMove + Vector3.right * mHorizontalMove;
-        if (mInputManager.IsMoving())
+        if (mPlayer.linkedInputManager.IsMoving())
         {
-
-            transform.Translate(Vector3.forward * mPlayerStatus.Speed * Time.deltaTime);
+            transform.Translate(Vector3.forward * mPlayer.playerStatus.Speed * Time.deltaTime);
             transform.rotation = Quaternion.LookRotation(mDirectionVector);
-
+            mPlayer.animator.SetBool("Walk", true);
+        }
+        else
+        {
+            mPlayer.animator.SetBool("Walk", false);
         }
     }
 

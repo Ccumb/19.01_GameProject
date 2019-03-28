@@ -10,13 +10,14 @@ public class PlayerAttack : PlayerAbility
     protected const float mAttackDelay = 0.5f;
     protected float mCheckDelay = 0.0f;
     protected BoxCollider mCheckBox;
-    public float center;
+    public Vector3 center;
     // Start is called before the first frame update
     protected void Start()
     {
         base.Start();
-        mCheckBox = transform.GetChild(0).GetComponent<BoxCollider>();
-        mCheckBox.center = new Vector3(0f,0f, center);
+        mCheckBox = transform.Find("AttackBoundary")
+            .GetComponent<BoxCollider>();
+        mCheckBox.center = center;
         mCheckBox.isTrigger = true;
         mCheckBox.enabled = false;
     }
@@ -37,6 +38,7 @@ public class PlayerAttack : PlayerAbility
             Debug.Log("swing!");
             mCheckBox.enabled = true;
             mbCanAttack = false;
+            mPlayer.animator.SetTrigger("Attack");
         }
         if (mInputManager.AttackButton.State.CurrentState
             == NRMInput.EButtonStates.Off
@@ -47,7 +49,6 @@ public class PlayerAttack : PlayerAbility
             mCheckDelay = 0f;
             mbCanAttack = true;
             mCheckBox.enabled = false;
-
         }
         // Debug.Log(mInputManager.AttackButton.State.CurrentState);        
         mCheckDelay += Time.deltaTime;

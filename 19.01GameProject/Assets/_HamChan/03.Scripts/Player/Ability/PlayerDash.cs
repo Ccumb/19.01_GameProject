@@ -9,6 +9,7 @@ public class PlayerDash : PlayerAbility
 {
     private Rigidbody mRigidbody;
     private Collider mPlayerCollider;
+    public float speed;
     private void Start()
     {
         base.Start();
@@ -22,15 +23,17 @@ public class PlayerDash : PlayerAbility
     {
         if(mInputManager.DashButton.State.CurrentState 
             == NRMInput.EButtonStates.Down
-            || mInputManager.DashButton.State.CurrentState 
-            == NRMInput.EButtonStates.Pressed)
+            //|| mInputManager.DashButton.State.CurrentState 
+            //== NRMInput.EButtonStates.Pressed)
+            )
         {
+            mPlayer.animator.SetTrigger("Dash");
             mPlayerCollider.enabled = false;
             Debug.Log("Hit");
             transform.Translate(Vector3.forward * mPlayerStatus.DashDistance *5*Time.deltaTime);
         }
     }
-    private void OnCollider()
+    private void DashEnd()
     {
         //애니메이션 종료 후 켜기;
         mPlayerCollider.enabled = true;
