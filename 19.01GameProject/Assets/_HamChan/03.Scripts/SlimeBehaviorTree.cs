@@ -40,7 +40,6 @@ public class SlimeBehaviorTree : MonoBehaviour
     private void Update()
     {
         mRoot.Tick();
-        mBehaviorTree.root.Tick();
 
     }
     private void SetBehavior()
