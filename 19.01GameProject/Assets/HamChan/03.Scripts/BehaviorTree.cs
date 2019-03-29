@@ -14,16 +14,19 @@ namespace Neremnem.AI
     }
     public class BehaviorTree
     {
-        public static Stack<Node> tickStack;
-        public static Animator animator;
-        public static GameObject owner;
-        public static NavMeshAgent navMeshAgent;
+        public Stack<Node> tickStack;
+        public Animator animator;
+        public GameObject owner;
+        public NavMeshAgent navMeshAgent;
+        public Root root;
         public BehaviorTree(GameObject ownerObject)
         {
             owner = ownerObject;
             animator = owner.GetComponent<Animator>();
             navMeshAgent = owner.GetComponent<NavMeshAgent>();
+            root = new Root();
         }
+    }
 
         public class Node
         {
@@ -81,7 +84,7 @@ namespace Neremnem.AI
             public Root()
                 : base("Root")
             {
-                tickStack = new Stack<Node>();
+                BehaviorTree.tickStack = new Stack<Node>();
             }
             public Root(string nodeName)
                 : base(nodeName)
@@ -94,7 +97,9 @@ namespace Neremnem.AI
                 {
                     tickStack.Push(mChild);
                 }
-                tickStack.Pop().Tick();
+                var temp = tickStack.Pop();
+                Debug.Log(temp);
+                temp.Tick();
             }            
         }
         public class Service 
@@ -671,5 +676,5 @@ namespace Neremnem.AI
                 return EBTState.True;
             }
         }
-    }
+    
 }
