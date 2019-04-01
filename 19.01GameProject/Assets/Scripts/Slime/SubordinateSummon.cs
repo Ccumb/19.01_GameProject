@@ -9,7 +9,7 @@ public class SubordinateSummon : EnemyAbility
     public int SummonCount = 3;
     public float cAccumulateSummonTime = 0.0f;
     public float cSummonTime = 10.0f;
-    public Transform[] tSummonTransform = new Transform[5];
+    public Transform[] SummonTransform = new Transform[5];
 
     private GameObject mTarget = null;
     private bool bSummon = false;
@@ -57,7 +57,7 @@ public class SubordinateSummon : EnemyAbility
             cAccumulateSummonTime += Time.deltaTime;
             if (cAccumulateSummonTime > cSummonTime)
             {
-                SummonPool.Pooling(SummonCount, tSummonTransform);
+                SummonPool.Pooling(SummonCount, SummonTransform);
                 if (SummonCount < 5)
                 {
                     SummonCount++;

@@ -25,6 +25,8 @@ public class Enemy : Unit
     public int[] PhaseTwo;
     public int[] PhaseThree;
     public int[] PhaseFour;
+    [HideInInspector]
+    public bool bDie = false;
 
     private EPhase mPresentPhase = EPhase.Non;
     private EPhase mPastPhase = EPhase.Non;
@@ -39,6 +41,10 @@ public class Enemy : Unit
     }
     private void OnEnable()
     {
+        bDie = false;
+        InitHP();
+        mPresentPhase = EPhase.Non;
+        mPastPhase = EPhase.Non;
         EventManager.StartListeningTakeDamageEvent("PlayersAttack", TakeDamage);   
     }
     private void OnDisable()
@@ -50,7 +56,6 @@ public class Enemy : Unit
     void Start()
     {
         mbIsActive = true;
-        InitHP();
         this.gameObject.tag = "Enemy";
 
         mStartPos = this.transform.position;
@@ -65,7 +70,7 @@ public class Enemy : Unit
         }
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         if (hp > 80)
@@ -133,6 +138,7 @@ public class Enemy : Unit
                 Die();
                 break;
             default:
+                Debug.Log("Health Point Range Error");
                 break;
         }
 
@@ -140,6 +146,7 @@ public class Enemy : Unit
 
     protected override void Die() 
     {
+        bDie = true;
         DisableAbilities();
         SpawnCoin(this.transform.position);
         
@@ -156,7 +163,7 @@ public class Enemy : Unit
         GetComponent<Rigidbody>().isKinematic = false;
         this.transform.position = mStartPos;
     }
-
+    //모든 어빌리티를 끔
     void DisableAbilities()
     {
         for (int i = 0; i < mAbilities.Count; i++)
@@ -188,7 +195,7 @@ public class Enemy : Unit
             }
         }
     }
-
+    ///mAbilities리스트에 어빌리티 등록
     public void RegisterAbility(EnemyAbility ability)
     {
         if ((ability != GetComponent<EnemyAbility>())
@@ -204,7 +211,7 @@ public class Enemy : Unit
         yield return new WaitForSeconds(respawnTime);
         Active();
     }
-
+    //몇 초 뒤에 사라질 것인지
     IEnumerator ActiveFalseDelay()
     {
         yield return new WaitForSeconds(activeFalseTime);

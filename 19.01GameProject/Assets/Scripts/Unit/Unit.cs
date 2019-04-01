@@ -42,10 +42,7 @@ public class Unit : MonoBehaviour
 
     protected void InitHP()
     {
-        if (hp > max_hp)
-        {
-            max_hp = hp;
-        }
+            hp = max_hp;
     }
     protected virtual void TakeDamage(GameObject gameObejct,int damage)
     {
