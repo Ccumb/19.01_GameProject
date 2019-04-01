@@ -7,10 +7,15 @@ public class Portal : MonoBehaviour
 {
     private BoxCollider mCollider;
     public string destination;
-    void Start()
+
+    private void Start()
     {
         mCollider = GetComponent<BoxCollider>();
         mCollider.isTrigger = true;
+    }
+    private void OnEnable()
+    {
+        StartCoroutine("KeepPortal");
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -25,5 +30,10 @@ public class Portal : MonoBehaviour
         {
             SceneManager.LoadScene(destination);
         }
+    }
+    private IEnumerator KeepPortal()
+    {        
+        yield return new WaitForSeconds(15f);
+        this.gameObject.SetActive(false);
     }
 }
