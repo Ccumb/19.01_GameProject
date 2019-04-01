@@ -17,4 +17,16 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainMenuScene.unity
     guid: 2d93c014225ab7f4bbc6ab63a8963a6f
+  - enabled: 1
+    path: Assets/_HamChan/01.Scenes/PortalTest A.unity
+    guid: 0e6aa92577d62f14cb1e79550b60fb6e
+  - enabled: 1
+    path: Assets/_HamChan/01.Scenes/PortalTest B.unity
+    guid: 5be46c9327a5e3e47afd4a648e68e4a4
+  - enabled: 1
+    path: Assets/_HamChan/01.Scenes/PortalTest C.unity
+    guid: c3f383e572546f348823ade0c53b66e5
+  - enabled: 1
+    path: Assets/_HamChan/01.Scenes/PortalTest D.unity
+    guid: bb055ae60415a7f41b56b6c8087880e6
   m_configObjects: {}
