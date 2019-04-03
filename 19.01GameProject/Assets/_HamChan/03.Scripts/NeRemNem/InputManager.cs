@@ -127,7 +127,7 @@ namespace Neremnem.Tools
             {
 
                 mPrimaryMovement.x = Input.GetAxis(mAxisHorizontal);
-                Debug.Log(mPrimaryMovement);
+                //Debug.Log(mPrimaryMovement);
 
                 mPrimaryMovement.y = Input.GetAxis(mAxisVertical);
             }

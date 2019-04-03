@@ -27,6 +27,8 @@ public class InventoryScript : MonoBehaviour
     private SlotScript mFromSlot;
     private static InventoryScript mInstance;
 
+    public int mGold;
+
     public static InventoryScript MyInstance
     {
         get
@@ -60,6 +62,15 @@ public class InventoryScript : MonoBehaviour
             }
         }
     }
+
+    public int Gold
+    {
+        get
+        {
+            return mGold;
+        }
+    }
+
     public void AddItem(ItemIconVersion item)
     {
         if (item.MyStackSize > 0)
@@ -70,7 +81,7 @@ public class InventoryScript : MonoBehaviour
             }
         }
         PlaceInEmpty(item);
-
+        Debug.Log("add item " + item.name);
     }
 
     public void AddBag(Bag bag)
@@ -138,6 +149,23 @@ public class InventoryScript : MonoBehaviour
         {
             mItemQuickSlots[i] = action[i];
         }
+    }
+
+    public void UpdateGold(int amount)
+    {
+        mGold += amount;
+    }
+
+    public bool ItemIsFull(string itemName)
+    {
+        foreach (SlotScript slots in bags.MyBagScript.MySlots)
+        {
+            if(slots.MyItem.name == itemName)
+            {
+                return slots.IsFull;
+            }
+        }
+        return false;
     }
 
     private bool IsPlaceInStack(ItemIconVersion item)
