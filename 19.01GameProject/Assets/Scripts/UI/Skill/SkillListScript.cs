@@ -29,7 +29,13 @@ public class SkillListScript : MonoBehaviour
     public bool AddSkill(Skill skill)
     {
         Debug.Log(skill.name);
-        if (skill.name == "Skill1" + "(Clone)")
+        if (skill.name == "HealingSkill(Clone)")
+        {
+            mSlots[skill.slotPosition].AddSkill(skill);
+            return true;
+        }
+
+        if(skill.name == "CoolTimeDownSkill(Clone)")
         {
             mSlots[skill.slotPosition].AddSkill(skill);
             return true;

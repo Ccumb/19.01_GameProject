@@ -12,6 +12,11 @@ public class Bag : ItemIconVersion, IUseable
 
     public BagScript MyBagScript { get; set; }
 
+    public int MyCost
+    {
+        get; set;
+    }
+
     public int Slots
     {
         get

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using Neremnem.Tools;
 //현재 버그 :
 //퀵슬롯에 처음 등록해서 아이템을 다 사용을 하면 멀쩡하게 연동이 되는데
 //그 후에 포션을 다시 추가해서 사용을하면 아이템 슬롯에 있는 개수는 안줄어들고 퀵슬롯만 줄어든다
@@ -10,7 +10,7 @@ using UnityEngine.UI;
 //
 //
 public class InventoryScript : MonoBehaviour
-{
+{  
     public int slotCount = 8;
 
     public GameObject ItemQuickSlot;
@@ -81,7 +81,11 @@ public class InventoryScript : MonoBehaviour
             }
         }
         PlaceInEmpty(item);
+<<<<<<< HEAD
         Debug.Log("add item " + item.name);
+=======
+        
+>>>>>>> feature/SkillSystem_2
     }
 
     public void AddBag(Bag bag)
@@ -143,6 +147,7 @@ public class InventoryScript : MonoBehaviour
         return mItemQuickSlots;
     }
 
+<<<<<<< HEAD
     public void SetInveontryQuickSlotList(List<ActionButton> action)
     {
         for(int i = 0; i < action.Count; i ++)
@@ -168,12 +173,16 @@ public class InventoryScript : MonoBehaviour
         return false;
     }
 
+=======
+>>>>>>> feature/SkillSystem_2
     private bool IsPlaceInStack(ItemIconVersion item)
     {        
+        
         foreach(SlotScript slots in bags.MyBagScript.MySlots)
-        {
+        {         
             if(slots.StackItem(item))
             {
+                UIManager.MyInstance.OnItemCountChanged(item);
                 return true;
             }
         }
@@ -192,10 +201,8 @@ public class InventoryScript : MonoBehaviour
     {
         // 가방을 생성하고
         Bag bag = (Bag)Instantiate(mItems[0]);
-
         // 가방의 슬롯 갯수를 정의하고
         bag.Initalize(slotCount);
-
         // 가방 아이템을 사용한다.
         bag.Use();
     }
@@ -206,6 +213,7 @@ public class InventoryScript : MonoBehaviour
         {
             mItemQuickSlots.Add(ItemQuickSlot.transform.GetChild(i).GetComponent<ActionButton>());
         }
+      
     }
 
     private void Update()

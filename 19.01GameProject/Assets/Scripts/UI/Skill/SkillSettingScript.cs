@@ -3,16 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
+public delegate void RingCountChanged(int count);
 public class SkillSettingScript : MonoBehaviour
 {
+    public event RingCountChanged RingCountchange;
     public int slotCount = 8;
+    public int tmpRingCount = 0;
 
     public GameObject SkillQuickSlot;
 
+    [SerializeField]
     private List<ActionButton> mSkillQuickslots = new List<ActionButton>();
 
     [SerializeField]
-    private Skill[] mSkills;
+    private Skill[] mSkillsList;
 
     private SkillListScript mSkillListScript;
 
@@ -32,13 +37,27 @@ public class SkillSettingScript : MonoBehaviour
             }
             return mInstance;
         }
-
+        
         set
         {
             mInstance = value;
         }
     }
 
+    public int MyRingCount
+    {
+        get { return tmpRingCount; }
+        set
+        {
+            tmpRingCount = value;
+            RingCountchange.Invoke(tmpRingCount);
+        }
+    }
+
+    public List<ActionButton> MySkillList
+    {
+        get { return mSkillQuickslots; }
+    }
     public SkillSlotScript FromSlot
     {
         get
@@ -103,7 +122,13 @@ public class SkillSettingScript : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.L))
         {
-            CreateSkill create = (CreateSkill)Instantiate(mSkills[0]);
+            HealingSkill create = (HealingSkill)Instantiate(mSkillsList[0]);
+
+            AddSkill(create);
+        }
+        if(Input.GetKeyDown(KeyCode.J))
+        {
+            PCoolTimeDownSkill create = (PCoolTimeDownSkill)Instantiate(mSkillsList[1]);
 
             AddSkill(create);
         }
