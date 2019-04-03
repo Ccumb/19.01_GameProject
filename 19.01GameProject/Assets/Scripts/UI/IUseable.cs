@@ -4,5 +4,10 @@ using UnityEngine;
 
 public interface IUseable
 {
+    int MyCost
+    {
+        get;
+        set;
+    }
     void Use();
 }

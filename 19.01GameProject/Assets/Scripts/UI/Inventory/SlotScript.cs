@@ -19,8 +19,6 @@ public class SlotScript : MonoBehaviour, IClickable, IPointerClickHandler
     [SerializeField]
     private Text mStackSize;
 
-
-
     public Text MyStackText
     {
         get
@@ -101,9 +99,8 @@ public class SlotScript : MonoBehaviour, IClickable, IPointerClickHandler
         if (!IsEmpty)
         {
             // Items 의 제일 마지막 아이템을 꺼냅니다.
-            mItems.Pop();
-
-            //UpdateStackSize(this);
+            UIManager.MyInstance.OnItemCountChanged(MyItems.Pop());
+            
         }
     }
 
