@@ -81,7 +81,7 @@ public class InventoryScript : MonoBehaviour
             }
         }
         PlaceInEmpty(item);
-
+        Debug.Log("add item " + item.name);
     }
 
     public void AddBag(Bag bag)
