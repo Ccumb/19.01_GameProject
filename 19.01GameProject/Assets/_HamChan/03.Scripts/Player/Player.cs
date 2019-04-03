@@ -6,11 +6,13 @@ public class Player : MonoBehaviour
 {
     public InputManager linkedInputManager;
     public PlayerStatus playerStatus;
+    public Animator animator;
     public string playerID = "Player1";
 
     protected virtual void Awake()
     {
         playerStatus = GetComponent<PlayerStatus>();
+        animator = GetComponent<Animator>();
         GetInputManager();
     }
     protected virtual void GetInputManager()

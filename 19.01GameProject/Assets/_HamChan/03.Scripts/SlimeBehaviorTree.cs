@@ -40,10 +40,10 @@ public class SlimeBehaviorTree : MonoBehaviour
     private void Update()
     {
         mRoot.Tick();
+
     }
     private void SetBehavior()
     {
-
         mRoot = new BehaviorTree.Root("Root");
         mSequence = new BehaviorTree.Sequence("Main");
         mCloseAttack = new BehaviorTree.AnimationTrigger("CloseAttack");

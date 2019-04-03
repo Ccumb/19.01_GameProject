@@ -25,6 +25,7 @@ namespace Neremnem.AI
             navMeshAgent = owner.GetComponent<NavMeshAgent>();
         }
 
+
         public class Node
         {
             protected Node mparent;
@@ -81,7 +82,7 @@ namespace Neremnem.AI
             public Root()
                 : base("Root")
             {
-                tickStack = new Stack<Node>();
+                BehaviorTree.tickStack = new Stack<Node>();
             }
             public Root(string nodeName)
                 : base(nodeName)
@@ -94,10 +95,12 @@ namespace Neremnem.AI
                 {
                     tickStack.Push(mChild);
                 }
-                tickStack.Pop().Tick();
-            }            
+                var temp = tickStack.Pop();
+                Debug.Log(temp);
+                temp.Tick();
+            }
         }
-        public class Service 
+        public class Service
         {
             private float mFuture;
             public List<string> keyList;
@@ -205,7 +208,7 @@ namespace Neremnem.AI
                         if (mDecoratorList[i].Tick() == false)
                         {
                             return EBTState.Abort;
-                        }                        
+                        }
                     }
                 }
                 if (mCursor < 0)
@@ -273,7 +276,7 @@ namespace Neremnem.AI
                 {
                     for (int i = 0; i < mServiceList.Count; i++)
                     {
-                        mServiceList[i].Tick();                        
+                        mServiceList[i].Tick();
                     }
                 }
                 if (mDecoratorList.Count > 0)
@@ -313,11 +316,11 @@ namespace Neremnem.AI
                                 return EBTState.True;
                             }
                             break;
-                        }                    
+                        }
                     case EBTState.Continue:
                         {
                             tickStack.Push(this);
-                           return EBTState.Continue;
+                            return EBTState.Continue;
                         }
                     case EBTState.Abort:
                         {
@@ -330,7 +333,7 @@ namespace Neremnem.AI
         }
         public class Task : Node
         {
-            protected string mNodeName;            
+            protected string mNodeName;
         }
         public class ImplementRandom : Task
         {
@@ -393,9 +396,9 @@ namespace Neremnem.AI
                 {
                     for (int i = 0; i < mServiceList.Count; i++)
                     {
-                        mServiceList[i].Tick();                        
+                        mServiceList[i].Tick();
                     }
-                }                
+                }
                 if (Vector3.Distance
                     (BlackBoard.GetValueByVector3Key(mKey)
                     , BlackBoard.GetValueByVector3Key(mCurrentPositionKey))
@@ -456,7 +459,7 @@ namespace Neremnem.AI
             public override EBTState Tick()
             {
                 mAnimator.SetTrigger(mTrigger);
-                return EBTState.True;                
+                return EBTState.True;
             }
         }
         public class WaitForAnimationEnd : Task
@@ -475,7 +478,7 @@ namespace Neremnem.AI
             public override EBTState Tick()
             {
                 var state = mAnimator.GetCurrentAnimatorStateInfo(mLayer);
-                if(state.fullPathHash == mID || state.shortNameHash == mID)
+                if (state.fullPathHash == mID || state.shortNameHash == mID)
                 {
                     return EBTState.True;
                 }
@@ -508,12 +511,12 @@ namespace Neremnem.AI
         public class CanAttack : Decorator
         {
             private float mRange;
-            public CanAttack(string name ,float ragne)
+            public CanAttack(string name, float ragne)
             {
                 mNodeName = name;
                 mRange = ragne;
             }
-            public CanAttack( Node parent, float ragne)
+            public CanAttack(Node parent, float ragne)
             {
                 mNodeName = "CanAttack";
                 mRange = ragne;
@@ -592,7 +595,7 @@ namespace Neremnem.AI
                             BlackBoard.SetValueByIntKey("SlimeAmount"
                                 , BlackBoard.GetValueByIntKey("SlimeAmount") + 1); ;
                         }
-                    }                        
+                    }
                     return EBTState.True;
                 }
             }
