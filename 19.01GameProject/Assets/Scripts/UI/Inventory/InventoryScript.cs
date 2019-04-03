@@ -27,7 +27,7 @@ public class InventoryScript : MonoBehaviour
     private SlotScript mFromSlot;
     private static InventoryScript mInstance;
 
-    private int mGold;
+    public int mGold;
 
     public static InventoryScript MyInstance
     {
@@ -154,6 +154,18 @@ public class InventoryScript : MonoBehaviour
     public void UpdateGold(int amount)
     {
         mGold += amount;
+    }
+
+    public bool ItemIsFull(string itemName)
+    {
+        foreach (SlotScript slots in bags.MyBagScript.MySlots)
+        {
+            if(slots.MyItem.name == itemName)
+            {
+                return slots.IsFull;
+            }
+        }
+        return false;
     }
 
     private bool IsPlaceInStack(ItemIconVersion item)

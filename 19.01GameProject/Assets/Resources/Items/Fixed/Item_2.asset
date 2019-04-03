@@ -16,5 +16,5 @@ MonoBehaviour:
   mIcon: {fileID: 21300000, guid: 4e48f1d934fc382478f2ed497dfcb7b3, type: 3}
   mExplainItem: {fileID: 0}
   mStackSize: 0
-  mCost: 0
+  mCost: 20
   mHealthRec: 0

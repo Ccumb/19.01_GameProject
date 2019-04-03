@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: testItem1
   m_EditorClassIdentifier: 
   slotPosition: 0
-  mIcon: {fileID: 0}
+  mIcon: {fileID: 21300000, guid: 1fd63276cf65f494e88ada3f88c86146, type: 3}
   mExplainItem: {fileID: 0}
   mStackSize: 0
-  mCost: 0
+  mCost: 10
   mHealthRec: 0

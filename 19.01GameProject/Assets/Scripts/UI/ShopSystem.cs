@@ -9,21 +9,69 @@ public class ShopSystem : MonoBehaviour
     private List<ItemIconVersion> mRandomItemList = new List<ItemIconVersion>();      // 랜덤으로 갱신될 아이템 리스트
     private List<ItemIconVersion> mFixedItemList = new List<ItemIconVersion>();       // 고정으로 판대될 아이템 리스트
 
-    private Stack<int> mPrevItemIndexList = new Stack<int>();                         // 이전 아이템 인덱스 번호 스택
+    private Queue<int> mRandomIndexQueue = new Queue<int>();                         // 아이템 인덱스 번호 Queue
+    private List<int> mIndexList = new List<int>();
 
     private List<ItemForShop> mRandomItemsPlaceList = new List<ItemForShop>();   // 랜덤으로 갱신될 아이템들이 위치될 좌표에 대한 리스트
     private List<ItemForShop> mFixedItemsPlaceList = new List<ItemForShop>();    // 고정으로 판매될 아이템들이 위치될 좌표에 대한 리스트
 
     public float updateTime;                            // 아이템 리스트 갱신 시간
 
-    public int randomItemNum;                           // 랜덤 아이템 팔 갯수
-
     public IEnumerator UpdateRandomItemList()            // 랜덤 아이템 리스트 갱신
     {
+        while(true)
+        {
+            for (int i = 0; i < mRandomItemsPlaceList.Count; i++)
+            {
+                if (mRandomIndexQueue.Count == 0)
+                {
+                    MakeRandomIndexQueue();
+                }
 
-        yield return new WaitForSeconds(updateTime);
+                int n = mRandomIndexQueue.Dequeue();
+
+                mRandomItemList[i] = mItemList[n];
+            }
+
+            UpdateRandomItemPlace();
+
+            yield return new WaitForSeconds(updateTime);
+        }
     }
-    
+
+    private void ShuffleIndexList()
+    {
+        if (mIndexList.Count != 0)            // 리스트에 뭔가라도 있다면
+        {
+            int random1 = 0;
+            int random2 = 0;
+
+            int tmp = 0;
+
+            for (int i = 0; i < mIndexList.Count; i++)
+            {
+                random1 = UnityEngine.Random.Range(0, mIndexList.Count);
+                random2 = UnityEngine.Random.Range(0, mIndexList.Count);
+
+                tmp = mIndexList[random1];
+                mIndexList[random1] = mIndexList[random2];
+                mIndexList[random2] = tmp;
+            }
+        }
+    }
+
+
+    private void MakeRandomIndexQueue()
+    {
+        mRandomIndexQueue.Clear();          // 스택을 비우고
+
+        ShuffleIndexList();                 // 인덱스 리스트를 섞고
+
+        for(int i = 0; i < mIndexList.Count; i++)
+        {
+            mRandomIndexQueue.Enqueue(mIndexList[i]);
+        }
+    }
 
     private void InitItemLists()                        // 아이템 리스트들에 대한 초기화
     {
@@ -42,20 +90,48 @@ public class ShopSystem : MonoBehaviour
             ItemIconVersion item = fixedItems[i] as ItemIconVersion;
             mFixedItemList.Add(item);
         }
+
+        for (int i = 0; i < mItemList.Count; i++)
+        {
+            mIndexList.Add(i);
+        }
     }
 
     private void InitFixedItemPlaces()                       // 아이템을 놓는 자리들에 대한 초기화, 고정 아이템용
     {
-        ItemForShop[] fixedItemsPlaceList = GetComponentsInChildren<ItemForShop>();
+        ItemForShop[] ItemsPlaceList = GetComponentsInChildren<ItemForShop>();
 
-        for(int i = 0; i < fixedItemsPlaceList.Length; i++)
+        for(int i = 0; i < ItemsPlaceList.Length; i++)
         {
-            if(fixedItemsPlaceList[i].tag == "ForFixed")
+            if(ItemsPlaceList[i].tag == "ForFixed")
             {
-                mFixedItemsPlaceList.Add(fixedItemsPlaceList[i]);
-                fixedItemsPlaceList[i].MyItemInfo = mFixedItemList[i];
-                fixedItemsPlaceList[i].Renderer.material.SetTexture("_MainTex", mFixedItemList[i].MyIcon.texture);
+                mFixedItemsPlaceList.Add(ItemsPlaceList[i]);
+                ItemsPlaceList[i].MyItemInfo = mFixedItemList[i];
+                ItemsPlaceList[i].Renderer.material.SetTexture("_MainTex", mFixedItemList[i].MyIcon.texture);
             }
+        }
+    }
+
+    private void InitRandomItemPlaces()
+    {
+        ItemForShop[] ItemsPlaceList = GetComponentsInChildren<ItemForShop>();
+
+        for (int i = 0; i < ItemsPlaceList.Length; i++)
+        {
+            if (ItemsPlaceList[i].tag == "ForRandom")
+            {
+                mRandomItemsPlaceList.Add(ItemsPlaceList[i]);
+                mRandomItemList.Add(null);
+            }
+        }
+    }
+
+    private void UpdateRandomItemPlace()
+    {
+        for (int i = 0; i < mRandomItemsPlaceList.Count; i++)
+        {
+            mRandomItemsPlaceList[i].MyItemInfo = mRandomItemList[i];
+            mRandomItemsPlaceList[i].Renderer.material.SetTexture("_MainTex", mRandomItemList[i].MyIcon.texture);
         }
     }
 
@@ -64,6 +140,9 @@ public class ShopSystem : MonoBehaviour
     {
         InitItemLists();
         InitFixedItemPlaces();
+        InitRandomItemPlaces();
+
+        StartCoroutine("UpdateRandomItemList");
     }
 
     // Update is called once per frame
