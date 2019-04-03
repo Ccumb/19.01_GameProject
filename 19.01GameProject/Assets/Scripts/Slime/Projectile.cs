@@ -6,31 +6,31 @@ using Neremnem.Tools;
 [RequireComponent(typeof(Rigidbody))]
 public class Projectile : MonoBehaviour
 {
-    Rigidbody ProejctileRigid;
+    private Rigidbody mProejctileRigid;
     public int ProejctileDamage = 1;
     public float DelayActive = 1.0f;
 
     private void Awake()
     {
-        ProejctileRigid = GetComponent<Rigidbody>();
+        mProejctileRigid = GetComponent<Rigidbody>();
         gameObject.SetActive(false);
     }
     private void Start()
     {
-        ProejctileRigid.isKinematic = false;
-        ProejctileRigid.useGravity = false;
+        mProejctileRigid.isKinematic = false;
+        mProejctileRigid.useGravity = false;
     }
 
     private void OnEnable()
     {
         StartCoroutine(RemoveProjectile(DelayActive));
-        ProejctileRigid.velocity = new Vector3(transform.parent.GetChild(0).forward.x, 0, transform.parent.GetChild(0).forward.z) * 10;
+        mProejctileRigid.velocity = new Vector3(transform.parent.GetChild(0).forward.x, 0, transform.parent.GetChild(0).forward.z) * 10;
     }
 
     private void OnDisable()
     {
         StopCoroutine(RemoveProjectile(0));
-        ProejctileRigid.velocity = Vector3.zero;
+        mProejctileRigid.velocity = Vector3.zero;
     }
 
     private void OnCollisionEnter(Collision collision)

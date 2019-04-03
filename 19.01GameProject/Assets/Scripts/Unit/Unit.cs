@@ -62,8 +62,6 @@ public class Unit : MonoBehaviour
     {
         if (mbIsActive == false)
         {
-            MeshRenderer meshRenderer = this.gameObject.GetComponent<MeshRenderer>();
-            meshRenderer.enabled = true;
             Collider collider = this.gameObject.GetComponent<Collider>();
             collider.enabled = true;
 
@@ -75,8 +73,6 @@ public class Unit : MonoBehaviour
     {
         if (mbIsActive == true)
         {
-            MeshRenderer meshRenderer = this.gameObject.GetComponent<MeshRenderer>();
-            meshRenderer.enabled = false;
             Collider collider = this.gameObject.GetComponent<Collider>();
             collider.enabled = false;
 

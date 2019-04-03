@@ -12,11 +12,11 @@ public class Enemy : Unit
     private enum EPhase
     {
         Non
-               , One
-               , Two
-               , Three
-               , Four
-               , Die
+      , One
+      , Two
+      , Three
+      , Four
+      , Die
     }
     /// <summary>
     /// 각 페이즈 당 몇 개의 패턴을 활성화 시킬 것인지
@@ -27,6 +27,8 @@ public class Enemy : Unit
     public int[] PhaseFour;
     [HideInInspector]
     public bool bDie = false;
+
+    public int PhaseOneMin = 80, PhaseTwoMin = 40, PhaseThreeMin = 10, PhaseFourMin = 0;
 
     private EPhase mPresentPhase = EPhase.Non;
     private EPhase mPastPhase = EPhase.Non;
@@ -73,19 +75,19 @@ public class Enemy : Unit
 
     void Update()
     {
-        if (hp > 80)
+        if (hp > PhaseOneMin)
         {
             mPresentPhase = EPhase.One;
         }
-        else if (hp <= 80 && hp > 40)
+        else if (hp <= PhaseOneMin && hp > PhaseTwoMin)
         {
             mPresentPhase = EPhase.Two;
         }
-        else if (hp <= 40 && hp > 10)
+        else if (hp <= PhaseTwoMin && hp > PhaseThreeMin)
         {
             mPresentPhase = EPhase.Three;
         }
-        else if (hp <= 10 && hp > 0)
+        else if (hp <= PhaseThreeMin && hp > PhaseFourMin)
         {
             mPresentPhase = EPhase.Four;
         }
@@ -100,6 +102,7 @@ public class Enemy : Unit
             PatternManager(mPresentPhase);
         }
     }
+
     private void TakeDamage(GameObject gameObject, int i)
     {
         if(gameObject == this.gameObject)

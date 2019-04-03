@@ -7,20 +7,19 @@ using UnityEngine;
 public class SubordinateSummon : EnemyAbility
 {
     public int SummonCount = 3;
-    public float cAccumulateSummonTime = 0.0f;
-    public float cSummonTime = 10.0f;
+    public float SummonTime = 10.0f;
     public Transform[] SummonTransform = new Transform[5];
 
-    private GameObject mTarget = null;
+    private float mSummonTime = 0.0f;
     private bool bSummon = false;
-    private int iFalseCount = 0;
+    private int FalseCount = 0;
 
     SubordinatePool SummonPool = null;
 
     private void OnEnable()
     {
         SummonCount = 3;
-        cAccumulateSummonTime = 0.0f;
+        mSummonTime = 0.0f;
         bSummon = false;
     }
 
@@ -29,40 +28,33 @@ public class SubordinateSummon : EnemyAbility
         SummonPool = GetComponent<SubordinatePool>();
     }
 
-    protected override void Start()
-    {
-        base.Start();
-        mTarget = GameObject.FindGameObjectWithTag("Player");
-    }
-
     void Update()
     {
-        transform.forward = new Vector3((mTarget.transform.position - transform.position).normalized.x, 0, (mTarget.transform.position - transform.position).normalized.z);
-        iFalseCount = 0;
+        FalseCount = 0;
         for (int i = 0; i < transform.parent.GetChild(1).childCount; i++)
         {
             if (!transform.parent.GetChild(1).GetChild(i).gameObject.activeSelf)
             {
-                iFalseCount++;
+                FalseCount++;
             }
         }
 
-        if(iFalseCount == transform.parent.GetChild(1).childCount)
+        if(FalseCount == transform.parent.GetChild(1).childCount)
         {
             bSummon = true;
         }
 
         if (bSummon)
         {
-            cAccumulateSummonTime += Time.deltaTime;
-            if (cAccumulateSummonTime > cSummonTime)
+            mSummonTime += Time.deltaTime;
+            if (mSummonTime > SummonTime)
             {
                 SummonPool.Pooling(SummonCount, SummonTransform);
                 if (SummonCount < 5)
                 {
                     SummonCount++;
                 }
-                cAccumulateSummonTime = 0.0f;
+                mSummonTime = 0.0f;
                 bSummon = false;
             }
         }

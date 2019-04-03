@@ -14,7 +14,7 @@ public class SubordinateRangeBoom : MonoBehaviour
     public LayerMask TargetMask;    //타겟 레이어
     public LayerMask ObstacleMask;  //장애물 레이어
 
-    public float mBoomTime = 0.0f;
+    private float mBoomTime = 0.0f;
     private bool mbBoom = false;
 
     private void OnEnable()

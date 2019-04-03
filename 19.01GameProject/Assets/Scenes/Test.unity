@@ -974,7 +974,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &580630306
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1782,7 +1782,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1361004395
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2738,6 +2738,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &2138963754 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7815265990578541885, guid: f8451995a85542a499c13fd3da35be57,
+    type: 3}
+  m_PrefabInstance: {fileID: 7815265989681612942}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3627230683479378663
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2970,5 +2976,16 @@ PrefabInstance:
       propertyPath: DeleteMapObject
       value: 
       objectReference: {fileID: 1885475893}
+    - target: {fileID: 4749469319627195189, guid: f8451995a85542a499c13fd3da35be57,
+        type: 3}
+      propertyPath: SubordinateObject
+      value: 
+      objectReference: {fileID: 6649016814881297971, guid: fb3ad8108a7903c4d800c879a3ebde5d,
+        type: 3}
+    - target: {fileID: 7870496583670262428, guid: f8451995a85542a499c13fd3da35be57,
+        type: 3}
+      propertyPath: SpawnPoint
+      value: 
+      objectReference: {fileID: 2138963754}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f8451995a85542a499c13fd3da35be57, type: 3}
