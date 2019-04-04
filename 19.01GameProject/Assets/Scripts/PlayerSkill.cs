@@ -7,11 +7,7 @@ public class PlayerSkill : MonoBehaviour
 {
      
     private const int mMaxSkillAmount = 4;
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> feature/UISystem
     private  Skill[] mSkills = new Skill[mMaxSkillAmount];
 
     public void RegistSkill(List<ActionButton> actions)
