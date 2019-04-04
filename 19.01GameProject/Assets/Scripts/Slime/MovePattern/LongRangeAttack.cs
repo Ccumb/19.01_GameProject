@@ -12,8 +12,8 @@ public class LongRangeAttack : EnemyAbility
     public float LongTargetAngle;   //타겟을 인식할 각도
 
     public float TargetOnTime = 0.5f; //타겟을 찾고 경과한 시간
-    public float DelayDamageTime = 3.3f; //타겟을 찾은 뒤 몇 초 뒤에 대미지를 줄 것인지
-    public float DelayCoolTime = 1.0f;
+    public float DamageTime = 3.3f; //타겟을 찾은 뒤 몇 초 뒤에 대미지를 줄 것인지
+    public float CoolTime = 1.0f;
 
     public LayerMask TargetMask;    //타겟 레이어
     public LayerMask ObstacleMask;  //장애물 레이어
@@ -56,7 +56,7 @@ public class LongRangeAttack : EnemyAbility
     private void OnEnable()
     {
         Debug.Log("On Script LongRange!");
-        DelayDamageTime = TargetOnTime * 2;
+        DamageTime = TargetOnTime * 2;
         mRangeSpriteRenderer.enabled = false;
         StartCoroutine(FindTargetsWithDelay(0.2f));
     }
@@ -76,7 +76,7 @@ public class LongRangeAttack : EnemyAbility
             if (mDamageTime > TargetOnTime)
             {
                 if (!mRangeSpriteRenderer.enabled) mRangeSpriteRenderer.enabled = true;
-                if ((mDamageTime > DelayDamageTime) )
+                if ((mDamageTime > DamageTime) )
                 {
                     mbDamage = true;
                     mDamageTime = 0.0f;
@@ -97,7 +97,7 @@ public class LongRangeAttack : EnemyAbility
         if (mbCool)
         {
             mCoolTime += Time.deltaTime;
-            if (mCoolTime > DelayCoolTime)
+            if (mCoolTime > CoolTime)
             {
                 mbCool = false;
                 mCoolTime = 0.0f;

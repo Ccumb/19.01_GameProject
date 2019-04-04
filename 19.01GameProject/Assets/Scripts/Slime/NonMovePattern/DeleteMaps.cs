@@ -5,7 +5,7 @@ using UnityEngine;
 public class DeleteMaps : EnemyAbility
 {
     public GameObject DeleteMapObject = null;//삭제할 맵
-    public float DelayDeleteMapTime = 3.0f; //지연 시간
+    public float DeleteTime = 3.0f; //지연 시간
 
     private float mDeleteTime = 0.0f;
     private bool mbDeleteMap = false; //true일 경우 시간이 지나감
@@ -20,7 +20,7 @@ public class DeleteMaps : EnemyAbility
         if(mbDeleteMap == true)
         {
             mDeleteTime += Time.deltaTime;
-            if(mDeleteTime > DelayDeleteMapTime)
+            if(mDeleteTime > DeleteTime)
             {
                 mbDeleteMap = false;
                 mDeleteTime = 0.0f;

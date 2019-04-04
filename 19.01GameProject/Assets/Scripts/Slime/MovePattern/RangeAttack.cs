@@ -12,8 +12,8 @@ public class RangeAttack : EnemyAbility
     public float TargetAngle;   //타겟을 인식할 각도
 
     public float TargetOnTime = 0.5f; //타겟을 찾고 경과한 시간
-    public float DelayDamageTime = 0.5f; //타겟을 찾은 뒤 몇 초 뒤에 대미지를 줄 것인지
-    public float DelayCoolTime = 1.0f;
+    public float DamageTime = 0.5f; //타겟을 찾은 뒤 몇 초 뒤에 대미지를 줄 것인지
+    public float CoolTime = 1.0f;
     public float RangeDamage = 1.0f;
     public float RepulsiveForce = 10.0f;
 
@@ -43,7 +43,7 @@ public class RangeAttack : EnemyAbility
         SetAnimBool("isAttack", false);
         SetAnimBool("isWalk", false);
         mRangeSpriteRenderer.transform.localScale = new Vector3(TargetOnRadius, TargetOnRadius, 0) * 10;
-        DelayDamageTime = DelayDamageTime + TargetOnTime;
+        DamageTime = DamageTime + TargetOnTime;
         Debug.Log("RangeAttackInit");
     }
 
@@ -87,7 +87,7 @@ public class RangeAttack : EnemyAbility
             if (mDamageTime > TargetOnTime)
             {
                 if (!mRangeSpriteRenderer.enabled) mRangeSpriteRenderer.enabled = true;
-                if ((mDamageTime > DelayDamageTime) )
+                if ((mDamageTime > DamageTime) )
                     
                 {
                     mbDamage = true;
@@ -109,7 +109,7 @@ public class RangeAttack : EnemyAbility
         if(mbCool)
         {
             mCoolTime += Time.deltaTime;
-            if(mCoolTime > DelayCoolTime)
+            if(mCoolTime > CoolTime)
             {
                 mbCool = false;
                 mCoolTime = 0.0f;
@@ -146,6 +146,7 @@ public class RangeAttack : EnemyAbility
                         SetAnimBool("isAttack", true);
                         mbDamage = false;
                         ChangeColor.bIsAttack = false;
+                        return;
                     }
                 }
             }
@@ -180,10 +181,9 @@ public class RangeAttack : EnemyAbility
         {
             if (player.GetComponent<Player>() != null)
             {
-                Debug.Log(player.gameObject.name);
-                //player.GetComponent<Player>().TakeDamage(damage);
+                Debug.Log("Damage[RangeAttackScript]: " + damage);
                 EventManager.TriggerTakeDamageEvent("EnemysAttack" ,player.gameObject, (int)damage);
-                Debug.Log("Damage!!");
+
                 //True, False를 이용해서 끄고 키기로 사용/비사용
                 if(bRepulsion)
                 {

@@ -6,12 +6,12 @@ using Neremnem.Tools;
 public class DamageArea : MonoBehaviour
 {
     [HideInInspector]
-    public bool bDamaged = false;
-    public float DamageDelayTime = 1.0f;
-    public float Damage = 1.0f;
+    public bool bDamaged = false; //True일 경우에만 대미지 가함
+    public float DamageDelayTime = 1.0f; //대미지를 주는 주기
+    public float Damage = 1.0f; //대미지
 
     private float mDamageTime = 0.0f;
-    private GameObject mDamageObject = null;
+    private GameObject mDamageObject = null; //맵 오브젝트
     
 
     private void OnEnable()
@@ -31,9 +31,9 @@ public class DamageArea : MonoBehaviour
             mDamageTime += Time.deltaTime;
             if(mDamageTime > DamageDelayTime)
             {
-                Debug.Log("Damage");
                 if (mDamageObject != null)
                 {
+                    Debug.Log("Damage[DamageAreaScript]: " + Damage);
                     //플레이어의 컴포넌트를 가지고 와서 대미지 주는 함수
                     EventManager.TriggerTakeDamageEvent("EnemysAttack", mDamageObject, (int)Damage);
                 }
