@@ -8,8 +8,7 @@ public class PlayerSkill : MonoBehaviour
      
     private const int mMaxSkillAmount = 4;
 
-    [SerializeField]
-    private  Skill[] mSkills;
+    private  Skill[] mSkills = new Skill[mMaxSkillAmount];
 
     public void RegistSkill(List<ActionButton> actions)
     {
@@ -35,7 +34,7 @@ public class PlayerSkill : MonoBehaviour
     {
         for(int i = 0; i < 4; i++)
         {
-            mSkills[i] = new Skill();
+            mSkills[i] = null;
         }
 
         UIManager.MyInstance.Regist += new UpdatePlayerSkillList(RegistSkill);
