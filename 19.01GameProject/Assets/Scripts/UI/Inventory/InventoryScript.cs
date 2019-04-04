@@ -77,6 +77,7 @@ public class InventoryScript : MonoBehaviour
         {
             if (IsPlaceInStack(item))
             {
+                Debug.Log("add item " + item.name);
                 return;
             }
         }

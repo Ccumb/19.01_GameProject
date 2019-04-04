@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c825ce840a9544498efafd226276355, type: 3}
   m_Name: testItem5
   m_EditorClassIdentifier: 
-  slotPosition: 0
+  slotPosition: 4
   mIcon: {fileID: 21300000, guid: aedc4a1171abc4c4992ec96b43e5e6f8, type: 3}
   mExplainItem: {fileID: 0}
-  mStackSize: 0
+  mStackSize: 1
   mCost: 50
   mHealthRec: 0
