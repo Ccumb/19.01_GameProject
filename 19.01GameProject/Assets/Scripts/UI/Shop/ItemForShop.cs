@@ -88,20 +88,19 @@ public class ItemForShop : MonoBehaviour
             PlayerAttack attack = other.GetComponent<PlayerAttack>();
             attack.enabled = false;
 
-            Debug.Log("Inside");
 
             if (player.linkedInputManager.AttackButton.State.CurrentState == NRMInput.EButtonStates.Down 
                 || player.linkedInputManager.AttackButton.State.CurrentState == NRMInput.EButtonStates.Pressed)
             {
                 Debug.Log("Buy Something");
-                
+                Debug.Log(InventoryScript.MyInstance.Gold);
                 if(InventoryScript.MyInstance.Gold >= mMyItemInfo.MyCost && mCanSell == true)
                 {
                     InventoryScript.MyInstance.UpdateGold(-mMyItemInfo.MyCost);
 
                     HealthPotion potion = (HealthPotion)Instantiate(mMyItemInfo);
                     InventoryScript.MyInstance.AddItem(potion);
-                    
+
                     //Debug.Log("current Gold : " + InventoryScript.MyInstance.Gold);
                 }
             }

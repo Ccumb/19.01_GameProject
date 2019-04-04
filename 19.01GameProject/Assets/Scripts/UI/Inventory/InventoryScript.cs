@@ -77,15 +77,12 @@ public class InventoryScript : MonoBehaviour
         {
             if (IsPlaceInStack(item))
             {
+                Debug.Log("add item " + item.name);
                 return;
             }
         }
         PlaceInEmpty(item);
-<<<<<<< HEAD
-        Debug.Log("add item " + item.name);
-=======
         
->>>>>>> feature/SkillSystem_2
     }
 
     public void AddBag(Bag bag)
@@ -147,7 +144,6 @@ public class InventoryScript : MonoBehaviour
         return mItemQuickSlots;
     }
 
-<<<<<<< HEAD
     public void SetInveontryQuickSlotList(List<ActionButton> action)
     {
         for(int i = 0; i < action.Count; i ++)
@@ -173,8 +169,6 @@ public class InventoryScript : MonoBehaviour
         return false;
     }
 
-=======
->>>>>>> feature/SkillSystem_2
     private bool IsPlaceInStack(ItemIconVersion item)
     {        
         
