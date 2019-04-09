@@ -278,50 +278,6 @@ Transform:
   m_Father: {fileID: 1319908365}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &537910584
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 537910585}
-  - component: {fileID: 537910586}
-  m_Layer: 0
-  m_Name: AttackBoundary
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &537910585
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 537910584}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1963706772}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &537910586
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 537910584}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2, y: 1, z: 2}
-  m_Center: {x: 0, y: 1, z: 1}
 --- !u!1 &543549446
 GameObject:
   m_ObjectHideFlags: 0
@@ -1547,7 +1503,7 @@ GameObject:
   - component: {fileID: 1627094036}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1566,7 +1522,6 @@ Transform:
   - {fileID: 1571353000}
   - {fileID: 1919927774}
   - {fileID: 1423185943}
-  - {fileID: 537910585}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1655,11 +1610,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2a90fb78cea0bf4a8402e6a50ff985d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-<<<<<<< HEAD
-  speed: 0
-=======
-  speed: 5
->>>>>>> 4c3979887593448009bcc4fd947064e531a5aa17
 --- !u!114 &1963706768
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1672,11 +1622,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07507eaad9b459e4e9d0f3289730f810, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-<<<<<<< HEAD
-  center: {x: 0, y: 0, z: 0}
-=======
-  center: {x: 0, y: 1, z: 1}
->>>>>>> 4c3979887593448009bcc4fd947064e531a5aa17
+  center: 0
 --- !u!114 &1963706769
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1703,7 +1649,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   linkedInputManager: {fileID: 0}
   playerStatus: {fileID: 0}
-  animator: {fileID: 0}
   playerID: Player1
 --- !u!114 &1627094036
 MonoBehaviour:
