@@ -187,14 +187,13 @@ public class Enemy : Unit
     void SpawnCoin(Vector3 pos)
     {
         List<GameObject> mCoins = GameObject.Find("CoinManager").GetComponent<ObjectPooling>().obejcts;
-
-        for (int i = 0; i < mCoins.Count; i++)
+        int coinCount = Random.Range(1, mCoins.Count + 1);
+        for (int i = 0; i < coinCount; i++)
         {
-            if (mCoins[i].active == false)
+            if (mCoins[i].activeSelf == false)
             {
                 mCoins[i].transform.position = pos;
                 mCoins[i].SetActive(true);
-                break;
             }
         }
     }
@@ -218,6 +217,7 @@ public class Enemy : Unit
     IEnumerator ActiveFalseDelay()
     {
         yield return new WaitForSeconds(activeFalseTime);
+        SpawnCoin(gameObject.transform.position);
         gameObject.SetActive(false);
     }
 

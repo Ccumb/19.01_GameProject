@@ -28,9 +28,10 @@ public class ObjectPooling : MonoBehaviour
 
         for (int i = 0; i< objectNum; i ++)
         {
-            GameObject gameObject = Instantiate(poolingObject);
-            gameObject.SetActive(false);
-            mObjects.Add(gameObject);
+            GameObject dropObject = Instantiate(poolingObject);
+            dropObject.transform.SetParent(gameObject.transform);
+            dropObject.SetActive(false);
+            mObjects.Add(dropObject);
         }
     }
 }

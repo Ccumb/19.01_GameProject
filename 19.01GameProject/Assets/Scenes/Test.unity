@@ -974,7 +974,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &580630306
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -989,7 +989,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   poolingObject: {fileID: 3042316166175691662, guid: 8ddabf6d919fadb4d812522e20b6e27a,
     type: 3}
-  objectNum: 3
+  objectNum: 10
 --- !u!4 &580630307
 Transform:
   m_ObjectHideFlags: 0
@@ -1876,6 +1876,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e6c2c28194ffde4680d05bf8a7d88cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  chagneAvailable: 1
+  inventoryPanel: {fileID: 0}
+  skillPanel: {fileID: 0}
+  GamePlayQuickSlot: {fileID: 0}
+  GamePlaySkillQuickSlot: {fileID: 0}
 --- !u!224 &1399021536 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7023762621579374631, guid: b2c9dda8b5409e0409b20553d2480746,
