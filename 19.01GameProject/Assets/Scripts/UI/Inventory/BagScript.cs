@@ -28,7 +28,7 @@ public class BagScript : MonoBehaviour
 
     public bool AddItem(ItemIconVersion item)
     {
-        if(item.name == "HealthPotion(Clone)")
+        if(item.name == "Item_3(Clone)")
         {
             mSlots[item.slotPosition].AddItem(item);
             return true;

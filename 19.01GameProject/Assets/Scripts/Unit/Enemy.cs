@@ -12,11 +12,11 @@ public class Enemy : Unit
     private enum EPhase
     {
         Non
-               , One
-               , Two
-               , Three
-               , Four
-               , Die
+      , One
+      , Two
+      , Three
+      , Four
+      , Die
     }
     /// <summary>
     /// 각 페이즈 당 몇 개의 패턴을 활성화 시킬 것인지
@@ -25,6 +25,10 @@ public class Enemy : Unit
     public int[] PhaseTwo;
     public int[] PhaseThree;
     public int[] PhaseFour;
+    [HideInInspector]
+    public bool bDie = false;
+
+    public int PhaseOneMin = 80, PhaseTwoMin = 40, PhaseThreeMin = 10, PhaseFourMin = 0;
 
     private EPhase mPresentPhase = EPhase.Non;
     private EPhase mPastPhase = EPhase.Non;
@@ -39,17 +43,21 @@ public class Enemy : Unit
     }
     private void OnEnable()
     {
+        bDie = false;
+        InitHP();
+        mPresentPhase = EPhase.Non;
+        mPastPhase = EPhase.Non;
         EventManager.StartListeningTakeDamageEvent("PlayersAttack", TakeDamage);   
     }
     private void OnDisable()
     {
+        StopCoroutine("ActiveFalseDelay");
         EventManager.StopListeningTakeDamageEvent("PlayersAttack", TakeDamage);
     }
     // Start is called before the first frame update
     void Start()
     {
         mbIsActive = true;
-        InitHP();
         this.gameObject.tag = "Enemy";
 
         mStartPos = this.transform.position;
@@ -64,22 +72,22 @@ public class Enemy : Unit
         }
     }
 
-    // Update is called once per frame
+
     void Update()
     {
-        if (hp > 80)
+        if (hp > PhaseOneMin)
         {
             mPresentPhase = EPhase.One;
         }
-        else if (hp <= 80 && hp > 40)
+        else if (hp <= PhaseOneMin && hp > PhaseTwoMin)
         {
             mPresentPhase = EPhase.Two;
         }
-        else if (hp <= 40 && hp > 10)
+        else if (hp <= PhaseTwoMin && hp > PhaseThreeMin)
         {
             mPresentPhase = EPhase.Three;
         }
-        else if (hp <= 10 && hp > 0)
+        else if (hp <= PhaseThreeMin && hp > PhaseFourMin)
         {
             mPresentPhase = EPhase.Four;
         }
@@ -94,6 +102,7 @@ public class Enemy : Unit
             PatternManager(mPresentPhase);
         }
     }
+
     private void TakeDamage(GameObject gameObject, int i)
     {
         if(gameObject == this.gameObject)
@@ -132,6 +141,7 @@ public class Enemy : Unit
                 Die();
                 break;
             default:
+                Debug.Log("Health Point Range Error");
                 break;
         }
 
@@ -139,13 +149,14 @@ public class Enemy : Unit
 
     protected override void Die() 
     {
+        bDie = true;
         DisableAbilities();
         SpawnCoin(this.transform.position);
         
         InActive();
         GetComponent<Rigidbody>().isKinematic = true;
 
-        StartCoroutine("Respawn");
+        StartCoroutine("ActiveFalseDelay");
     }
 
     protected override void Active()
@@ -155,7 +166,7 @@ public class Enemy : Unit
         GetComponent<Rigidbody>().isKinematic = false;
         this.transform.position = mStartPos;
     }
-
+    //모든 어빌리티를 끔
     void DisableAbilities()
     {
         for (int i = 0; i < mAbilities.Count; i++)
@@ -187,7 +198,7 @@ public class Enemy : Unit
             }
         }
     }
-
+    ///mAbilities리스트에 어빌리티 등록
     public void RegisterAbility(EnemyAbility ability)
     {
         if ((ability != GetComponent<EnemyAbility>())
@@ -202,6 +213,12 @@ public class Enemy : Unit
     {
         yield return new WaitForSeconds(respawnTime);
         Active();
+    }
+    //몇 초 뒤에 사라질 것인지
+    IEnumerator ActiveFalseDelay()
+    {
+        yield return new WaitForSeconds(activeFalseTime);
+        gameObject.SetActive(false);
     }
 
 }

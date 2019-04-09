@@ -15,6 +15,9 @@ public abstract class ItemIconVersion : ScriptableObject, IMoveable
     [SerializeField]
     private int mStackSize;
 
+    [SerializeField]
+    private int mCost;
+
     private SlotScript slot;
 
     public Sprite MyIcon
@@ -41,6 +44,14 @@ public abstract class ItemIconVersion : ScriptableObject, IMoveable
         get
         {
             return mStackSize;
+        }
+    }
+
+    public int MyCost
+    {
+        get
+        {
+            return mCost;
         }
     }
 

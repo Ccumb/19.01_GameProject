@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class HandScript : MonoBehaviour
 {
+    public Skill movingSkill;
     public string objectname;
     private static HandScript instance;
 
@@ -37,6 +38,7 @@ public class HandScript : MonoBehaviour
 
     public void Drop()
     {
+        movingSkill = null;
         MyMoveable = null;
 
         mIcon.color = new Color(0, 0, 0, 0);
@@ -45,6 +47,8 @@ public class HandScript : MonoBehaviour
     public IMoveable Put()
     {
         IMoveable tmp = MyMoveable;
+
+        movingSkill = null;
 
         MyMoveable = null;
 

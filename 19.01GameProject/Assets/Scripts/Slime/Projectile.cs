@@ -6,28 +6,31 @@ using Neremnem.Tools;
 [RequireComponent(typeof(Rigidbody))]
 public class Projectile : MonoBehaviour
 {
-    Rigidbody ProejctileRigid;
+    private Rigidbody mProejctileRigid;
     public int ProejctileDamage = 1;
+    public float DelayActive = 1.0f;
 
     private void Awake()
     {
-        ProejctileRigid = GetComponent<Rigidbody>();
+        mProejctileRigid = GetComponent<Rigidbody>();
         gameObject.SetActive(false);
     }
     private void Start()
     {
-        ProejctileRigid.isKinematic = false;
-        ProejctileRigid.useGravity = false;
+        mProejctileRigid.isKinematic = false;
+        mProejctileRigid.useGravity = false;
     }
 
     private void OnEnable()
     {
-        ProejctileRigid.velocity = new Vector3(transform.parent.GetChild(0).forward.x, 0, transform.parent.GetChild(0).forward.z) * 10;
+        StartCoroutine(RemoveProjectile(DelayActive));
+        mProejctileRigid.velocity = new Vector3(transform.parent.GetChild(0).forward.x, 0, transform.parent.GetChild(0).forward.z) * 10;
     }
 
     private void OnDisable()
     {
-        ProejctileRigid.velocity = Vector3.zero;
+        StopCoroutine(RemoveProjectile(0));
+        mProejctileRigid.velocity = Vector3.zero;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -39,5 +42,12 @@ public class Projectile : MonoBehaviour
             gameObject.SetActive(false);
         }
         gameObject.SetActive(false);
+    }
+
+    IEnumerator RemoveProjectile(float delay)
+    {
+        Debug.Log("RmoveStart");
+        yield return new WaitForSeconds(delay);
+        gameObject.SetActive(false); Debug.Log("Rmove");
     }
 }

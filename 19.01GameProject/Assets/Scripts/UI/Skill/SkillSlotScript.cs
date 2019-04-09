@@ -55,8 +55,6 @@ public class SkillSlotScript : MonoBehaviour, IPointerClickHandler
         {
             mSkill = skill;
             mIcon.sprite = skill.MyIcon;
-            ///if문 붙이기 1/30일 작업할 것
-            ///마우스 왼쪽 클릭 했을 때 오른쪽에 아이템 설명뜨게 하기!
             mItemImage.sprite = skill.MyExplainItem;
             mIcon.color = Color.white;
             skill.MySlot = this;
@@ -74,15 +72,23 @@ public class SkillSlotScript : MonoBehaviour, IPointerClickHandler
             if (SkillSettingScript.MyInstance.FromSlot == null && !IsEmpty)
             {
                 HandScript.MyInstance.TakeMoveable(mSkill as IMoveable);
+                HandScript.MyInstance.movingSkill = mSkill;
                 HandScript.MyInstance.objectname = mSkill.name;
+            }
+            else
+            {
+                SkillSettingScript.MyInstance.ChangeExplainImage(null);
+                HandScript.MyInstance.Drop();
             }
         }
         else
         {
-            InventoryScript.MyInstance.ChangeExplainImage(null);
+            SkillSettingScript.MyInstance.ChangeExplainImage(null);
+            HandScript.MyInstance.Drop();
         }
     }
-    public void UseItem()
+
+    public void UseSkill()
     {
         if (MySkill is IUseable)
         {

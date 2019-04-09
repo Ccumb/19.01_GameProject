@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: 2971120810515232502}
   - component: {fileID: 6841893703086814440}
   - component: {fileID: 1394088101006705218}
-  - component: {fileID: 4419962391624311851}
+  - component: {fileID: 93724516716175119}
   m_Layer: 0
   m_Name: Slime
   m_TagString: Untagged
@@ -80,10 +80,16 @@ MonoBehaviour:
   max_hp: 5
   power: 3
   respawnTime: 10
+  activeFalseTime: 0
   PhaseOne: 
   PhaseTwo: 
   PhaseThree: 
   PhaseFour: 
+  bDie: 0
+  PhaseOneMin: 80
+  PhaseTwoMin: 40
+  PhaseThreeMin: 10
+  PhaseFourMin: 0
 --- !u!114 &1533786957935806788
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -153,8 +159,8 @@ MonoBehaviour:
   TargetOnRadius: 0
   TargetAngle: 0
   TargetOnTime: 0.5
-  DelayDamageTime: 0.5
-  DelayCoolTime: 1
+  DamageTime: 0.5
+  CoolTime: 1
   RangeDamage: 1
   RepulsiveForce: 10
   bRepulsion: 0
@@ -180,8 +186,8 @@ MonoBehaviour:
   LongTargetOnRadius: 0
   LongTargetAngle: 360
   TargetOnTime: 0.5
-  DelayDamageTime: 3.3
-  DelayCoolTime: 1
+  DamageTime: 3.3
+  CoolTime: 1
   TargetMask:
     serializedVersion: 2
     m_Bits: 0
@@ -201,9 +207,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SummonCount: 3
-  cAccumulateSummonTime: 0
-  cSummonTime: 10
-  tSummonTransform:
+  SummonTime: 10
+  SummonTransform:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -222,44 +227,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DeleteMapObject: {fileID: 0}
-  DelayDeleteMapTime: 3
---- !u!23 &4419962391624311851
-MeshRenderer:
+  DeleteTime: 3
+--- !u!114 &93724516716175119
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 397123756}
   m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84bf4e908a561324387c185e8accc029, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpawnDelayTime: 10
+  SpawnPoint: {fileID: 0}
+  SummonCount: 1
+  mSpanwTime: 0
 --- !u!1 &509168237
 GameObject:
   m_ObjectHideFlags: 0

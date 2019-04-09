@@ -5,6 +5,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "HealthPotion", menuName = "Items/Potion", order = 2)]
 public class HealthPotion : ItemIconVersion, IUseable
 {
+    public int MyCost
+    {
+        get; set;
+    }
     //회복량
     [SerializeField]
     private int mHealthRec;

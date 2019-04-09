@@ -1,7 +1,11 @@
 ﻿using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class Skill : ScriptableObject, IMoveable
 {
+    public bool isPassive = false;
     public int slotPosition = 0;
     [SerializeField]
     private Sprite mIcon;
@@ -10,11 +14,16 @@ public class Skill : ScriptableObject, IMoveable
     private Sprite mExplainItem;
 
     [SerializeField]
-    private int mUsingCost;
+    private int mCost = 0; //소모값
 
     [SerializeField]
-    private int mDamage;
+    private int mUsingCost = -1; //마나
 
+    [SerializeField]
+    private int mCoolTime;
+
+    [SerializeField]
+    private bool mIsUseable = true;
     private SkillSlotScript slot;
 
     public Sprite MyIcon
@@ -33,23 +42,43 @@ public class Skill : ScriptableObject, IMoveable
         }
     }
 
+    public int MyCost
+    {
+        get
+        {
+            return mCost;
+        }
+        set
+        {
+            mCost = value;
+        }
+    }
+
     public int MyUsingCost
     {
         get
         {
             return mUsingCost;
         }
+        set
+        {
+            mUsingCost = value;
+        }
     }
-    
-    public int MyDamage
+
+    public int MyCoolTime
     {
         get
         {
-            return mDamage;
+            return mCoolTime;
         }
-    }
-    
 
+    }
+
+    public bool MyIsUseable
+    {
+        get { return mIsUseable; }
+    }
     //public void Remove()
     //{
 
@@ -65,5 +94,21 @@ public class Skill : ScriptableObject, IMoveable
         {
             slot = value;
         }
+    }
+
+    public virtual void Use() { }
+    public virtual void Relieve() { }
+    public virtual IEnumerator CoolTime()
+    {        
+        mIsUseable = false;
+        int tmp = this.MyCoolTime;
+        while(MyCoolTime >= 0)
+        {
+            UIManager.MyInstance.UpdateCoolTimeText(this);
+            mCoolTime -= 1;            
+            yield return new WaitForSeconds(1.0f);
+        }
+        mCoolTime = tmp;
+        mIsUseable = true;
     }
 }

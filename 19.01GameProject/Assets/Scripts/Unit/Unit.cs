@@ -10,9 +10,11 @@ public class Unit : MonoBehaviour
     public float hp;    // 체력
     public float max_hp;        // 최대 체력
 
-    public float power; // 공격력
+    public float power;
 
     public float respawnTime;
+
+    public float activeFalseTime;
 
     protected bool mbIsActive;
 
@@ -40,10 +42,7 @@ public class Unit : MonoBehaviour
 
     protected void InitHP()
     {
-        if (hp > max_hp)
-        {
-            max_hp = hp;
-        }
+            hp = max_hp;
     }
     protected virtual void TakeDamage(GameObject gameObejct,int damage)
     {
@@ -63,8 +62,6 @@ public class Unit : MonoBehaviour
     {
         if (mbIsActive == false)
         {
-            MeshRenderer meshRenderer = this.gameObject.GetComponent<MeshRenderer>();
-            meshRenderer.enabled = true;
             Collider collider = this.gameObject.GetComponent<Collider>();
             collider.enabled = true;
 
@@ -76,8 +73,6 @@ public class Unit : MonoBehaviour
     {
         if (mbIsActive == true)
         {
-            MeshRenderer meshRenderer = this.gameObject.GetComponent<MeshRenderer>();
-            meshRenderer.enabled = false;
             Collider collider = this.gameObject.GetComponent<Collider>();
             collider.enabled = false;
 
