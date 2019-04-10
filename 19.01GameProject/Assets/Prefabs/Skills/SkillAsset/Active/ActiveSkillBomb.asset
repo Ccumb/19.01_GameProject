@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee91e37793f0b2e47bec1443a44630e1, type: 3}
+  m_Name: ActiveSkillBomb
+  m_EditorClassIdentifier: 
+  isPassive: 0
+  slotPosition: 1
+  mIcon: {fileID: 21300000, guid: 9f3f3f90f25307f4d8af1df575571b3c, type: 3}
+  mExplainItem: {fileID: 21300000, guid: 9f3f3f90f25307f4d8af1df575571b3c, type: 3}
+  mCost: 3
+  mMPCost: -3
+  mCoolTime: 5
+  mIsUseable: 1
+  mEffect: 10
+  BombPrefab: {fileID: 4085622656441075075, guid: bc67ff5a6021fe149a500f78aba94573,
+    type: 3}

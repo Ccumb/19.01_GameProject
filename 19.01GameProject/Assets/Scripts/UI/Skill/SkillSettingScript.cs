@@ -122,7 +122,7 @@ public class SkillSettingScript : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.L))
         {
-            HealingSkill create = (HealingSkill)Instantiate(mSkillsList[0]);
+            ActiveHeal create = (ActiveHeal)Instantiate(mSkillsList[0]);
 
             AddSkill(create);
         }
@@ -132,5 +132,12 @@ public class SkillSettingScript : MonoBehaviour
 
             AddSkill(create);
         }
+        if(Input.GetKeyDown(KeyCode.J))
+        {
+            SkillBombAsset create = (SkillBombAsset)Instantiate(mSkillsList[2]);
+
+            AddSkill(create);
+        }
+
     }
 }

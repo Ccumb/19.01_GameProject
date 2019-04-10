@@ -11,7 +11,7 @@ public class MenuInputKey : MonoBehaviour
     private Color mOriginalTextColor;
 
     [SerializeField]
-    private Button[] mMenuButtons;
+    private Button[] mMenuButtons = null;
 
     private int mbuttonIndex = 0;
     private MainMenuController mpanelControl;

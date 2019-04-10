@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb8d782f8d39cb540a8628782f30998d, type: 3}
   m_Name: CoolTimeDownSkill
   m_EditorClassIdentifier: 
-  isPassive: 0
-  slotPosition: 1
+  isPassive: 1
+  slotPosition: 5
   mIcon: {fileID: 21300000, guid: 70d6b23efbe40354fbc76dcc0b269238, type: 3}
   mExplainItem: {fileID: 21300000, guid: 70d6b23efbe40354fbc76dcc0b269238, type: 3}
-  mCost: 5
-  mUsingCost: 0
+  mCost: 1
+  mMPCost: -1
   mCoolTime: 0
+  mIsUseable: 1
+  mEffect: 2

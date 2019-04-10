@@ -60,7 +60,7 @@ public class RingCapacity : MonoBehaviour
 
     public bool IsCheckRegistSkill(int count)
     {
-        if(count + currentRingcount < maxRingcount)
+        if(count + currentRingcount <= maxRingcount)
         {
             return true;
         }
@@ -70,7 +70,7 @@ public class RingCapacity : MonoBehaviour
 
     public void UpdateRingVisual(int count)
     {
-        if(count > currentRingcount)
+        if(count >= currentRingcount)
         {
             for(int i = 0; i < count; i++)
             {

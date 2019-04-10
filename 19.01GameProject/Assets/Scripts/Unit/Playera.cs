@@ -25,7 +25,7 @@ public class Playera : Unit
     {
         mbIsActive = true;
         this.gameObject.tag = "Player";
-        InitHP();
+        //InitHP();
         mGold = 0;
     }
 
