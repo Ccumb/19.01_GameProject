@@ -1370,7 +1370,7 @@ SkinnedMeshRenderer:
   m_Quality: 0
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: 4300000, guid: eb491f62e2695f947b38f0307c2de62b, type: 3}
+  m_Mesh: {fileID: 4300000, guid: ac0080a3f20a46740880b1e9351fe14b, type: 3}
   m_Bones:
   - {fileID: 2003530913}
   - {fileID: 1225797387}
@@ -1610,6 +1610,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2a90fb78cea0bf4a8402e6a50ff985d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 0
 --- !u!114 &1963706768
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1622,7 +1623,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07507eaad9b459e4e9d0f3289730f810, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  center: 0
+  center: {x: 0, y: 0, z: 0}
 --- !u!114 &1963706769
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1649,6 +1650,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   linkedInputManager: {fileID: 0}
   playerStatus: {fileID: 0}
+  animator: {fileID: 0}
   playerID: Player1
 --- !u!114 &1627094036
 MonoBehaviour:
