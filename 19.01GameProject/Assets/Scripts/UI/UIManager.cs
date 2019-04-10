@@ -62,8 +62,10 @@ public class UIManager : MonoBehaviour
                     return;
                 }
                 mGamePlaySkillQuickSlots[i].MyCoolTimeText.text = skill.MyCoolTime.ToString();
+                return;
                 //여기서 쿨타임 업데이트허기
             }
+            Debug.Log("Not match objectname");
         }
     }
     public void UpdateStackSize(IClickable clickable)
@@ -138,12 +140,12 @@ public class UIManager : MonoBehaviour
             }
             else
             {
-                mGamePlaySkillQuickSlots[i].MyIcon.color = new Color(0,0,0,0);
+                mGamePlaySkillQuickSlots[i].MyIcon.color = new Color(0,0,0,0);               
             }
             Sprite sprite = action[i].MyIcon.sprite;
             mGamePlaySkillQuickSlots[i].MyIcon.sprite = sprite;
             mGamePlaySkillQuickSlots[i].objectname = action[i].objectname;
-
+            mGamePlaySkillQuickSlots[i].MyCoolTimeText.text = "";
         }
     }
     void Start()
@@ -166,6 +168,10 @@ public class UIManager : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.I))
         {
+            if(skillPanel.activeSelf)
+            {
+                DeActivePanel(skillPanel);
+            }
             if(inventoryPanel.activeSelf)
             {
                 Time.timeScale = 1;
@@ -186,24 +192,43 @@ public class UIManager : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.K))
         {
+            if(skillPanel != null)
+            {
+                if(inventoryPanel.activeSelf)
+                {
+                    DeActivePanel(inventoryPanel);
+                }
+                if(!skillPanel.activeSelf)
+                {
+                    Time.timeScale = 0;
+                    ActivePanel(skillPanel);
+                    chagneAvailable = true;
+                }
+                else if(skillPanel.activeSelf)
+                {
+                    Time.timeScale = 1;
+                    chagneAvailable = false;
+                    SyncSkillQuickSlots();
+                    Regist.Invoke(SkillSettingScript.MyInstance.MySkillList);
+                    DeActivePanel(skillPanel);
+                    HandScript.MyInstance.Drop();
+                }
+            }
+        }
+        if(Input.GetKeyDown(KeyCode.Q))
+        {
+            if(skillPanel.activeSelf)
+            {
+                DeActivePanel(skillPanel);
+                ActivePanel(inventoryPanel);
+            }
+        }
+        if(Input.GetKeyDown(KeyCode.W))
+        {
             if(inventoryPanel.activeSelf)
             {
                 DeActivePanel(inventoryPanel);
-            }
-            if(!skillPanel.activeSelf)
-            {
-                Time.timeScale = 0;
                 ActivePanel(skillPanel);
-                chagneAvailable = true;
-            }
-            else if(skillPanel.activeSelf)
-            {
-                Time.timeScale = 1;
-                chagneAvailable = false;
-                SyncSkillQuickSlots();
-                Regist.Invoke(SkillSettingScript.MyInstance.MySkillList);
-                DeActivePanel(skillPanel);
-                HandScript.MyInstance.Drop();
             }
         }
     }

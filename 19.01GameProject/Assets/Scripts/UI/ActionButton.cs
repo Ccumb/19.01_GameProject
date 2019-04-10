@@ -13,7 +13,7 @@ using UnityEngine.EventSystems;
 //ActionButton에 등록한 아이템을 해지하는 방법도 찾자
 public class ActionButton : MonoBehaviour, IPointerClickHandler, IClickable
 {
-    public string objectname;
+    public string objectname = "Empty";
 
     [SerializeField]
     private Text mStackSize;
@@ -146,7 +146,7 @@ public class ActionButton : MonoBehaviour, IPointerClickHandler, IClickable
             // MyUseable.Use()는 버튼이 클릭되었을때 호출된다. 
             // MyUseable은 인터페이스로 Spell 에서 상속받고 있다.
             if(RingCapacity.MyInstance.IsCheckRegistSkill(useable.MyCost))
-            {
+            {                
                 SkillSettingScript.MyInstance.MyRingCount += useable.MyCost;
                 this.MyUseable = useable;
                 this.objectname = HandScript.MyInstance.objectname;
@@ -234,10 +234,6 @@ public class ActionButton : MonoBehaviour, IPointerClickHandler, IClickable
 
     void OnEnable()
     {
-        if(useables != null)
-        {
-            if(useables.Count == 0)
-                objectname = "Empty";
-        }
+
     }
 }

@@ -34,12 +34,17 @@ public class SkillListScript : MonoBehaviour
             mSlots[skill.slotPosition].AddSkill(skill);
             return true;
         }
-
         if(skill.name == "CoolTimeDownSkill(Clone)")
         {
             mSlots[skill.slotPosition].AddSkill(skill);
             return true;
         }
+        if(skill.name == "ActiveSkillBomb(Clone)")
+        {
+            mSlots[skill.slotPosition].AddSkill(skill);
+            return true;
+        }
+
         return false;
     }
 }

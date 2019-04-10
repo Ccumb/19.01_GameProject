@@ -40,7 +40,7 @@ public class QuickSlotChange : MonoBehaviour
     }
     private ActionButton Swap(ActionButton swap1, ActionButton swap2)
     {
-        if(swap2.objectname != "Empty")
+        if(swap2.objectname != "Empty" && swap2.objectname != "")
         {
             swap1.MyUseables = swap2.MyUseables;
             swap1.MyCount = swap2.MyUseables.Count;

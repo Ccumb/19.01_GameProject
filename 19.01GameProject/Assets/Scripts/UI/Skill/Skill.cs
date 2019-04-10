@@ -17,15 +17,18 @@ public class Skill : ScriptableObject, IMoveable
     private int mCost = 0; //소모값
 
     [SerializeField]
-    private int mUsingCost = -1; //마나
+    private int mMPCost= -1; //마나 다 마이너스로 설정해놓기
 
     [SerializeField]
     private int mCoolTime;
 
     [SerializeField]
     private bool mIsUseable = true;
-    private SkillSlotScript slot;
 
+    [SerializeField]
+    private int mEffect = 0;
+    private SkillSlotScript slot;
+    
     public Sprite MyIcon
     {
         get
@@ -54,15 +57,16 @@ public class Skill : ScriptableObject, IMoveable
         }
     }
 
-    public int MyUsingCost
+    //마나
+    public int MyMagicPoint
     {
         get
         {
-            return mUsingCost;
+            return mMPCost;
         }
         set
         {
-            mUsingCost = value;
+            mMPCost = value;
         }
     }
 
@@ -72,7 +76,17 @@ public class Skill : ScriptableObject, IMoveable
         {
             return mCoolTime;
         }
+        set
+        {
+            mCoolTime = value;
+        }
+    }
 
+
+    public int MyEffect
+    {
+        get { return mEffect; }
+        set { mEffect = value; }
     }
 
     public bool MyIsUseable
@@ -95,13 +109,13 @@ public class Skill : ScriptableObject, IMoveable
             slot = value;
         }
     }
-
+   
     public virtual void Use() { }
     public virtual void Relieve() { }
     public virtual IEnumerator CoolTime()
     {        
         mIsUseable = false;
-        int tmp = this.MyCoolTime;
+        int tmp = mCoolTime;
         while(MyCoolTime >= 0)
         {
             UIManager.MyInstance.UpdateCoolTimeText(this);

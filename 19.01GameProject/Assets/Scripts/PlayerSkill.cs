@@ -10,24 +10,39 @@ public class PlayerSkill : MonoBehaviour
 
     private  Skill[] mSkills = new Skill[mMaxSkillAmount];
 
+    public Skill[] MySkills
+    {
+        get { return mSkills; }
+    }
+
     public void RegistSkill(List<ActionButton> actions)
     {
-        Debug.Log("Test Regist Skill");
+        OffPassiveSkill();
         for(int i = 0; i < actions.Count; i++)
         {
             mSkills[i] = actions[i].MyUseable as Skill;
         }
-        CheckPassiveSkill();
+        OnPassiveSkill();
     }
 
-    public void CheckPassiveSkill()
+    public void OnPassiveSkill()
     {
-        Debug.Log(mSkills.Length);
-       /* for(int i = 0; i < mSkills.Length; i++)
+        for(int i = 0; i < mSkills.Length; i++)
         {
-            if(mSkills[i].isPassive)
-                mSkills[i].Use();
-        }*/
+            if(mSkills[i] != null)
+                if(mSkills[i].isPassive)
+                    mSkills[i].Use();   
+        }
+    }
+
+    public void OffPassiveSkill()
+    {
+        for(int i = 0; i < mSkills.Length; i++)
+        {
+            if(mSkills[i] != null)
+                if(mSkills[i].isPassive)
+                    mSkills[i].Relieve();   
+        }
     }
 
     private void Start()
@@ -39,6 +54,7 @@ public class PlayerSkill : MonoBehaviour
 
         UIManager.MyInstance.Regist += new UpdatePlayerSkillList(RegistSkill);
     }
+    
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.Q))
