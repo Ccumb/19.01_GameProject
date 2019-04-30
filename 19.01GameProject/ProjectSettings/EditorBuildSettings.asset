@@ -8,9 +8,9 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
-  - enabled: 1
-    path: Assets/Scenes/Lobby.unity
-    guid: d22463e9657e5194b823fa41c5f07851
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: aeb2b1270b5281d4985f326086e28b21
@@ -29,4 +29,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_HamChan/01.Scenes/PortalTest D.unity
     guid: bb055ae60415a7f41b56b6c8087880e6
+  - enabled: 1
+    path: Assets/Scenes/Field_A.unity
+    guid: 81f398bd57a80b746a545833bb4a9fae
+  - enabled: 1
+    path: Assets/Scenes/Town.unity
+    guid: ef4fa182a18494f4094f2f93cdc5f700
   m_configObjects: {}

@@ -187,7 +187,9 @@ public class RangeAttack : EnemyAbility
                 //True, False를 이용해서 끄고 키기로 사용/비사용
                 if(bRepulsion)
                 {
-                    player.GetComponent<Rigidbody>().velocity = transform.forward * RepulsiveForce;
+                    //player.GetComponent<Rigidbody>().velocity = transform.forward * RepulsiveForce;
+                    Rigidbody rig = player.GetComponent<Rigidbody>();
+                    rig.AddForce((transform.forward + transform.up) * RepulsiveForce);
                 }
             }
         }

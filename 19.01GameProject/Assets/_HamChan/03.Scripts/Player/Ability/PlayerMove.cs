@@ -16,6 +16,7 @@ public class PlayerMove : PlayerAbility
     {
         base.Start();
         mRigidbody = GetComponent<Rigidbody>();
+        mRigidbody.freezeRotation = true;
         mRigidbody.isKinematic = true;
     }
 

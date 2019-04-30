@@ -22,7 +22,7 @@ public class EnemyMovement : EnemyAbility
     void Update()
     {
         float step = speed * Time.deltaTime;
-        Debug.Log(mTarget.transform.position);
+        //Debug.Log(mTarget.transform.position);
         transform.position = Vector3.MoveTowards(transform.position, mTarget.transform.position, step);
     }
 }

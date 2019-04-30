@@ -8,7 +8,7 @@ using UnityEditor.SceneManagement;
 [CustomEditor(typeof(Portal))]
 public class PortalEditor : Editor
 {
-    public string[] stages = new string[] { "PortalTest A", "PortalTest B", "PortalTest C", "PortalTest D" };
+    public string[] stages = new string[] { "PortalTest A", "PortalTest B", "PortalTest C", "PortalTest D", "Field_A" };
     public int index;
    
     public override void OnInspectorGUI()

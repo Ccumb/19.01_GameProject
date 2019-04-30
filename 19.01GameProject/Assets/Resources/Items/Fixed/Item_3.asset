@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c825ce840a9544498efafd226276355, type: 3}
   m_Name: Item_3
   m_EditorClassIdentifier: 
-  slotPosition: 5
+  slotPosition: 2
   mIcon: {fileID: 21300000, guid: 9199d95c4bf36c2478794c30fe624ddd, type: 3}
   mExplainItem: {fileID: 0}
   mStackSize: 1
