@@ -8,7 +8,7 @@ public class ItemForShop : MonoBehaviour
 {
     private ItemIconVersion mMyItemInfo;        // 내 아이템 정보
     private Renderer mRenderer;
-    private bool mCanSell;
+    public bool mCanSell;
 
     public bool isFixed;
 
@@ -40,7 +40,7 @@ public class ItemForShop : MonoBehaviour
 
     IEnumerator CheckItemForSell()
     {
-        while(true)
+        while (true)
         {
             mCanSell = !(InventoryScript.MyInstance.ItemIsFull(mMyItemInfo.name));
 
@@ -74,6 +74,11 @@ public class ItemForShop : MonoBehaviour
         mCanSell = true;
     }
 
+    void Start()
+    {
+        StartCoroutine("CheckItemForSell");
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -92,8 +97,6 @@ public class ItemForShop : MonoBehaviour
             if (player.linkedInputManager.AttackButton.State.CurrentState == NRMInput.EButtonStates.Down 
                 || player.linkedInputManager.AttackButton.State.CurrentState == NRMInput.EButtonStates.Pressed)
             {
-                Debug.Log("Buy Something");
-                Debug.Log(InventoryScript.MyInstance.Gold);
                 if(InventoryScript.MyInstance.Gold >= mMyItemInfo.MyCost && mCanSell == true)
                 {
                     InventoryScript.MyInstance.UpdateGold(-mMyItemInfo.MyCost);

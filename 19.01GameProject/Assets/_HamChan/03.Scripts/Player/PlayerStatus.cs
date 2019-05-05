@@ -50,11 +50,15 @@ public class PlayerStatus :MonoBehaviour
     {
         EventManager.StartListeningIntEvent("CastSkill", SetSP);
         EventManager.StartListeningIntEvent("TakeDamage", TakeDamage);
+        EventManager.StartListeningIntEvent("EatHealthPosition", SetHP);
+        EventManager.StartListeningIntEvent("EatSPPotion", SetSP);
     }
     private void OnDisable()
     {
         EventManager.StopListeningIntEvent("CastSkill", SetSP);
         EventManager.StopListeningIntEvent("TakeDamage", TakeDamage);
+        EventManager.StopListeningIntEvent("EatHealthPosition", SetHP);
+        EventManager.StopListeningIntEvent("EatSPPotion", SetSP);
     }
     private void InitializeStatus()
     {
