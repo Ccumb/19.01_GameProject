@@ -179,17 +179,15 @@ public class RangeAttack : EnemyAbility
     {
         foreach (Collider player in plyaerObjects)
         {
-            if (player.GetComponent<Player>() != null)
+            if (player.GetComponent<Playera>() != null)
             {
                 Debug.Log("Damage[RangeAttackScript]: " + damage);
-                EventManager.TriggerTakeDamageEvent("EnemysAttack" ,player.gameObject, (int)damage);
+                EventManager.TriggerTakeDamageEvent("EnemysAttack", player.gameObject, (int)damage);
 
                 //True, False를 이용해서 끄고 키기로 사용/비사용
-                if(bRepulsion)
+                if (bRepulsion)
                 {
-                    //player.GetComponent<Rigidbody>().velocity = transform.forward * RepulsiveForce;
-                    Rigidbody rig = player.GetComponent<Rigidbody>();
-                    rig.AddForce((transform.forward + transform.up) * RepulsiveForce);
+                    player.GetComponent<Rigidbody>().AddRelativeForce(transform.forward * RepulsiveForce, ForceMode.Impulse);
                 }
             }
         }
