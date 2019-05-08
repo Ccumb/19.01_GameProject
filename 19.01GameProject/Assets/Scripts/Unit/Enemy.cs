@@ -151,7 +151,6 @@ public class Enemy : Unit
     {
         bDie = true;
         DisableAbilities();
-        SpawnCoin(this.transform.position);
         
         InActive();
         GetComponent<Rigidbody>().isKinematic = true;

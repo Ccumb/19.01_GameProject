@@ -968,6 +968,7 @@ GameObject:
   m_Component:
   - component: {fileID: 580630307}
   - component: {fileID: 580630306}
+  - component: {fileID: 580630308}
   m_Layer: 0
   m_Name: CoinManager
   m_TagString: Untagged
@@ -1004,6 +1005,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &580630308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 580630305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c82deda60d73ab24a9c7ff47130887d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ItemNames:
+  - testItem2
+  - testItem4
+  - testItem5
 --- !u!1 &679346008 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7815265990575892782, guid: f8451995a85542a499c13fd3da35be57,
@@ -2904,7 +2921,7 @@ PrefabInstance:
     - target: {fileID: 7815265990575892782, guid: f8451995a85542a499c13fd3da35be57,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7815265990575892783, guid: f8451995a85542a499c13fd3da35be57,
         type: 3}
