@@ -1046,7 +1046,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RespawnPoint: {fileID: 679346009}
-  RespawnTime: 15
+  RespawnTime: 2
 --- !u!1 &754483932
 GameObject:
   m_ObjectHideFlags: 0
@@ -2921,7 +2921,7 @@ PrefabInstance:
     - target: {fileID: 7815265990575892782, guid: f8451995a85542a499c13fd3da35be57,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7815265990575892783, guid: f8451995a85542a499c13fd3da35be57,
         type: 3}
@@ -2991,7 +2991,7 @@ PrefabInstance:
     - target: {fileID: 2662432880600523826, guid: f8451995a85542a499c13fd3da35be57,
         type: 3}
       propertyPath: activeFalseTime
-      value: 10
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9164170753645557713, guid: f8451995a85542a499c13fd3da35be57,
         type: 3}
