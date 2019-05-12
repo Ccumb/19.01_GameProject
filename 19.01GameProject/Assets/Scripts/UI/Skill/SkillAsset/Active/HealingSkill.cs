@@ -4,7 +4,7 @@ using UnityEngine;
 using Neremnem.Tools;
 
 [CreateAssetMenu(fileName = "HealingSkill", menuName = "Skills/Heal", order = 1)]
-public class ActiveHeal : Skill, IUseable
+public class HealingSkill : Skill, IUseable
 {
     public override void Use()
     {

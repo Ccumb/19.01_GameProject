@@ -20,6 +20,7 @@ public class UIManager : MonoBehaviour
     public GameObject GamePlayQuickSlot;
     public GameObject GamePlaySkillQuickSlot;
 
+    private List<GameObject> mpanels = new List<GameObject>(); 
     private List<ActionButton> mGamePlayQuickSlots = new List<ActionButton>();
     private List<ActionButton> mGamePlaySkillQuickSlots = new List<ActionButton>();
 
@@ -160,7 +161,13 @@ public class UIManager : MonoBehaviour
         {
             mGamePlaySkillQuickSlots.Add(GamePlaySkillQuickSlot.transform.GetChild(i).GetComponent<ActionButton>());
         }
-
+        mpanels.Add(inventoryPanel);
+        mpanels.Add(skillPanel);
+        for(int i = 0; i < mpanels.Count; i++)
+        {
+            mpanels[i].SetActive(true);
+            mpanels[i].SetActive(false);
+        }
 
     }
     // Update is called once per frame

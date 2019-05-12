@@ -32,7 +32,7 @@ public class Bag : ItemIconVersion, IUseable
 
     public void Use()
     {
-        MyBagScript = Instantiate(bagPrefab, InventoryScript.MyInstance.transform).GetComponent<BagScript>();
+        MyBagScript = Instantiate(bagPrefab, GameObject.Find("InventorySlot").transform).GetComponent<BagScript>();
 
         MyBagScript.AddSlots(mSlots);
 

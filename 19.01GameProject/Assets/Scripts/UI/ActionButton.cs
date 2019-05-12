@@ -155,7 +155,7 @@ public class ActionButton : MonoBehaviour, IPointerClickHandler, IClickable
         
         UpdateVisual();
     }
-    
+   
     public void OnPointerClick(PointerEventData eventData)
     {
         if (eventData.button == PointerEventData.InputButton.Left)

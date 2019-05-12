@@ -11,8 +11,6 @@ using Neremnem.Tools;
 //
 public class InventoryScript : MonoBehaviour
 {  
-    public int slotCount = 8;
-
     public GameObject ItemQuickSlot;
 
     private List<ActionButton> mItemQuickSlots = new List<ActionButton>();
@@ -189,16 +187,6 @@ public class InventoryScript : MonoBehaviour
         {
             return;
         }
-    }
-
-    private void Awake()
-    {
-        // 가방을 생성하고
-        Bag bag = (Bag)Instantiate(mItems[0]);
-        // 가방의 슬롯 갯수를 정의하고
-        bag.Initalize(slotCount);
-        // 가방 아이템을 사용한다.
-        bag.Use();
     }
     
     private void Start()
