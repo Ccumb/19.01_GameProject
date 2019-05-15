@@ -151,7 +151,6 @@ public class Enemy : Unit
     {
         bDie = true;
         DisableAbilities();
-        SpawnCoin(this.transform.position);
         
         InActive();
         GetComponent<Rigidbody>().isKinematic = true;
@@ -186,8 +185,8 @@ public class Enemy : Unit
 
     void SpawnCoin(Vector3 pos)
     {
-        List<GameObject> mCoins = GameObject.Find("CoinManager").GetComponent<ObjectPooling>().obejcts;
-        int coinCount = Random.Range(1, mCoins.Count + 1);
+        List<GameObject> mCoins = GameObject.Find("ItemManager").GetComponent<ObjectPooling>().obejcts;
+        int coinCount = Random.Range(1, mCoins.Count);
         for (int i = 0; i < coinCount; i++)
         {
             if (mCoins[i].activeSelf == false)
@@ -197,6 +196,18 @@ public class Enemy : Unit
             }
         }
     }
+
+    void SpawnItem(Vector3 pos)
+    {
+        List<GameObject> items = GameObject.Find("ItemManager").GetComponent<ItemObjectPooling>().ItemObjects;
+        int itemSelect = Random.Range(0,items.Count);
+        if(items[itemSelect].activeSelf == false)
+        {
+            items[itemSelect].transform.position = pos;
+            items[itemSelect].SetActive(true);
+        }
+    }
+
     ///mAbilities리스트에 어빌리티 등록
     public void RegisterAbility(EnemyAbility ability)
     {
@@ -218,6 +229,7 @@ public class Enemy : Unit
     {
         yield return new WaitForSeconds(activeFalseTime);
         SpawnCoin(gameObject.transform.position);
+        SpawnItem(gameObject.transform.position);
         gameObject.SetActive(false);
     }
 

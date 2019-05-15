@@ -16,11 +16,6 @@ public class ObjectPooling : MonoBehaviour
         }
     }
 
-    void Start()
-    {
-        
-    }
-
     void Awake()
     {
         Time.timeScale = 1;
