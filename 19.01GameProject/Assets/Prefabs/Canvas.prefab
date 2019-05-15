@@ -2949,7 +2949,7 @@ PrefabInstance:
     - target: {fileID: 3627230682710448156, guid: af621b980d819fa4489df74fc98dac1a,
         type: 3}
       propertyPath: m_Name
-      value: InventroySlot
+      value: InventorySlot
       objectReference: {fileID: 0}
     - target: {fileID: 3627230682710448155, guid: af621b980d819fa4489df74fc98dac1a,
         type: 3}
