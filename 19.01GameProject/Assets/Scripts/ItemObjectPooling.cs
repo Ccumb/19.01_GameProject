@@ -26,7 +26,7 @@ public class ItemObjectPooling : MonoBehaviour
                     //이곳에서 아이템 미리 생성, 정보를 넣음
                     Debug.Log(item.MyItem);
                     GameObject dropItem = Instantiate(item.MyItem); //아이템에 있는 게임 오브젝트
-                    //dropItem.MyItemInfo = item;
+                    dropItem.GetComponentInParent<ItemAdd>().MyItemInfo = item;
                     dropItem.transform.SetParent(gameObject.transform);
                     dropItem.SetActive(false);
                     mObjects.Add(dropItem);

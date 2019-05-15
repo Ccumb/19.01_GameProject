@@ -185,7 +185,7 @@ public class Enemy : Unit
 
     void SpawnCoin(Vector3 pos)
     {
-        List<GameObject> mCoins = GameObject.Find("CoinManager").GetComponent<ObjectPooling>().obejcts;
+        List<GameObject> mCoins = GameObject.Find("ItemManager").GetComponent<ObjectPooling>().obejcts;
         int coinCount = Random.Range(1, mCoins.Count);
         for (int i = 0; i < coinCount; i++)
         {
@@ -199,7 +199,7 @@ public class Enemy : Unit
 
     void SpawnItem(Vector3 pos)
     {
-        List<GameObject> items = GameObject.Find("CoinManager").GetComponent<ItemObjectPooling>().ItemObjects;
+        List<GameObject> items = GameObject.Find("ItemManager").GetComponent<ItemObjectPooling>().ItemObjects;
         int itemSelect = Random.Range(0,items.Count);
         if(items[itemSelect].activeSelf == false)
         {
