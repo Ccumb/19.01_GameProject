@@ -130,6 +130,7 @@ public class ActionButton : MonoBehaviour, IPointerClickHandler, IClickable
             // 해당 아이템과 같은 종류의 아이템을 가진 리스트를 저장하고
             useables = InventoryScript.MyInstance.GetUseables(useable);
             // 개수 저장
+            Debug.Log(useables.Count);
             mCount = useables.Count;
             this.objectname = HandScript.MyInstance.objectname;
             //  이동모드 상태 해제
@@ -215,7 +216,6 @@ public class ActionButton : MonoBehaviour, IPointerClickHandler, IClickable
             if(useables.Peek().GetType() == item.GetType())
             {
                 useables = InventoryScript.MyInstance.GetUseables(item as IUseable);
-
                 mCount = useables.Count;
                 if(mCount == 0)
                     objectname = "Empty";

@@ -40,10 +40,10 @@ public class ItemForShop : MonoBehaviour
 
     IEnumerator CheckItemForSell()      // 판매 가능한지 Check
     {
+        yield return new WaitForSeconds(0.1f);
         while (true)
         {
-            //mIsFull = (InventoryScript.MyInstance.ItemIsFull(mMyItemInfo.name));  // 슬롯에 해당 아이템이 꽉 차있는 경우 -> 판매 불가
-
+            mIsFull = (InventoryScript.MyInstance.ItemIsFull(mMyItemInfo.name));  // 슬롯에 해당 아이템이 꽉 차있는 경우 -> 판매 불가
             if (mIsFull == true)      
             {
                 mRenderer.material.SetFloat("_isFull", -0.7f);      // 판매 불가용 텍스쳐로 변경

@@ -17,10 +17,15 @@ public class InventoryScript : MonoBehaviour
 
     [SerializeField]
     private ItemIconVersion[] mItems;
-    private Bag bags;
 
     [SerializeField]
+    private Bag bags;
+    
+    [SerializeField]
     private Image mExplainImage;
+
+    [SerializeField]
+    public List<SlotScript> mSlotScripts = new List<SlotScript>();
 
     private SlotScript mFromSlot;
     private static InventoryScript mInstance;
@@ -94,7 +99,6 @@ public class InventoryScript : MonoBehaviour
         Stack<IUseable> useables = new Stack<IUseable>();
 
         // 가방퀵슬롯에 등록된 모든 가방을 검사.
-
         // 가방의 모든 슬롯을 검사
         foreach (SlotScript slot in bags.MyBagScript.MySlots)
         {
@@ -105,8 +109,8 @@ public class InventoryScript : MonoBehaviour
                 // 해당 슬롯에 등록된 모든 아이템을
                 foreach (ItemIconVersion item in slot.MyItems)
                 {
-                    // useables 에 담는다.
-                    useables.Push(item as IUseable);
+                    // useables 에 담는다.                 
+                        useables.Push(item as IUseable);
                 }
             }
         }
@@ -159,18 +163,20 @@ public class InventoryScript : MonoBehaviour
     {
         foreach (SlotScript slots in bags.MyBagScript.MySlots)
         {
-            if(slots.MyItem.name == itemName)
+            if(slots.MyItem != null)
             {
-                return slots.IsFull;
+                if(slots.MyItem.name == (itemName +"(Clone)"))
+                {                    
+                    return slots.IsFull;
+                }
             }
         }
         return false;
     }
 
     private bool IsPlaceInStack(ItemIconVersion item)
-    {        
-        
-        foreach(SlotScript slots in bags.MyBagScript.MySlots)
+    {                
+        foreach(SlotScript slots in mSlotScripts)
         {         
             if(slots.StackItem(item))
             {

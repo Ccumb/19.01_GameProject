@@ -182,7 +182,9 @@ public class SlotScript : MonoBehaviour, IClickable, IPointerClickHandler
                 return false;
             }
             else
+            {                
                 return true;
+            }
         }
     }
 

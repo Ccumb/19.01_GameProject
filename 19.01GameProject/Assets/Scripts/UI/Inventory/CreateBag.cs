@@ -11,7 +11,7 @@ public class CreateBag : MonoBehaviour
     void Awake()
     {
         // 가방을 생성하고
-        Bag bag = (Bag)Instantiate(bagAsset,GameObject.Find("InventorySlot").transform);
+        Bag bag = (Bag)Instantiate(bagAsset,GameObject.Find("InventorySlot").transform);                
         // 가방의 슬롯 갯수를 정의하고       
         bag.Initalize(slotCount);
         // 가방 아이템을 사용한다.

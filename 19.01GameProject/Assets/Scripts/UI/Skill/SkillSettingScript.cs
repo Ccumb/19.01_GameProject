@@ -19,6 +19,10 @@ public class SkillSettingScript : MonoBehaviour
     [SerializeField]
     private Skill[] mSkillsList;
 
+
+    [SerializeField]
+    private GameObject mList;
+
     private SkillListScript mSkillListScript;
 
     [SerializeField]
@@ -108,7 +112,7 @@ public class SkillSettingScript : MonoBehaviour
 
     private void Start()
     {
-        mSkillListScript = GetComponentInChildren<SkillListScript>();
+        mSkillListScript = mList.GetComponent<SkillListScript>();
 
         mSkillListScript.AddSlots(slotCount);
 

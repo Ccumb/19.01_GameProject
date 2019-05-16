@@ -24,6 +24,7 @@ public class BagScript : MonoBehaviour
             SlotScript slot = Instantiate(mSlotPrefab, transform).GetComponent<SlotScript>();
             mSlots.Add(slot);
         }
+        InventoryScript.MyInstance.mSlotScripts = MySlots;
     }
 
     public bool AddItem(ItemIconVersion item)
