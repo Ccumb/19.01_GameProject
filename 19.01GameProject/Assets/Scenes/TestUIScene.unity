@@ -1330,11 +1330,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3356003841036134081, guid: 832b7e108c14f4b4ea3873b003f5fc6c,
-        type: 3}
-      propertyPath: chagneAvailable
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3356003839982319359, guid: 832b7e108c14f4b4ea3873b003f5fc6c,
         type: 3}
       propertyPath: m_IsActive
@@ -1349,11 +1344,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.y
       value: 99
-      objectReference: {fileID: 0}
-    - target: {fileID: 3356003839372456789, guid: 832b7e108c14f4b4ea3873b003f5fc6c,
-        type: 3}
-      propertyPath: m_Name
-      value: InventorySlot
       objectReference: {fileID: 0}
     - target: {fileID: 3356003840909398127, guid: 832b7e108c14f4b4ea3873b003f5fc6c,
         type: 3}
@@ -1414,6 +1404,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.y
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3356003841036134081, guid: 832b7e108c14f4b4ea3873b003f5fc6c,
+        type: 3}
+      propertyPath: chagneAvailable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3356003839372456789, guid: 832b7e108c14f4b4ea3873b003f5fc6c,
+        type: 3}
+      propertyPath: m_Name
+      value: InventorySlot
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 832b7e108c14f4b4ea3873b003f5fc6c, type: 3}
