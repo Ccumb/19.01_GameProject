@@ -10,6 +10,7 @@
 		_SpecPow("Specular Power", Range(10, 500)) = 100
 		_AlphaPower("Alpha Power", Range(0, 1)) = 0.5
     }
+
     SubShader
     {
         Tags { "RenderType"="Transparent" "Queue"="Transparent" }

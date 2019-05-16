@@ -8,9 +8,9 @@ public class ItemForShop : MonoBehaviour
 {
     private ItemIconVersion mMyItemInfo;        // 내 아이템 정보
     private Renderer mRenderer;
-    public bool mCanSell;
+    public bool mIsFull;                      // 구매할 수 있는가?
 
-    public bool isFixed;
+    public bool isFixed;                        // 고정용 아이템용 칸인가
 
     public ItemIconVersion MyItemInfo
     {
@@ -38,26 +38,25 @@ public class ItemForShop : MonoBehaviour
         }
     }
 
-    IEnumerator CheckItemForSell()
+    IEnumerator CheckItemForSell()      // 판매 가능한지 Check
     {
         while (true)
         {
-            mCanSell = !(InventoryScript.MyInstance.ItemIsFull(mMyItemInfo.name));
+            //mIsFull = (InventoryScript.MyInstance.ItemIsFull(mMyItemInfo.name));  // 슬롯에 해당 아이템이 꽉 차있는 경우 -> 판매 불가
 
-            if (mCanSell == false)
+            if (mIsFull == true)      
             {
-                mRenderer.material.SetFloat("_isFull", 1);
+                mRenderer.material.SetFloat("_isFull", -0.7f);      // 판매 불가용 텍스쳐로 변경
             }
             else
             {
-                mRenderer.material.SetFloat("_isFull", 0);
+                mRenderer.material.SetFloat("_isFull", 0.7f);
             }
 
-            yield return new WaitForSeconds(1.5f);
+            yield return new WaitForSeconds(0.3f);              // 매 프레임 체크하는 것은 비효율적인 것으로 판단, 일정 주기마다 판단.
         }
     }
-
-    // Start is called before the first frame update
+    
     void Awake()
     {
         mRenderer = GetComponent<MeshRenderer>();
@@ -71,7 +70,7 @@ public class ItemForShop : MonoBehaviour
             gameObject.tag = "ForRandom";
         }
 
-        mCanSell = true;
+        mIsFull = false;
     }
 
     void Start()
@@ -97,14 +96,14 @@ public class ItemForShop : MonoBehaviour
             if (player.linkedInputManager.AttackButton.State.CurrentState == NRMInput.EButtonStates.Down 
                 || player.linkedInputManager.AttackButton.State.CurrentState == NRMInput.EButtonStates.Pressed)
             {
-                if(InventoryScript.MyInstance.Gold >= mMyItemInfo.MyCost && mCanSell == true)
+                //Debug.Log(InventoryScript.MyInstance.ItemIsFull(mMyItemInfo.name));
+
+                if(InventoryScript.MyInstance.Gold >= mMyItemInfo.MyCost/* && mIsFull == false*/)
                 {
                     InventoryScript.MyInstance.UpdateGold(-mMyItemInfo.MyCost);
 
-                    HealthPotion potion = (HealthPotion)Instantiate(mMyItemInfo);
+                    ItemIconVersion potion = (HealthPotion)Instantiate(mMyItemInfo);
                     InventoryScript.MyInstance.AddItem(potion);
-
-                    //Debug.Log("current Gold : " + InventoryScript.MyInstance.Gold);
                 }
             }
         }
