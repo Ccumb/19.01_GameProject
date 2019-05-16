@@ -17,4 +17,5 @@ MonoBehaviour:
   mExplainItem: {fileID: 0}
   mStackSize: 1
   mCost: 10
+  mItem: {fileID: 834869298801043939, guid: 2ef42b1e5b78be441a81ff081e3c823f, type: 3}
   mHealthRec: 0

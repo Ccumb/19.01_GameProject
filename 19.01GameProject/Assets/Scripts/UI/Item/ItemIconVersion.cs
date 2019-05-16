@@ -18,6 +18,9 @@ public abstract class ItemIconVersion : ScriptableObject, IMoveable
     [SerializeField]
     private int mCost;
 
+    [SerializeField]
+    private GameObject mItem;
+
     private SlotScript slot;
 
     public Sprite MyIcon
@@ -57,7 +60,7 @@ public abstract class ItemIconVersion : ScriptableObject, IMoveable
 
     public void Remove()
     {
-        if(MySlot != null)
+        if (MySlot != null)
         {
             MySlot.RemoveItem(this);
         }
@@ -72,6 +75,18 @@ public abstract class ItemIconVersion : ScriptableObject, IMoveable
         set
         {
             slot = value;
+        }
+    }
+
+    public GameObject MyItem
+    {
+        get
+        {
+            return mItem;
+        }
+        set
+        {
+            mItem = value;
         }
     }
 }
