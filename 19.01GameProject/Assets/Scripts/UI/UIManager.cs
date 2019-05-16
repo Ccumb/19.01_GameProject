@@ -149,6 +149,18 @@ public class UIManager : MonoBehaviour
             mGamePlaySkillQuickSlots[i].MyCoolTimeText.text = "";
         }
     }
+
+    void Awake()
+    {
+        mpanels.Add(inventoryPanel);
+        mpanels.Add(skillPanel);
+        for(int i = 0; i < mpanels.Count; i++)
+        {
+            mpanels[i].SetActive(true);
+            mpanels[i].SetActive(false);
+        }
+    }
+
     void Start()
     {
         PlayerSkill player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerSkill>();
@@ -160,13 +172,6 @@ public class UIManager : MonoBehaviour
         for(int i = 0; i < GamePlaySkillQuickSlot.transform.childCount; i++)
         {
             mGamePlaySkillQuickSlots.Add(GamePlaySkillQuickSlot.transform.GetChild(i).GetComponent<ActionButton>());
-        }
-        mpanels.Add(inventoryPanel);
-        mpanels.Add(skillPanel);
-        for(int i = 0; i < mpanels.Count; i++)
-        {
-            mpanels[i].SetActive(true);
-            mpanels[i].SetActive(false);
         }
 
     }
