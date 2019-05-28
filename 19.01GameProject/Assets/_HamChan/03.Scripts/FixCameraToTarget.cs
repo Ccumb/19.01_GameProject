@@ -11,7 +11,8 @@ namespace NeRemNem.Tools
         public float offsetZ = -10f;
         public GameObject target;
         private Vector3 CameraPosition;
-        private void Start()
+
+        private void OnEnable()
         {
             target = GameObject.FindWithTag("Player");
         }
