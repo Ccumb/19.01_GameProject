@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Neremnem.Tools;
 
-[CreateAssetMenu(fileName = "HealingSkill", menuName = "Skills/Heal", order = 1)]
+[CreateAssetMenu(fileName = "HealingSkill", menuName = "Skills/Active/Heal", order = 1)]
 public class HealingSkill : Skill, IUseable
 {
     public override void Use()
@@ -21,6 +21,7 @@ public class HealingSkill : Skill, IUseable
             {
                 //플레이어 체력회복
                 //player.set += this.MyEffect;
+                EventManager.TriggerIntEvent("EatHealthPosition", MyEffect);
             }                                 
         }        
     }

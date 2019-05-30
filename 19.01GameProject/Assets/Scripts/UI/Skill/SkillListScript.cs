@@ -44,6 +44,27 @@ public class SkillListScript : MonoBehaviour
             mSlots[skill.slotPosition].AddSkill(skill);
             return true;
         }
+        if(skill.name == "PassiveHeal(Clone)")
+        {
+            mSlots[skill.slotPosition].AddSkill(skill);
+            return true;
+        }
+        if(skill.name == "BasicAttackPowerIncrease(Clone)")
+        {
+            mSlots[skill.slotPosition].AddSkill(skill);
+            return true;
+        }
+        if(skill.name == "SkillShortDistanceAttackAsset(Clone)")
+        {
+            mSlots[skill.slotPosition].AddSkill(skill);
+            return true;
+        }
+        if(skill.name == "SkillLongDistanceAttackAsset(Clone)")
+        {
+            mSlots[skill.slotPosition].AddSkill(skill);
+            return true;
+        }
+
 
         return false;
     }

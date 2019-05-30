@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c07cea9d6aca1d14f8e5df93268a1d5b, type: 3}
+  m_Name: SkillLongDistanceAttackAsset
+  m_EditorClassIdentifier: 
+  isPassive: 0
+  slotPosition: 3
+  mIcon: {fileID: 21300000, guid: d534aeb3df25fe4439468b5b548ebc7d, type: 3}
+  mExplainItem: {fileID: 21300000, guid: d534aeb3df25fe4439468b5b548ebc7d, type: 3}
+  mRingCost: 1
+  mMPCost: -2
+  mCoolTime: 2
+  mOriginalCoolTime: 2
+  mIsUseable: 1
+  mEffect: 5
+  BulletPrefab: {fileID: 604856427406906683, guid: d6f6f85ac2e24dc47b3c368e789bfee9,
+    type: 3}

@@ -22,6 +22,12 @@ public class PlayerAttack : PlayerAbility
         mCheckBox.enabled = false;
     }
 
+    public void SetSkillAttackTrigger()
+    {
+        mbCanAttack = false;
+        mPlayer.animator.SetTrigger("SkillAttack");
+    }
+
     // Update is called once per frame
     void Update()
     {        

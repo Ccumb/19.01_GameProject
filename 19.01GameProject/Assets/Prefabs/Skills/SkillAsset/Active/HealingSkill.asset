@@ -14,10 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isPassive: 0
   slotPosition: 0
-  mIcon: {fileID: 21300000, guid: 4568ca18130e90b499b0b6af36759f47, type: 3}
-  mExplainItem: {fileID: 21300000, guid: 4568ca18130e90b499b0b6af36759f47, type: 3}
-  mCost: 3
+  mIcon: {fileID: 21300000, guid: f354c213f8159244b82b2677a78e29ae, type: 3}
+  mExplainItem: {fileID: 21300000, guid: f354c213f8159244b82b2677a78e29ae, type: 3}
+  mRingCost: 3
   mMPCost: -2
   mCoolTime: 10
+  mOriginalCoolTime: 10
   mIsUseable: 1
   mEffect: 10

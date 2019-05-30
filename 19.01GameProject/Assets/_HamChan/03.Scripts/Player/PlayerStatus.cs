@@ -52,6 +52,8 @@ public class PlayerStatus :MonoBehaviour
         EventManager.StartListeningIntEvent("TakeDamage", TakeDamage);
         EventManager.StartListeningIntEvent("EatHealthPosition", SetHP);
         EventManager.StartListeningIntEvent("EatSPPotion", SetSP);
+        EventManager.StartListeningIntEvent("IncreasedAttackDamage", PassiveDamageUp);
+
     }
     private void OnDisable()
     {
@@ -59,6 +61,7 @@ public class PlayerStatus :MonoBehaviour
         EventManager.StopListeningIntEvent("TakeDamage", TakeDamage);
         EventManager.StopListeningIntEvent("EatHealthPosition", SetHP);
         EventManager.StopListeningIntEvent("EatSPPotion", SetSP);
+        EventManager.StopListeningIntEvent("IncreasedAttackDamage", PassiveDamageUp);
     }
     private void InitializeStatus()
     {
@@ -91,6 +94,11 @@ public class PlayerStatus :MonoBehaviour
         mMaxSP = mPrimaryMaxSP + mIncreasedMaxSP;
         mMaxSkillCost = mPrimaryMaxSkillCost + mIncreasedMaxSkillCost;
         mDashDistance = mPrimaryDashDistance + mIncreasedDashDistance;
+    }
+    private void PassiveDamageUp(int i)
+    {
+        //추후에 mIncreasedDamage 변수를 + 해줄지 생각..
+        mDamage += i;
     }
     private void SetSP(int i)
     {

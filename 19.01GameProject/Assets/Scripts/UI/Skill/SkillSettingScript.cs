@@ -142,6 +142,30 @@ public class SkillSettingScript : MonoBehaviour
 
             AddSkill(create);
         }
+        if(Input.GetKeyDown(KeyCode.J))
+        {
+            PassiveHeal create = (PassiveHeal)Instantiate(mSkillsList[3]);
+
+            AddSkill(create);
+        }
+        if(Input.GetKeyDown(KeyCode.J))
+        {
+            BasicAttackPowerIncrease create = (BasicAttackPowerIncrease)Instantiate(mSkillsList[4]);
+
+            AddSkill(create);
+        }
+        if(Input.GetKeyDown(KeyCode.J))
+        {
+            ActiveSkillShortDistanceAttackAsset create = (ActiveSkillShortDistanceAttackAsset)Instantiate(mSkillsList[5]);
+
+            AddSkill(create);
+        }
+        if(Input.GetKeyDown(KeyCode.J))
+        {
+            ActiveSkillLongDistanceAttackAsset create = (ActiveSkillLongDistanceAttackAsset)Instantiate(mSkillsList[6]);
+
+            AddSkill(create);
+        }
 
     }
 }

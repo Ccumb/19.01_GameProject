@@ -51,7 +51,7 @@ public class PlayerSkills : PlayerAbility
     {
         if(skill == null)
             return;
-        if(skill.MyIsUseable && !(skill.isPassive))
+        if(skill.MyIsUseable && !(skill.isPassive) && mPlayerStatus.SP >= skill.MyMagicPoint)
         {
             EventManager.TriggerIntEvent("CastSkill", skill.MyMagicPoint);
             skill.Use();
@@ -77,8 +77,7 @@ public class PlayerSkills : PlayerAbility
     {
         //키가 눌리고 캐스트할 마나가 있는지 체크
         if(mInputManager.Skill1Button.State.CurrentState == NRMInput.EButtonStates.Down
-            || mInputManager.Skill1Button.State.CurrentState == NRMInput.EButtonStates.Pressed
-            && mPlayerStatus.SP >= mSkills[0].MyMagicPoint)
+            || mInputManager.Skill1Button.State.CurrentState == NRMInput.EButtonStates.Pressed)
         {
             UsingSkill(mSkills[0]);
             //EventManager.TriggerIntEvent("CastSkill", mSkills[0].MyMagicPoint);
@@ -86,24 +85,21 @@ public class PlayerSkills : PlayerAbility
             
         }
         if (mInputManager.Skill2Button.State.CurrentState == NRMInput.EButtonStates.Down
-            || mInputManager.Skill2Button.State.CurrentState == NRMInput.EButtonStates.Pressed 
-            && mPlayerStatus.SP >= mSkills[1].MyMagicPoint)
+            || mInputManager.Skill2Button.State.CurrentState == NRMInput.EButtonStates.Pressed)
         {
             UsingSkill(mSkills[1]);
             //EventManager.TriggerIntEvent("CastSkill", mSkills[1].MyMagicPoint);
             //mSkills[1].Use();
         }
         if (mInputManager.Skill3Button.State.CurrentState == NRMInput.EButtonStates.Down
-            || mInputManager.Skill3Button.State.CurrentState == NRMInput.EButtonStates.Pressed
-            && mPlayerStatus.SP >= mSkills[2].MyMagicPoint)
+            || mInputManager.Skill3Button.State.CurrentState == NRMInput.EButtonStates.Pressed)
         {
             UsingSkill(mSkills[2]);
             //EventManager.TriggerIntEvent("CastSkill", mSkills[2].MyMagicPoint);
             //mSkills[2].Use();
         }
         if (mInputManager.Skill4Button.State.CurrentState == NRMInput.EButtonStates.Down
-            || mInputManager.Skill4Button.State.CurrentState == NRMInput.EButtonStates.Pressed
-            && mPlayerStatus.SP >= mSkills[3].MyMagicPoint)
+            || mInputManager.Skill4Button.State.CurrentState == NRMInput.EButtonStates.Pressed)
         {
             UsingSkill(mSkills[3]);
             //EventManager.TriggerIntEvent("CastSkill", mSkills[3].MyMagicPoint);

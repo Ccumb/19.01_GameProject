@@ -10,7 +10,8 @@ public class SkillBombAsset : Skill, IUseable
     // Update is called once per frame
     public override void Use()
     {
-        GameObject bomb = Instantiate(BombPrefab, GameObject.FindGameObjectWithTag("Player").transform);
+        GameObject bomb = Instantiate(BombPrefab);
+        bomb.transform.position = GameObject.FindGameObjectWithTag("Player").transform.position;
         ActiveSkillBomb activeSkill = bomb.GetComponent<ActiveSkillBomb>();
         activeSkill.Damage = this.MyEffect;
     }

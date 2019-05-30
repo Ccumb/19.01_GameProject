@@ -5,26 +5,46 @@ using UnityEngine.UI;
 
 public class ShowEnemyHP : MonoBehaviour
 {
+    [SerializeField]
+    private GameObject mUIBar;
+
     private Image mHealthBar;
 
     private Text mBossName;
 
+    [SerializeField]
     private float mHp;
     private float mMax_hp;
 
     private void Start()
     {
         mHealthBar = GetComponent<Image>();
-        mMax_hp = GameObject.Find("Enemy").GetComponent<Enemy>().max_hp; // Boss 오브젝트의 이름이 바뀌면 이것도 바꿔줘야 한다
         mBossName = GetComponentInChildren<Text>(); // HP바 자식으로 보스의 이름이 들어가 있는데 다른 방법으로 바꿔줘야 할듯.. 임시방편이다.
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        mHp = GameObject.Find("Enemy").GetComponent<Enemy>().hp;  
         string bossName = "BossName";
         mBossName.text = bossName;
-        mHealthBar.fillAmount = mHp / mMax_hp;
+        if(GameObject.Find("Slime"))
+        {
+            mMax_hp = GameObject.Find("Slime").GetComponent<Enemy>().max_hp;
+            StartCoroutine("CheckHP");
+        }
+        else
+        {
+            mUIBar.SetActive(false);
+        }
+    }
+
+    IEnumerator CheckHP()
+    {
+        yield return new WaitForSeconds(1.0f);
+        while(true)
+        {
+            if(!GameObject.Find("Slime"))
+            {
+                StopCoroutine("CheckHP");
+            }
+            mHp = GameObject.Find("Slime").GetComponent<Enemy>().hp;
+            mHealthBar.fillAmount = mHp / mMax_hp;
+            yield return new WaitForSeconds(0.1f);
+        }
     }
 }

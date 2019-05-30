@@ -10,8 +10,12 @@ public class ActiveSkillLongDistanceAttackAsset : Skill, IUseable
     // Update is called once per frame
     public override void Use()
     {
-        ActiveSkillBomb bomb = Instantiate(BulletPrefab, GameObject.FindGameObjectWithTag("Player").transform).GetComponent<ActiveSkillBomb>();
-        bomb.Damage = this.MyEffect;
 
+        if(this.MyIsUseable)
+        {
+            GameObject bullet = Instantiate(BulletPrefab);
+            LongDistanceAttack activeSkill = bullet.GetComponent<LongDistanceAttack>();
+            activeSkill.Damage = this.MyEffect;
+        }
     }
 }
