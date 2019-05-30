@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Neremnem.Tools;
 
-public class SubordinateRangeBoom : MonoBehaviour
+public class FixedRangeBoom : MonoBehaviour
 {
     public int Damage = 1; //대미지
     public float BoomDelayTime = 5.0f; //지연 시간
@@ -14,7 +14,7 @@ public class SubordinateRangeBoom : MonoBehaviour
     public LayerMask TargetMask;    //타겟 레이어
     public LayerMask ObstacleMask;  //장애물 레이어
 
-    private float mBoomTime = 0.0f;
+    public float mBoomTime = 0.0f;
     private bool mbBoom = false;
 
     private void OnEnable()
@@ -34,10 +34,10 @@ public class SubordinateRangeBoom : MonoBehaviour
 
     private void Update()
     {
-        if(!mbBoom)
+        if (!mbBoom)
         {
             mBoomTime += Time.deltaTime;
-            if(mBoomTime > BoomDelayTime)
+            if (mBoomTime > BoomDelayTime)
             {
                 mbBoom = true;
                 mBoomTime = 0.0f;
@@ -48,30 +48,14 @@ public class SubordinateRangeBoom : MonoBehaviour
     {
         Collider[] targetsInOnRadius = Physics.OverlapSphere(transform.position, BoomRadius, TargetMask);
 
-        for (int i = 0; i < targetsInOnRadius.Length; i++)
-        {
-            Transform target = targetsInOnRadius[i].transform;
-            Vector3 dirToTarget = (target.position - transform.position).normalized;
-            if (Vector3.Angle(transform.forward, dirToTarget) < TargetAngle / 2)
-            {
-                float dstToTarget = Vector3.Distance(transform.position, target.position);
-                if (!Physics.Raycast(transform.position, dirToTarget, dstToTarget, ObstacleMask))
-                {
-                    //대미지 적용 함수
-                    if(mbBoom)
-                    {
-                        //이펙트 차후 추가(?)
-                        DamageArea(targetsInOnRadius, Damage);
-                        gameObject.SetActive(false);
-                        return;
-                    }
-                }
-            }
-        }
-        //범위 내에 플레이어가 없어도 일정시간이 지나면 터지도록 하기 위하여 추가
+        //대미지 적용 함수
         if (mbBoom)
         {
-            gameObject.SetActive(false);
+            //이펙트 차후 추가(?)
+            DamageArea(targetsInOnRadius, Damage);
+            mbBoom = false;
+            Debug.Log("The boom!");
+            return;
         }
     }
 
@@ -81,7 +65,7 @@ public class SubordinateRangeBoom : MonoBehaviour
         {
             if (player.GetComponent<Player>() != null)
             {
-                Debug.Log("Damage[RangeAttackScript]: " + damage);
+                Debug.Log("Damage[FixedRangeBoom]: " + damage);
                 EventManager.TriggerTakeDamageEvent("EnemysAttack", player.gameObject, damage);
             }
         }
