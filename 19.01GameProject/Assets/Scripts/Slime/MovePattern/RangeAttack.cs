@@ -42,7 +42,7 @@ public class RangeAttack : EnemyAbility
         //초기화 할 것들
         SetAnimBool("isAttack", false);
         SetAnimBool("isWalk", false);
-        mRangeSpriteRenderer.transform.localScale = new Vector3(TargetOnRadius, TargetOnRadius, 0) * 10;
+        mRangeSpriteRenderer.transform.localScale = new Vector3(TargetOnRadius, TargetOnRadius, 0) * 4.5f;
         DamageTime = DamageTime + TargetOnTime;
         Debug.Log("RangeAttackInit");
     }
@@ -179,7 +179,7 @@ public class RangeAttack : EnemyAbility
     {
         foreach (Collider player in plyaerObjects)
         {
-            if (player.GetComponent<Playera>() != null)
+            if (player.GetComponent<Player>() != null)
             {
                 Debug.Log("Damage[RangeAttackScript]: " + damage);
                 EventManager.TriggerTakeDamageEvent("EnemysAttack", player.gameObject, (int)damage);
@@ -187,7 +187,7 @@ public class RangeAttack : EnemyAbility
                 //True, False를 이용해서 끄고 키기로 사용/비사용
                 if (bRepulsion)
                 {
-                    player.GetComponent<Rigidbody>().AddRelativeForce(transform.forward * RepulsiveForce, ForceMode.Impulse);
+                    player.GetComponent<Rigidbody>().AddRelativeForce(transform.forward * RepulsiveForce, ForceMode.Acceleration);
                 }
             }
         }

@@ -8,7 +8,7 @@ public class Coin : MonoBehaviour
 {
     public float RepulsiveForce = 10.0f;
     public int Gold = 0; //골드 양
-    Rigidbody CoinRigid = null;
+    Rigidbody CoinRigid = null; //RepulsiveForce가하기 위한 리지드바디
 
     private void Awake()
     {
@@ -29,7 +29,7 @@ public class Coin : MonoBehaviour
     {
         if(collision.gameObject.tag == "Player")
         {
-            //골드 획득 코드 차후 추가
+            InventoryScript.MyInstance.UpdateGold(Gold);
             Debug.Log("GetGold: " + Gold);
             gameObject.SetActive(false);
         }
