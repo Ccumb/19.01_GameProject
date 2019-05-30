@@ -29,7 +29,10 @@ public class PCoolTimeDownSkill : Skill, IUseable
         {
             if(mSkills[i] != null)
                 if(!mSkills[i].isPassive)
-                    mSkills[i].MyCoolTime += effect;           
+                {
+                    mSkills[i].mOriginalCoolTime += effect;
+                }
+            //오리지날 쿨타임하고 바뀌는 쿨타임이 같지 않으면 해주지 않기!
         }
     }
     //패시브 스킬에 있는 Start 다 삭제

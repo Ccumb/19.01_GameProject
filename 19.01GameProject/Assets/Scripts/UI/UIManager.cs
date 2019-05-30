@@ -51,6 +51,16 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public void StartRoutine(IEnumerator routine)
+    {        
+        StartCoroutine(routine);
+    }
+
+    public void StopRoutine(IEnumerator routine)
+    {
+        StopCoroutine(routine);
+    }
+
     public void UpdateCoolTimeText(Skill skill)
     {
         for(int i = 0; i < mGamePlaySkillQuickSlots.Count; i++)
@@ -94,13 +104,10 @@ public class UIManager : MonoBehaviour
         }
 
     }
-
-
     public void ActivePanel(GameObject panel)
     {
         panel.SetActive(true);
     }
-
     public void DeActivePanel(GameObject panel)
     {
         panel.SetActive(false);

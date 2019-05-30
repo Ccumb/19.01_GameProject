@@ -65,7 +65,6 @@ public class SkillSlotScript : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        Debug.Log("Click Test");
         if (eventData.button == PointerEventData.InputButton.Left)
         {
             //인벤토리가 아니라 그 뭐시냐 스킬 세팅 스크립트에서 체인지 이미지를 해줘야 하지 않겄냐~ 이것이다 이말이여

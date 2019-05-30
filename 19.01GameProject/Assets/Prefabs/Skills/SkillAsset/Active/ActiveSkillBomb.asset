@@ -14,11 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isPassive: 0
   slotPosition: 1
-  mIcon: {fileID: 21300000, guid: 9f3f3f90f25307f4d8af1df575571b3c, type: 3}
-  mExplainItem: {fileID: 21300000, guid: 9f3f3f90f25307f4d8af1df575571b3c, type: 3}
-  mCost: 3
+  mIcon: {fileID: 21300000, guid: 893d99664c47fe54ab4f9ed6de5dfa0a, type: 3}
+  mExplainItem: {fileID: 21300000, guid: 893d99664c47fe54ab4f9ed6de5dfa0a, type: 3}
+  mRingCost: 3
   mMPCost: -3
   mCoolTime: 5
+  mOriginalCoolTime: 5
   mIsUseable: 1
   mEffect: 10
   BombPrefab: {fileID: 4085622656441075075, guid: bc67ff5a6021fe149a500f78aba94573,

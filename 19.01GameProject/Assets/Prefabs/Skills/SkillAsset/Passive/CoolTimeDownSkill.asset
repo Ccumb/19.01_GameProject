@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: CoolTimeDownSkill
   m_EditorClassIdentifier: 
   isPassive: 1
-  slotPosition: 5
-  mIcon: {fileID: 21300000, guid: 70d6b23efbe40354fbc76dcc0b269238, type: 3}
-  mExplainItem: {fileID: 21300000, guid: 70d6b23efbe40354fbc76dcc0b269238, type: 3}
-  mCost: 1
-  mMPCost: -1
+  slotPosition: 4
+  mIcon: {fileID: 21300000, guid: 0ac4ea323d4581e4a983276fb290df4c, type: 3}
+  mExplainItem: {fileID: 21300000, guid: 0ac4ea323d4581e4a983276fb290df4c, type: 3}
+  mRingCost: 2
+  mMPCost: 0
   mCoolTime: 0
   mIsUseable: 1
   mEffect: 2

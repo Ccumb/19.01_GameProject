@@ -14,13 +14,15 @@ public class Skill : ScriptableObject, IMoveable
     private Sprite mExplainItem;
 
     [SerializeField]
-    private int mCost = 0; //소모값
+    private int mRingCost = 0; //소모값
 
     [SerializeField]
     private int mMPCost= -1; //마나 다 마이너스로 설정해놓기
 
     [SerializeField]
     private int mCoolTime;
+
+    public int mOriginalCoolTime ;
 
     [SerializeField]
     private bool mIsUseable = true;
@@ -49,11 +51,11 @@ public class Skill : ScriptableObject, IMoveable
     {
         get
         {
-            return mCost;
+            return mRingCost;
         }
         set
         {
-            mCost = value;
+            mRingCost = value;
         }
     }
 
@@ -78,7 +80,7 @@ public class Skill : ScriptableObject, IMoveable
         }
         set
         {
-            mCoolTime = value;
+            mCoolTime = value;            
         }
     }
 
@@ -115,14 +117,14 @@ public class Skill : ScriptableObject, IMoveable
     public virtual IEnumerator CoolTime()
     {        
         mIsUseable = false;
-        int tmp = mCoolTime;
+        mCoolTime = mOriginalCoolTime;
         while(MyCoolTime >= 0)
         {
-            UIManager.MyInstance.UpdateCoolTimeText(this);
-            mCoolTime -= 1;            
+            UIManager.MyInstance.UpdateCoolTimeText(this);        
             yield return new WaitForSeconds(1.0f);
+            mCoolTime -= 1;
         }
-        mCoolTime = tmp;
+        mCoolTime = mOriginalCoolTime;
         mIsUseable = true;
     }
 }
