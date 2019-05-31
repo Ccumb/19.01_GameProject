@@ -15,7 +15,7 @@ public class Portal : MonoBehaviour
     }
     private void OnEnable()
     {
-        StartCoroutine("KeepPortal");
+        //StartCoroutine("KeepPortal");
     }
     private void OnTriggerEnter(Collider other)
     {
