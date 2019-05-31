@@ -60,7 +60,6 @@ public class SubordinateRangeBoom : MonoBehaviour
                     //대미지 적용 함수
                     if(mbBoom)
                     {
-                        //이펙트 차후 추가(?)
                         DamageArea(targetsInOnRadius, Damage);
                         gameObject.SetActive(false);
                         return;
