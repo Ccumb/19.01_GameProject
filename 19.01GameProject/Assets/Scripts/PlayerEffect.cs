@@ -19,9 +19,9 @@ public class PlayerEffect : MonoBehaviour
         mFootSteps = new List<GameObject>();
         mAttacks = new List<GameObject>();
 
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 10; i++)
         {
-            GameObject foot = Instantiate(footStep, footPos);
+            GameObject foot = Instantiate(footStep);
             foot.SetActive(false);
             mFootSteps.Add(foot);
         }
@@ -46,6 +46,7 @@ public class PlayerEffect : MonoBehaviour
         {
             if(mFootSteps[i].active == false)
             {
+                mFootSteps[i].transform.position = footPos.transform.position;
                 mFootSteps[i].active = true;
                 break;
             }
@@ -55,7 +56,7 @@ public class PlayerEffect : MonoBehaviour
 
     IEnumerator FootDelay()
     {
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(2.0f);
 
         for (int i = 0; i < mFootSteps.Count; i++)
         {
