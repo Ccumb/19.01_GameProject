@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 425534}
   - component: {fileID: 19874712}
   - component: {fileID: 19912840}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: CloudBurst
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -52,7 +52,7 @@ ParticleSystem:
   playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
-  useRigidbodyForVelocity: 1
+  useRigidbodyForVelocity: 0
   startDelay:
     serializedVersion: 2
     minMaxState: 0
@@ -529,7 +529,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     randomizeRotationDirection: 0
-    maxNumParticles: 3
+    maxNumParticles: 2
     size3D: 0
     rotation3D: 0
     gravityModifier:
@@ -4705,7 +4705,7 @@ GameObject:
   - component: {fileID: 443696}
   - component: {fileID: 19855650}
   - component: {fileID: 19948540}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Foot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4721,7 +4721,7 @@ Transform:
   m_GameObject: {fileID: 153256}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_Children:
   - {fileID: 425534}
   m_Father: {fileID: 0}
@@ -4746,7 +4746,7 @@ ParticleSystem:
   playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
-  useRigidbodyForVelocity: 1
+  useRigidbodyForVelocity: 0
   startDelay:
     serializedVersion: 2
     minMaxState: 0
@@ -9399,7 +9399,7 @@ GameObject:
   - component: {fileID: 400784}
   - component: {fileID: 19812724}
   - component: {fileID: 19980880}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Droplets
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9439,7 +9439,7 @@ ParticleSystem:
   playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
-  useRigidbodyForVelocity: 1
+  useRigidbodyForVelocity: 0
   startDelay:
     serializedVersion: 2
     minMaxState: 0

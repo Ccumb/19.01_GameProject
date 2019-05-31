@@ -1,25 +1,30 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Neremnem.Tools;
 
 public class PlayerEffect : MonoBehaviour
 {
     public GameObject footStep;
     public GameObject attackSkill;
+    public GameObject heal;
 
     public Transform footPos;
     public Transform punchPos;
+    public Transform healPos;
 
     private List<GameObject> mFootSteps;
     private List<GameObject> mAttacks;
+    private GameObject mHeal;
 
     // Start is called before the first frame update
     void Start()
     {
+        EventManager.StartListeningCommonEvent("ActiveHeal", ActiveHeal);
         mFootSteps = new List<GameObject>();
         mAttacks = new List<GameObject>();
 
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 50; i++)
         {
             GameObject foot = Instantiate(footStep);
             foot.SetActive(false);
@@ -32,12 +37,17 @@ public class PlayerEffect : MonoBehaviour
             punch.SetActive(false);
             mAttacks.Add(punch);
         }
+
+        mHeal = Instantiate(heal);
+        mHeal.SetActive(false);
+
+        Debug.Log(mFootSteps.Count);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        mHeal.transform.position = healPos.transform.position;
     }
 
     void FootStep()
@@ -50,13 +60,13 @@ public class PlayerEffect : MonoBehaviour
                 mFootSteps[i].active = true;
                 break;
             }
+            StartCoroutine("FootDelay");
         }
-        StartCoroutine("FootDelay");
     }
 
     IEnumerator FootDelay()
     {
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(2.5f);
 
         for (int i = 0; i < mFootSteps.Count; i++)
         {
@@ -93,5 +103,17 @@ public class PlayerEffect : MonoBehaviour
                 break;
             }
         }
+    }
+
+    void ActiveHeal()
+    {
+        mHeal.active = true;
+        StartCoroutine("HealDelay");
+    }
+
+    IEnumerator HealDelay()
+    {
+        yield return new WaitForSeconds(3.0f);
+        mHeal.active = false;
     }
 }

@@ -24,12 +24,18 @@ public class ActiveCamera : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        secondCamera.active = true;
+        if(other.gameObject.tag == "Player")
+        {
+            secondCamera.active = true;
+        }
     }
 
 
     private void OnTriggerExit(Collider other)
     {
-        secondCamera.active = false;
+        if (other.gameObject.tag == "Player")
+        {
+            secondCamera.active = false;
+        }
     }
 }
