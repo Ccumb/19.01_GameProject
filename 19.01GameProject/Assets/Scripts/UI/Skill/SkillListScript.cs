@@ -9,6 +9,8 @@ public class SkillListScript : MonoBehaviour
 
     private List<SkillSlotScript> mSlots = new List<SkillSlotScript>();
 
+    private List<bool> own = new List<bool>();
+
     public List<SkillSlotScript> MySlots
     {
         get
@@ -17,19 +19,41 @@ public class SkillListScript : MonoBehaviour
         }
     }
 
+    public List<bool> MyOwn
+    {
+        get
+        {
+            return own;
+        }
+    }
+
+    public List<bool> GetOwnSkillList()
+    {
+        for(int i = 0; i < MySlots.Count; i ++)
+        {
+            if(!MySlots[i].IsEmpty)
+                own[i] = true;
+            else
+                own[i] = false;
+        }
+        return own;
+    }
+
     public void AddSlots(int slotCount)
     {
         for (int i = 0; i < slotCount; i++)
         {
             SkillSlotScript slot = Instantiate(mSlotPrefab, transform).GetComponent<SkillSlotScript>();
             mSlots.Add(slot);
+            own.Add(false);
         }
     }
 
     public bool AddSkill(Skill skill)
     {
         Debug.Log(skill.name);
-        if (skill.name == "HealingSkill(Clone)")
+        mSlots[skill.slotPosition].AddSkill(skill);
+       /* if (skill.name == "HealingSkill(Clone)")
         {
             mSlots[skill.slotPosition].AddSkill(skill);
             return true;
@@ -64,7 +88,7 @@ public class SkillListScript : MonoBehaviour
             mSlots[skill.slotPosition].AddSkill(skill);
             return true;
         }
-
+        */
 
         return false;
     }

@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - ForFixed
   - ForRandom
+  - Monster
   layers:
   - Default
   - TransparentFX

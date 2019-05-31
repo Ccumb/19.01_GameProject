@@ -1201,7 +1201,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &3356003840031200953
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3068,7 +3068,7 @@ PrefabInstance:
     - target: {fileID: 955451876334910877, guid: b5e2422d1f01014459c7df4876bcaafe,
         type: 3}
       propertyPath: m_Text
-      value: B
+      value: S
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b5e2422d1f01014459c7df4876bcaafe, type: 3}
@@ -3921,22 +3921,22 @@ PrefabInstance:
     - target: {fileID: 7023762621579374631, guid: b2c9dda8b5409e0409b20553d2480746,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -190.85
+      value: -134.80005
       objectReference: {fileID: 0}
     - target: {fileID: 7023762621579374631, guid: b2c9dda8b5409e0409b20553d2480746,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -52
+      value: -98.10002
       objectReference: {fileID: 0}
     - target: {fileID: 7023762621579374631, guid: b2c9dda8b5409e0409b20553d2480746,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 404.9
+      value: 517
       objectReference: {fileID: 0}
     - target: {fileID: 7023762621579374631, guid: b2c9dda8b5409e0409b20553d2480746,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 526.4
+      value: 702
       objectReference: {fileID: 0}
     - target: {fileID: 7023762621579374631, guid: b2c9dda8b5409e0409b20553d2480746,
         type: 3}
@@ -4875,7 +4875,7 @@ PrefabInstance:
     - target: {fileID: 955451876334910877, guid: b5e2422d1f01014459c7df4876bcaafe,
         type: 3}
       propertyPath: m_Text
-      value: D
+      value: F
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b5e2422d1f01014459c7df4876bcaafe, type: 3}
@@ -5005,7 +5005,7 @@ PrefabInstance:
     - target: {fileID: 955451876334910877, guid: b5e2422d1f01014459c7df4876bcaafe,
         type: 3}
       propertyPath: m_Text
-      value: C
+      value: D
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b5e2422d1f01014459c7df4876bcaafe, type: 3}

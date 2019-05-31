@@ -10,8 +10,8 @@ public class SkillSettingScript : MonoBehaviour
     public event RingCountChanged RingCountchange;
     public int slotCount = 8;
     public int tmpRingCount = 0;
-
     public GameObject SkillQuickSlot;
+    public List<bool> own = new List<bool>();
 
     [SerializeField]
     private List<ActionButton> mSkillQuickslots = new List<ActionButton>();
@@ -19,11 +19,11 @@ public class SkillSettingScript : MonoBehaviour
     [SerializeField]
     private Skill[] mSkillsList;
 
-
     [SerializeField]
     private GameObject mList;
 
     private SkillListScript mSkillListScript;
+
 
     [SerializeField]
     private Image mExplainImage;
@@ -78,12 +78,25 @@ public class SkillSettingScript : MonoBehaviour
             }
         }
     }
+
     public void AddSkill(Skill skill)
     {
         if(mSkillListScript.AddSkill(skill))
         {
             return;
         }
+    }
+
+    //SkillListScript에서 가지고 있는 스킬들(bool)을 가져온다.
+    //임시로 Test라고 지어놓음. 
+    public void Test()
+    {
+        own = new List<bool>();
+        for(int i = 0; i < mSkillListScript.MySlots.Count; i++)
+            own.Add(false);
+        own = mSkillListScript.GetOwnSkillList();
+        for(int i = 0; i < own.Count; i++)
+            Debug.Log(i + " = " + own[i]);
     }
 
     public void ChangeExplainImage(Sprite sprite)
@@ -120,6 +133,8 @@ public class SkillSettingScript : MonoBehaviour
         {
             mSkillQuickslots.Add(SkillQuickSlot.transform.GetChild(i).GetComponent<ActionButton>());
         }
+
+        LoadSkills();
     }
 
     private void Update()
@@ -132,40 +147,101 @@ public class SkillSettingScript : MonoBehaviour
         }
         if(Input.GetKeyDown(KeyCode.J))
         {
-            PCoolTimeDownSkill create = (PCoolTimeDownSkill)Instantiate(mSkillsList[1]);
+            SkillBombAsset create1 = (SkillBombAsset)Instantiate(mSkillsList[1]);
 
-            AddSkill(create);
+            AddSkill(create1);
         }
         if(Input.GetKeyDown(KeyCode.J))
         {
-            SkillBombAsset create = (SkillBombAsset)Instantiate(mSkillsList[2]);
+            ActiveSkillShortDistanceAttackAsset create2 = (ActiveSkillShortDistanceAttackAsset)Instantiate(mSkillsList[2]);
 
-            AddSkill(create);
+            AddSkill(create2);
         }
         if(Input.GetKeyDown(KeyCode.J))
         {
-            PassiveHeal create = (PassiveHeal)Instantiate(mSkillsList[3]);
+            ActiveSkillLongDistanceAttackAsset create3 = (ActiveSkillLongDistanceAttackAsset)Instantiate(mSkillsList[3]);
 
-            AddSkill(create);
+            AddSkill(create3);
         }
         if(Input.GetKeyDown(KeyCode.J))
         {
-            BasicAttackPowerIncrease create = (BasicAttackPowerIncrease)Instantiate(mSkillsList[4]);
+            PCoolTimeDownSkill create4 = (PCoolTimeDownSkill)Instantiate(mSkillsList[4]);
 
-            AddSkill(create);
+            AddSkill(create4);
         }
         if(Input.GetKeyDown(KeyCode.J))
         {
-            ActiveSkillShortDistanceAttackAsset create = (ActiveSkillShortDistanceAttackAsset)Instantiate(mSkillsList[5]);
+            PassiveHeal create5 = (PassiveHeal)Instantiate(mSkillsList[5]);
 
-            AddSkill(create);
+            AddSkill(create5);
         }
         if(Input.GetKeyDown(KeyCode.J))
         {
-            ActiveSkillLongDistanceAttackAsset create = (ActiveSkillLongDistanceAttackAsset)Instantiate(mSkillsList[6]);
+            BasicAttackPowerIncrease create7 = (BasicAttackPowerIncrease)Instantiate(mSkillsList[7]);
 
-            AddSkill(create);
+            AddSkill(create7);
         }
+        if(Input.GetKeyDown(KeyCode.O))
+        {
+            Test();
+        }
+    }
 
+    //스킬들의 slotposition과 mSkillList의 인덱스값을 일치 시켜놓은거라 추후 수정이 되면 동기화 작업 필요  
+    private void LoadSkillList(int i )
+    {
+        switch(i)
+        {
+            case 0:
+                HealingSkill create = (HealingSkill)Instantiate(mSkillsList[0]);
+
+                AddSkill(create);
+                break;
+            case 1:
+                SkillBombAsset create1 = (SkillBombAsset)Instantiate(mSkillsList[1]);
+
+                AddSkill(create1);
+                break;
+            case 2:
+                ActiveSkillShortDistanceAttackAsset create2 = (ActiveSkillShortDistanceAttackAsset)Instantiate(mSkillsList[2]);
+
+                AddSkill(create2);
+                break;
+            case 3:
+                ActiveSkillLongDistanceAttackAsset create3 = (ActiveSkillLongDistanceAttackAsset)Instantiate(mSkillsList[3]);
+
+                AddSkill(create3);
+                break;
+            case 4:
+                PCoolTimeDownSkill create4 = (PCoolTimeDownSkill)Instantiate(mSkillsList[4]);
+
+                AddSkill(create4);
+                break;
+            case 5:
+                PassiveHeal create5 = (PassiveHeal)Instantiate(mSkillsList[5]);
+
+                AddSkill(create5);
+                break;
+            case 6:
+                SkillEffectIncrease create6 = (SkillEffectIncrease)Instantiate(mSkillsList[6]);
+
+                AddSkill(create6);
+                break;
+            case 7:
+                BasicAttackPowerIncrease create7 = (BasicAttackPowerIncrease)Instantiate(mSkillsList[7]);
+
+                AddSkill(create7);
+                break;
+        }
+    }
+
+    //List<bool>own 의 값이 true이면 LoadSkillList함수를 통해 해당하는 스킬들을 슬롯에다가 넣어준다.
+    private void LoadSkills()
+    {
+        for(int i = 0; i < own.Count; i++)
+        {
+            if(own[i])
+                LoadSkillList(i);
+        }
     }
 }
