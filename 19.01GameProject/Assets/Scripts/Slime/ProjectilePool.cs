@@ -12,6 +12,7 @@ public class ProjectilePool : MonoBehaviour
     {
         ObjectPool();
     }
+    
     /// <summary>
     /// 오브젝트 풀링
     /// </summary>
@@ -26,6 +27,7 @@ public class ProjectilePool : MonoBehaviour
             mPoolList.Add(projectile);
         }
     }
+    
     /// <summary>
     /// 풀링을 한 개씩만 하는 것, 여러 개 발사는 불가능
     /// </summary>

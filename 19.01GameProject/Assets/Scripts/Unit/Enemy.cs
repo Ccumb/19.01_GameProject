@@ -21,18 +21,24 @@ public class Enemy : Unit
     /// <summary>
     /// 각 페이즈 당 몇 개의 패턴을 활성화 시킬 것인지
     /// </summary>
-    public int[] PhaseOne;
-    public int[] PhaseTwo;
-    public int[] PhaseThree;
-    public int[] PhaseFour;
+    public int[] PhaseOne, PhaseTwo, PhaseThree, PhaseFour;
+    /// <summary>
+    /// 각 페이즈 당 최소 HP
+    /// </summary>
+    public int PhaseOneMin = 80, PhaseTwoMin = 40, PhaseThreeMin = 10, PhaseFourMin = 0;
+
     [HideInInspector]
     public bool bDie = false;
 
-    public int PhaseOneMin = 80, PhaseTwoMin = 40, PhaseThreeMin = 10, PhaseFourMin = 0;
-
+    /// <summary>
+    /// 초기 과거, 현재 페이즈 상태
+    /// </summary>
     private EPhase mPresentPhase = EPhase.Non;
     private EPhase mPastPhase = EPhase.Non;
     private Vector3 mStartPos;
+    /// <summary>
+    /// 어빌리티 리스트
+    /// </summary>
     private List<EnemyAbility> mAbilities;
     private Component[] AbilityComponent;
 
@@ -72,7 +78,6 @@ public class Enemy : Unit
         }
     }
 
-
     void Update()
     {
         if (hp > PhaseOneMin)
@@ -103,6 +108,11 @@ public class Enemy : Unit
         }
     }
 
+    /// <summary>
+    /// 대미지 이벤트
+    /// </summary>
+    /// <param name="gameObject"></param>
+    /// <param name="i"></param>
     private void TakeDamage(GameObject gameObject, int i)
     {
         if(gameObject == this.gameObject)
@@ -112,6 +122,10 @@ public class Enemy : Unit
         }
     }
 
+    /// <summary>
+    /// 패턴 실행 함수
+    /// </summary>
+    /// <param name="phaseNum"></param>
     private void PatternManager(EPhase phaseNum)
     {
         mPastPhase = phaseNum;
@@ -147,6 +161,9 @@ public class Enemy : Unit
 
     }
 
+    /// <summary>
+    /// 죽었을 때 초기화 하는 함수
+    /// </summary>
     protected override void Die() 
     {
         bDie = true;
@@ -158,6 +175,9 @@ public class Enemy : Unit
         StartCoroutine("ActiveFalseDelay");
     }
 
+    /// <summary>
+    /// 활성화 하는 함수 Max Hp, Spawn Point etx
+    /// </summary>
     protected override void Active()
     {
         base.Active();
@@ -165,7 +185,10 @@ public class Enemy : Unit
         GetComponent<Rigidbody>().isKinematic = false;
         this.transform.position = mStartPos;
     }
-    //모든 어빌리티를 끔
+
+    /// <summary>
+    /// 모든 어빌리티 비활성화 함수
+    /// </summary>
     void DisableAbilities()
     {
         for (int i = 0; i < mAbilities.Count; i++)
@@ -175,14 +198,10 @@ public class Enemy : Unit
         }
     }
 
-    void AbleAbilities()
-    {
-        for (int i = 0; i < mAbilities.Count; i++)
-        {
-            mAbilities[i].enabled = true;
-        }
-    }
-
+    /// <summary>
+    /// 코인 스폰
+    /// </summary>
+    /// <param name="pos"></param>
     void SpawnCoin(Vector3 pos)
     {
         List<GameObject> mCoins = GameObject.Find("ItemManager").GetComponent<ObjectPooling>().obejcts;
@@ -197,6 +216,10 @@ public class Enemy : Unit
         }
     }
 
+    /// <summary>
+    /// 아이템 스폰
+    /// </summary>
+    /// <param name="pos"></param>
     void SpawnItem(Vector3 pos)
     {
         List<GameObject> items = GameObject.Find("ItemManager").GetComponent<ItemObjectPooling>().ItemObjects;
@@ -207,8 +230,11 @@ public class Enemy : Unit
             items[itemSelect].SetActive(true);
         }
     }
-
-    ///mAbilities리스트에 어빌리티 등록
+    
+    /// <summary>
+    /// mAbilitise에 어빌리티 상속받는 스크립트 등록
+    /// </summary>
+    /// <param name="ability"></param>
     public void RegisterAbility(EnemyAbility ability)
     {
         if ((ability != GetComponent<EnemyAbility>())
@@ -219,11 +245,6 @@ public class Enemy : Unit
         }
     }
 
-    IEnumerator Respawn()
-    {
-        yield return new WaitForSeconds(respawnTime);
-        Active();
-    }
     //몇 초 뒤에 사라질 것인지
     IEnumerator ActiveFalseDelay()
     {

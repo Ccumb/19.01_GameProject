@@ -75,6 +75,11 @@ public class SubordinateRangeBoom : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 범위 안에 있는 Collider 배열 전체에게 대미지
+    /// </summary>
+    /// <param name="plyaerObjects"></param>
+    /// <param name="damage"></param>
     void DamageArea(Collider[] plyaerObjects, int damage)
     {
         foreach (Collider player in plyaerObjects)
