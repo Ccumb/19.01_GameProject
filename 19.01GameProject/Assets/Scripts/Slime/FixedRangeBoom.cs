@@ -12,7 +12,6 @@ public class FixedRangeBoom : MonoBehaviour
     public float TargetAngle;   //타겟을 인식할 각도
 
     public LayerMask TargetMask;    //타겟 레이어
-    public LayerMask ObstacleMask;  //장애물 레이어
 
     public float mBoomTime = 0.0f;
     private bool mbBoom = false;
@@ -32,6 +31,9 @@ public class FixedRangeBoom : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 터지지 않을 때만 시간이 감
+    /// </summary>
     private void Update()
     {
         if (!mbBoom)
@@ -44,14 +46,15 @@ public class FixedRangeBoom : MonoBehaviour
             }
         }
     }
+
+
     private void FindVisibleTargetsInternal()
     {
         Collider[] targetsInOnRadius = Physics.OverlapSphere(transform.position, BoomRadius, TargetMask);
-
-        //대미지 적용 함수
+                
         if (mbBoom)
         {
-            //이펙트 차후 추가(?)
+            //이펙트 차후 추가
             DamageArea(targetsInOnRadius, Damage);
             mbBoom = false;
             Debug.Log("The boom!");
@@ -59,6 +62,11 @@ public class FixedRangeBoom : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 대미지 적용 함수, Collider 배열 전체에게 대미지를 가함
+    /// </summary>
+    /// <param name="plyaerObjects"></param>
+    /// <param name="damage"></param>
     void DamageArea(Collider[] plyaerObjects, int damage)
     {
         foreach (Collider player in plyaerObjects)
