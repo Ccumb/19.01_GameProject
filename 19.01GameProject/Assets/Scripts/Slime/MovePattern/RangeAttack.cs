@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using Neremnem.Tools;
 
-[DisallowMultipleComponent]
 public class RangeAttack : EnemyAbility
 {
     public float TargetOffRadius;   //타겟 off 범위
@@ -21,6 +20,9 @@ public class RangeAttack : EnemyAbility
 
     public LayerMask TargetMask;    //타겟 레이어
     public LayerMask ObstacleMask;  //장애물 레이어
+
+    public ParticleSystem explosion = null;
+    public float ParticleScale = 50.0f;
 
     private bool mbTargetOn = false; //타겟을 찾았는지 판별
     private bool mbDamage = false; //대미지를 가할 때 true
@@ -42,7 +44,9 @@ public class RangeAttack : EnemyAbility
         //초기화 할 것들
         SetAnimBool("isAttack", false);
         SetAnimBool("isWalk", false);
-        mRangeSpriteRenderer.transform.localScale = new Vector3(TargetOnRadius, TargetOnRadius, 0) * 4.5f;
+        SetAnimBool("isJump", false);
+        SetAnimBool("isDie", false);
+        mRangeSpriteRenderer.transform.localScale = new Vector3(TargetOnRadius, TargetOnRadius, 0) * 10.0f;
         DamageTime = DamageTime + TargetOnTime;
         Debug.Log("RangeAttackInit");
     }
@@ -71,6 +75,10 @@ public class RangeAttack : EnemyAbility
     /// </summary>
     private void OnDisable()
     {
+        if (_enemyMovement.enabled) _enemyMovement.enabled = false;
+        SetAnimBool("isAttack", false);
+        SetAnimBool("isWalk", false);
+        SetAnimBool("isJump", false);
         mRangeSpriteRenderer.enabled = false;
         StopCoroutine(FindTargetsWithDelay(0));
         Debug.Log("Off Script Range!");
@@ -101,6 +109,7 @@ public class RangeAttack : EnemyAbility
         else
         {
             SetAnimBool("isAttack", false);
+            SetAnimBool("isJump", false);
             mDamageTime = 0.0f;
             mRangeSpriteRenderer.enabled = false;
             ChangeColor.bIsAttack = false;
@@ -124,7 +133,7 @@ public class RangeAttack : EnemyAbility
     {
         Collider[] targetsInOnRadius = Physics.OverlapSphere(transform.position, TargetOnRadius, TargetMask);
         Collider[] targetsInOffRadius = Physics.OverlapSphere(transform.position, TargetOffRadius, TargetMask);
-
+        
         for (int i = 0; i < targetsInOnRadius.Length; i++)
         {
             Transform target = targetsInOnRadius[i].transform;
@@ -136,16 +145,39 @@ public class RangeAttack : EnemyAbility
                 {
                     if (!mbTargetOn) mbTargetOn = true;
                     if (_enemyMovement.enabled) _enemyMovement.enabled = false;
-                    if (GetAnimBool("isAttack") || mbTargetOn) SetAnimBool("isWalk", false);
+                    if (!bRepulsion)
+                    {
+                        if (GetAnimBool("isAttack") || mbTargetOn)
+                        {
+                            SetAnimBool("isWalk", false);
+                        }
+                    }
+                    else
+                    {
+                        if (GetAnimBool("isJump") || mbTargetOn)
+                        {
+                            SetAnimBool("isWalk", false);
+                        }
+
+                    }
                     transform.forward = new Vector3(dirToTarget.x, 0, dirToTarget.z);
 
                     if (mbDamage)
                     {
                         //범위 대미지를 주는 함수//
-                        DamageArea(targetsInOnRadius, RangeDamage);
-                        SetAnimBool("isAttack", true);
+                        if (!bRepulsion)
+                        {
+                            SetAnimBool("isAttack", true);
+                        }
+                        else
+                        {
+                            SetAnimBool("isJump", true);
+                        }
                         mbDamage = false;
                         ChangeColor.bIsAttack = false;
+                        explosion.transform.localScale = new Vector3(ParticleScale, ParticleScale, ParticleScale);
+                        Instantiate(explosion, transform.position, Quaternion.identity);
+                        DamageArea(targetsInOnRadius, RangeDamage);
                         return;
                     }
                 }
@@ -164,10 +196,10 @@ public class RangeAttack : EnemyAbility
                 {
                     if (mbTargetOn) mbTargetOn = false;
                     if (!_enemyMovement.enabled) _enemyMovement.enabled = true;
-                    if (!GetAnimBool("isAttack") && !mbTargetOn) SetAnimBool("isWalk", true);
+                    if (!GetAnimBool("isJump") && !GetAnimBool("isAttack") && !mbTargetOn) SetAnimBool("isWalk", true);
                 }
             }
-        }        
+        }
     }
 
     /// <summary>
@@ -179,7 +211,7 @@ public class RangeAttack : EnemyAbility
     {
         foreach (Collider player in plyaerObjects)
         {
-            if (player.GetComponent<Player>() != null)
+            //if (player.GetComponent<Player>() != null)
             {
                 Debug.Log("Damage[RangeAttackScript]: " + damage);
                 EventManager.TriggerTakeDamageEvent("EnemysAttack", player.gameObject, (int)damage);

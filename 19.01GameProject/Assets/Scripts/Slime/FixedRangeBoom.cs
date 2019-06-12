@@ -13,6 +13,9 @@ public class FixedRangeBoom : MonoBehaviour
 
     public LayerMask TargetMask;    //타겟 레이어
 
+    public ParticleSystem Explosion = null;
+    public float ParticleScale = 10.0f;
+
     public float mBoomTime = 0.0f;
     private bool mbBoom = false;
 
@@ -55,6 +58,8 @@ public class FixedRangeBoom : MonoBehaviour
         if (mbBoom)
         {
             //이펙트 차후 추가
+            Explosion.transform.localScale = new Vector3(ParticleScale, ParticleScale, ParticleScale);
+            Instantiate(Explosion, transform.position, Quaternion.identity);
             DamageArea(targetsInOnRadius, Damage);
             mbBoom = false;
             Debug.Log("The boom!");

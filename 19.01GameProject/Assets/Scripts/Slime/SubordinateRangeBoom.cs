@@ -14,6 +14,9 @@ public class SubordinateRangeBoom : MonoBehaviour
     public LayerMask TargetMask;    //타겟 레이어
     public LayerMask ObstacleMask;  //장애물 레이어
 
+    public ParticleSystem Explosion = null;
+    public float ParticleScale = 10.0f;
+
     private float mBoomTime = 0.0f;
     private bool mbBoom = false;
 
@@ -60,7 +63,9 @@ public class SubordinateRangeBoom : MonoBehaviour
                     //대미지 적용 함수
                     if(mbBoom)
                     {
-                        //이펙트 차후 추가(?)
+                        //이펙트 차후 추가(?)                        
+                        Explosion.transform.localScale = new Vector3(ParticleScale, ParticleScale, ParticleScale);
+                        Instantiate(Explosion, transform.position, Quaternion.identity);
                         DamageArea(targetsInOnRadius, Damage);
                         gameObject.SetActive(false);
                         return;
@@ -71,6 +76,9 @@ public class SubordinateRangeBoom : MonoBehaviour
         //범위 내에 플레이어가 없어도 일정시간이 지나면 터지도록 하기 위하여 추가
         if (mbBoom)
         {
+            Explosion.transform.localScale = new Vector3(ParticleScale, ParticleScale, ParticleScale);
+            Instantiate(Explosion, transform.position, Quaternion.identity);
+            DamageArea(targetsInOnRadius, Damage);
             gameObject.SetActive(false);
         }
     }

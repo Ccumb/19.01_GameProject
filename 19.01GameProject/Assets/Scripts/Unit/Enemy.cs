@@ -21,11 +21,22 @@ public class Enemy : Unit
     /// <summary>
     /// 각 페이즈 당 몇 개의 패턴을 활성화 시킬 것인지
     /// </summary>
-    public int[] PhaseOne, PhaseTwo, PhaseThree, PhaseFour;
+    [Header("Phase Setting")]
+    public int[] PhaseOne;
+    public int[] PhaseTwo;
+    public int[] PhaseThree;
+    public int[] PhaseFour;
+    [Header("Phase HealthPoint Setting")]
     /// <summary>
     /// 각 페이즈 당 최소 HP
     /// </summary>
-    public int PhaseOneMin = 80, PhaseTwoMin = 40, PhaseThreeMin = 10, PhaseFourMin = 0;
+    public int PhaseOneMin = 80;
+    public int PhaseTwoMin = 40;
+    public int PhaseThreeMin = 10;
+    public int PhaseFourMin = 0;
+    [Header("Gold Setting")]
+    public int MaxGold = 0;
+    public int MinGold = 0;
 
     [HideInInspector]
     public bool bDie = false;
@@ -41,6 +52,7 @@ public class Enemy : Unit
     /// </summary>
     private List<EnemyAbility> mAbilities;
     private Component[] AbilityComponent;
+    private EnemyAbility mEnemyAbillity= null;
 
 
     private void Awake()
@@ -50,7 +62,16 @@ public class Enemy : Unit
     private void OnEnable()
     {
         bDie = false;
-        InitHP();
+        GetComponent<Rigidbody>().isKinematic = false;
+        if (mEnemyAbillity == null)
+        {
+            mEnemyAbillity = GetComponent<EnemyAbility>();
+        }
+        if (mEnemyAbillity.anim != null && mEnemyAbillity.GetAnimBool("isAttack"))
+        {
+            mEnemyAbillity.SetAnimBool("isDie", false);
+        }
+        Active();
         mPresentPhase = EPhase.Non;
         mPastPhase = EPhase.Non;
         EventManager.StartListeningTakeDamageEvent("PlayersAttack", TakeDamage);   
@@ -65,7 +86,6 @@ public class Enemy : Unit
     {
         mbIsActive = true;
         this.gameObject.tag = "Enemy";
-
         mStartPos = this.transform.position;
         AbilityComponent = GetComponentsInParent(typeof(EnemyAbility));
 
@@ -167,6 +187,7 @@ public class Enemy : Unit
     protected override void Die() 
     {
         bDie = true;
+        mEnemyAbillity.SetAnimBool("isDie",true);
         DisableAbilities();
         
         InActive();
@@ -181,9 +202,8 @@ public class Enemy : Unit
     protected override void Active()
     {
         base.Active();
-        hp = max_hp;
+        InitHP();
         GetComponent<Rigidbody>().isKinematic = false;
-        this.transform.position = mStartPos;
     }
 
     /// <summary>
@@ -205,8 +225,17 @@ public class Enemy : Unit
     void SpawnCoin(Vector3 pos)
     {
         List<GameObject> mCoins = GameObject.Find("ItemManager").GetComponent<ObjectPooling>().obejcts;
-        int coinCount = Random.Range(1, mCoins.Count);
-        for (int i = 0; i < coinCount; i++)
+        //코인량 랜덤
+        //int coinCount = Random.Range(1, mCoins.Count);
+        //for (int i = 0; i < coinCount; i++)
+        //{
+        //    if (mCoins[i].activeSelf == false)
+        //    {
+        //        mCoins[i].transform.position = pos;
+        //        mCoins[i].SetActive(true);
+        //    }
+        //}
+        for (int i = 0; i < MaxGold; i++)
         {
             if (mCoins[i].activeSelf == false)
             {

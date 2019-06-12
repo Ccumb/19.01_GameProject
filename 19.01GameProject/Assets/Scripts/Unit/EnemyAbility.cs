@@ -5,7 +5,8 @@ using UnityEngine;
 [RequireComponent(typeof(Enemy))]
 public class EnemyAbility : MonoBehaviour
 {
-    protected Animator anim = null;
+    [HideInInspector]
+    public Animator anim = null;
     protected ChangeSlimeColor ChangeColor = null;
     protected EnemyMovement _enemyMovement = null;
     protected virtual void Start()

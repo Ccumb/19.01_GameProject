@@ -40,6 +40,8 @@ public class LongRangeAttack : EnemyAbility
         //초기화 할 것들
         SetAnimBool("isAttack", false);
         SetAnimBool("isWalk", false);
+        SetAnimBool("isJump", false);
+        SetAnimBool("isDie", false);
         mProjectilePooling = GetComponent<ProjectilePool>();
         Debug.Log("LongRangeAttackInit");
     }
@@ -63,6 +65,10 @@ public class LongRangeAttack : EnemyAbility
 
     private void OnDisable()
     {
+        if (_enemyMovement.enabled) _enemyMovement.enabled = false;
+        SetAnimBool("isAttack", false);
+        SetAnimBool("isWalk", false);
+        SetAnimBool("isJump", false);
         mRangeSpriteRenderer.enabled = false;
         StopCoroutine(FindTargetsWithDelay(0));
         Debug.Log("Off Script LongRange!");

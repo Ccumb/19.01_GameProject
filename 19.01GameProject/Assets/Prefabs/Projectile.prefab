@@ -122,3 +122,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ProejctileDamage: 1
+  DelayActive: 1
+  Explosion: {fileID: 19899008, guid: ca22a39cb3cd5934eb44c379371b2cbb, type: 3}
+  ParticleScale: 10

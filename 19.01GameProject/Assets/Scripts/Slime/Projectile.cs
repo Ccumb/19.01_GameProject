@@ -10,6 +10,9 @@ public class Projectile : MonoBehaviour
     public int ProejctileDamage = 1;
     public float DelayActive = 1.0f; //프로젝타일이 사라지는 시간
 
+    public ParticleSystem Explosion = null;
+    public float ParticleScale = 1.0f;
+
     private void Awake()
     {
         mProejctileRigid = GetComponent<Rigidbody>();
@@ -39,12 +42,16 @@ public class Projectile : MonoBehaviour
     /// <param name="collision"></param>
     private void OnCollisionEnter(Collision collision)
     {
+        Debug.Log("Hit Projectile"+collision.gameObject.name);
+        Explosion.transform.localScale = new Vector3(ParticleScale, ParticleScale, ParticleScale);
         Debug.Log("Damage: " + ProejctileDamage);
         if (collision.gameObject.tag == "Player")
         {
             EventManager.TriggerTakeDamageEvent("EnemysAttack", collision.gameObject, ProejctileDamage);
+            Instantiate(Explosion, transform.position, Quaternion.identity);
             gameObject.SetActive(false);
         }
+        Instantiate(Explosion, transform.position, Quaternion.identity);
         gameObject.SetActive(false);
     }
 
