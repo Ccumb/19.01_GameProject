@@ -17,6 +17,7 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     public GameObject inventoryPanel;
     public GameObject skillPanel;
+    public GameObject gameoverPanel;
     public GameObject GamePlayQuickSlot;
     public GameObject GamePlaySkillQuickSlot;
 
@@ -25,6 +26,12 @@ public class UIManager : MonoBehaviour
     private List<ActionButton> mGamePlaySkillQuickSlots = new List<ActionButton>();
 
     private static UIManager mInstance;
+
+    public void GameOver()
+    {
+        if(!gameoverPanel.activeSelf)
+            gameoverPanel.SetActive(true);
+    }
 
     public static UIManager MyInstance
     {
