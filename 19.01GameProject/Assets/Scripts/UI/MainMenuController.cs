@@ -8,6 +8,7 @@ public class MainMenuController : MonoBehaviour
     [SerializeField] public GameObject mainPanel;
     [SerializeField] public GameObject optionPanel;
     [SerializeField] public GameObject creditPanel;
+    [SerializeField] public GameObject keyinfoPanel;
 
     // Start is called before the first frame update
     void Start()
@@ -43,6 +44,18 @@ public class MainMenuController : MonoBehaviour
         creditPanel.SetActive(false);
         ShowMainPanel();
     }
+    public void ShowKeyInfoPanel()
+    {
+        keyinfoPanel.SetActive(true);
+        HideMainPanel();
+    }
+    public void HideKeyInfoPanel()
+    {
+        keyinfoPanel.SetActive(false);
+        ShowMainPanel();
+    }
+
+
     public void EnterExitButton()
     {
         Application.Quit();

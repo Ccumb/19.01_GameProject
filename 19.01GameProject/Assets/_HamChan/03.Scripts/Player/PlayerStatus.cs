@@ -68,7 +68,7 @@ public class PlayerStatus :MonoBehaviour
         mPrimarySpeed = 15.0f;
         mPrimaryDamage = 1;
         mPrimaryMaxHP = 100;
-        mPrimaryHP = 100;
+        mPrimaryHP = 10;
         mPrimaryMaxSkillCost = 6;
         mPrimarySkillCost = 6;
         mPrimaryMaxSP = 100;
@@ -121,10 +121,13 @@ public class PlayerStatus :MonoBehaviour
         if (mHP - i < 0)
         {
             mHP = 0;
+            UIManager.MyInstance.GameOver();
         }
         else
         {
             mHP -= i;
+            if(mHP < 0)
+                UIManager.MyInstance.GameOver();
         }
     }
     private void SetHP(int i)

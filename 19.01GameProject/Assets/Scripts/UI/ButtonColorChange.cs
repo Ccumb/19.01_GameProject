@@ -5,13 +5,13 @@ using UnityEngine.UI;
 
 public class ButtonColorChange : MonoBehaviour
 {
-    public Text buttonText;
+    public Image buttonText;
     public Color changeColor;
     private Color mOriginalColor;
 
     private void Start()
     {
-        buttonText = gameObject.GetComponentInChildren<Text>();
+        buttonText = gameObject.GetComponent<Image>();
         mOriginalColor = buttonText.color;
     }
 
