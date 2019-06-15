@@ -9,6 +9,8 @@ public class BagScript : MonoBehaviour
 
     private List<SlotScript> mSlots = new List<SlotScript>();
 
+    private List<bool> own = new List<bool>();
+
     public List<SlotScript> MySlots
     {
         get
@@ -17,12 +19,33 @@ public class BagScript : MonoBehaviour
         }
     }
 
+    public List<bool> MyOwn
+    {
+        get
+        {
+            return own;
+        }
+    }
+
+    public List<bool> GetOwnItemList()
+    {
+        for(int i = 0; i < MySlots.Count; i++)
+        {
+            if(!MySlots[i].IsEmpty)
+                own[i] = true;
+            else
+                own[i] = false;
+        }
+        return own;
+    }
+
     public void AddSlots(int slotCount)
     {
         for(int i = 0; i < slotCount; i++)
         {
             SlotScript slot = Instantiate(mSlotPrefab, transform).GetComponent<SlotScript>();
             mSlots.Add(slot);
+            own.Add(false);
         }
         InventoryScript.MyInstance.mSlotScripts = MySlots;
     }

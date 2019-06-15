@@ -10,6 +10,9 @@ public class SubordinateSummon : EnemyAbility
     public float SummonTime = 10.0f;
     public Transform[] SummonTransform = new Transform[5];
 
+    public ParticleSystem Explosion = null;
+    public float ParticleScale = 10.0f;
+
     private float mSummonTime = 0.0f;
     private bool bSummon = false;
     private int FalseCount = 0;
@@ -49,6 +52,8 @@ public class SubordinateSummon : EnemyAbility
             mSummonTime += Time.deltaTime;
             if (mSummonTime > SummonTime)
             {
+                Explosion.transform.localScale = new Vector3(ParticleScale, ParticleScale, ParticleScale);
+                Instantiate(Explosion, transform.position, Quaternion.identity);
                 SummonPool.Pooling(SummonCount, SummonTransform);
                 if (SummonCount < 5)
                 {

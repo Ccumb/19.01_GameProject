@@ -5,7 +5,8 @@ using UnityEngine;
 [RequireComponent(typeof(Enemy))]
 public class EnemyAbility : MonoBehaviour
 {
-    protected Animator anim = null;
+    [HideInInspector]
+    public Animator anim = null;
     protected ChangeSlimeColor ChangeColor = null;
     protected EnemyMovement _enemyMovement = null;
     protected virtual void Start()
@@ -22,17 +23,31 @@ public class EnemyAbility : MonoBehaviour
         Debug.Log("EnemyAbility Init");
     }
 
-    //Slime animator bool get;
+    /// <summary>
+    /// 슬라임 애니메이터 불 변수 겟
+    /// </summary>
+    /// <param name="name"></param>
+    /// <returns></returns>
     public bool GetAnimBool(string name)
     {
         return anim.GetBool(name);
     }
-    //Slime animator bool set;
+    /// <summary>
+    /// 슬라임 애니메이터 불 변수 셋
+    /// </summary>
+    /// <param name="name"></param>
+    /// <param name="value"></param>
     public void SetAnimBool(string name, bool value)
     {
         anim.SetBool(name, value);
     }
 
+    /// <summary>
+    /// 에디터 앵글 조절
+    /// </summary>
+    /// <param name="angleInDegrees"></param>
+    /// <param name="angleIsGlobal"></param>
+    /// <returns></returns>
     public Vector3 DirFromAngle(float angleInDegrees, bool angleIsGlobal)
     {
         if (!angleIsGlobal)

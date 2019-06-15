@@ -71,13 +71,13 @@ public class MenuInputKey : MonoBehaviour
 
     private void ReturnButtonHighlight(int btnIndex)
     {
-        Text btnText = mMenuButtons[btnIndex].GetComponentInChildren<Text>();
-        btnText.color = new Color(mOriginalTextColor.r, mOriginalTextColor.g, mOriginalTextColor.b, 255);
+        Image btnText = mMenuButtons[btnIndex].GetComponent<Image>();
+        btnText.color = Color.white;
     }
 
     private void NextButtonHighlight(int btnIndex)
     {
-        Text btnText = mMenuButtons[btnIndex].GetComponentInChildren<Text>();
+        Image btnText = mMenuButtons[btnIndex].GetComponent<Image>();
         btnText.color = new Color(changeTextColor.r, changeTextColor.g, changeTextColor.b, 255);
     }
     

@@ -12,6 +12,7 @@ using Neremnem.Tools;
 public class InventoryScript : MonoBehaviour
 {  
     public GameObject ItemQuickSlot;
+    public List<bool> own = new List<bool>();
 
     private List<ActionButton> mItemQuickSlots = new List<ActionButton>();
 
@@ -86,6 +87,16 @@ public class InventoryScript : MonoBehaviour
         }
         PlaceInEmpty(item);
         Debug.Log("add item " + item.name);
+    }
+
+    public void Test()
+    {
+        own = new List<bool>();
+        for(int i = 0; i < bags.MyBagScript.MySlots.Count; i++)
+            own.Add(false);
+        own = bags.MyBagScript.GetOwnItemList();
+        for(int i = 0; i < own.Count; i++)
+            Debug.Log(i + " = " + own[i]);
     }
 
     public void AddBag(Bag bag)
@@ -211,6 +222,32 @@ public class InventoryScript : MonoBehaviour
             HealthPotion potion = (HealthPotion)Instantiate(mItems[1]);
 
             AddItem(potion);
+        }
+    }
+
+    //현재 itemlist에는 bag도 포함되어 있는데 이걸 따로 변수로 빼놓는게 더 편할 수도 있을 것 같으니 빼놓자..
+    private void LoadItemList(int i)
+    {
+        switch(i)
+        {
+            case 0:
+                break;
+            case 1:
+                break;
+            case 2:
+                HealthPotion potion = (HealthPotion)Instantiate(mItems[2]);
+
+                AddItem(potion);
+                break;
+        }
+    }
+
+    private void LoadItems()
+    {
+        for(int i = 0; i < own.Count; i++)
+        {
+            if(own[i])
+                LoadItemList(i);
         }
     }
 

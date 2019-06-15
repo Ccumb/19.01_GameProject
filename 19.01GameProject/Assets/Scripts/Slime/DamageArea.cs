@@ -46,6 +46,10 @@ public class DamageArea : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 안으로 들어 왔을 때 대미지가 들어가도록 설정
+    /// </summary>
+    /// <param name="collision"></param>
     private void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.tag == "Player")
@@ -56,6 +60,10 @@ public class DamageArea : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 밖으로 나가면 대미지를 입지 않음
+    /// </summary>
+    /// <param name="collision"></param>
     private void OnCollisionExit(Collision collision)
     {
         if (bDamaged && collision.gameObject.tag == "Player")

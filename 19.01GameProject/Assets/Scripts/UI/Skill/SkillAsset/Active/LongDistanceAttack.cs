@@ -45,7 +45,7 @@ public class LongDistanceAttack : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag != "Player")
+        if(other.gameObject.tag == "Monster")
         {
             EventManager.TriggerTakeDamageEvent("PlayersAttack",
                 other.gameObject, Damage);

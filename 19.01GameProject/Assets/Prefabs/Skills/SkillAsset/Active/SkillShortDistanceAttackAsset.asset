@@ -15,7 +15,7 @@ MonoBehaviour:
   isPassive: 0
   slotPosition: 2
   mIcon: {fileID: 21300000, guid: 2eb874e692ce78c42b983a49a33c623b, type: 3}
-  mExplainItem: {fileID: 21300000, guid: 2eb874e692ce78c42b983a49a33c623b, type: 3}
+  mExplainItem: {fileID: 21300000, guid: ce6a243c26fcae849857065cf3333302, type: 3}
   mRingCost: 2
   mMPCost: -2
   mCoolTime: 5

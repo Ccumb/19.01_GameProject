@@ -105,8 +105,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65edef2d47b71b942b008f5f443492f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RepulsiveForce: 10
-  Gold: 0
+  RepulsiveForce: 3
+  Gold: 50
 --- !u!54 &5552250402936445778
 Rigidbody:
   m_ObjectHideFlags: 0
