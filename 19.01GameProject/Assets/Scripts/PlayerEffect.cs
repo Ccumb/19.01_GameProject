@@ -5,15 +5,12 @@ using Neremnem.Tools;
 
 public class PlayerEffect : MonoBehaviour
 {
-    public GameObject footStep;
     public GameObject attackSkill;
     public GameObject heal;
-
-    public Transform footPos;
+    
     public Transform punchPos;
     public Transform healPos;
-
-    private List<GameObject> mFootSteps;
+    
     private List<GameObject> mAttacks;
     private GameObject mHeal;
 
@@ -21,15 +18,7 @@ public class PlayerEffect : MonoBehaviour
     void Start()
     {
         EventManager.StartListeningCommonEvent("ActiveHeal", ActiveHeal);
-        mFootSteps = new List<GameObject>();
         mAttacks = new List<GameObject>();
-
-        for (int i = 0; i < 50; i++)
-        {
-            GameObject foot = Instantiate(footStep);
-            foot.SetActive(false);
-            mFootSteps.Add(foot);
-        }
 
         for(int i = 0; i < 3; i++)
         {
@@ -40,42 +29,13 @@ public class PlayerEffect : MonoBehaviour
 
         mHeal = Instantiate(heal);
         mHeal.SetActive(false);
-
-        Debug.Log(mFootSteps.Count);
+        
     }
 
     // Update is called once per frame
     void Update()
     {
         mHeal.transform.position = healPos.transform.position;
-    }
-
-    void FootStep()
-    {
-        for(int i = 0; i < mFootSteps.Count; i++)
-        {
-            if(mFootSteps[i].active == false)
-            {
-                mFootSteps[i].transform.position = footPos.transform.position;
-                mFootSteps[i].active = true;
-                break;
-            }
-            StartCoroutine("FootDelay");
-        }
-    }
-
-    IEnumerator FootDelay()
-    {
-        yield return new WaitForSeconds(2.5f);
-
-        for (int i = 0; i < mFootSteps.Count; i++)
-        {
-            if (mFootSteps[i].active == true)
-            {
-                mFootSteps[i].active = false;
-                break;
-            }
-        }
     }
 
     void SkillAttack()
@@ -95,7 +55,7 @@ public class PlayerEffect : MonoBehaviour
     {
         yield return new WaitForSeconds(1.8f);
 
-        for (int i = 0; i < mFootSteps.Count; i++)
+        for (int i = 0; i < mAttacks.Count; i++)
         {
             if (mAttacks[i].active == true)
             {
