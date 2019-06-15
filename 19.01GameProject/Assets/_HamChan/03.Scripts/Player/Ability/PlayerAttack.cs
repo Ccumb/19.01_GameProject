@@ -10,7 +10,9 @@ public class PlayerAttack : PlayerAbility
     protected const float mAttackDelay = 0.5f;
     protected float mCheckDelay = 0.0f;
     protected BoxCollider mCheckBox;
+    protected AudioSource mAudioSource;
     public Vector3 center;
+    public AudioClip audioClip;
     // Start is called before the first frame update
     protected void Start()
     {
@@ -20,6 +22,7 @@ public class PlayerAttack : PlayerAbility
         mCheckBox.center = center;
         mCheckBox.isTrigger = true;
         mCheckBox.enabled = false;
+        mAudioSource = GetComponent<AudioSource>();
     }
 
     public void SetSkillAttackTrigger()
@@ -71,5 +74,10 @@ public class PlayerAttack : PlayerAbility
     private void AnimationEnd()
     {
         mbCanAttack = true;
+    }
+    private void PlaySwingSound()
+    {
+        mAudioSource.clip = audioClip;
+        mAudioSource.Play();
     }
 }
