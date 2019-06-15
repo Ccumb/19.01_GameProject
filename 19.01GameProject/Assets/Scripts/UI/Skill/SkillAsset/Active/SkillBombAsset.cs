@@ -11,7 +11,10 @@ public class SkillBombAsset : Skill, IUseable
     public override void Use()
     {
         GameObject bomb = Instantiate(BombPrefab);
-        bomb.transform.position = GameObject.FindGameObjectWithTag("Player").transform.position;
+        bomb.transform.position 
+            = new Vector3(GameObject.FindGameObjectWithTag("Player").transform.position.x,
+                            GameObject.FindGameObjectWithTag("Player").transform.position.y + 0.7f,
+                            GameObject.FindGameObjectWithTag("Player").transform.position.z);
         ActiveSkillBomb activeSkill = bomb.GetComponent<ActiveSkillBomb>();
         activeSkill.Damage = this.MyEffect;
     }

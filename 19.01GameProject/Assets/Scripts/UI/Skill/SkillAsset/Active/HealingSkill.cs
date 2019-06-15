@@ -11,7 +11,8 @@ public class HealingSkill : Skill, IUseable
         if(this.MyIsUseable)
         {
             PlayerStatus player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStatus>();
-            if(player.HP >= player.MaxHP)
+            EventManager.TriggerCommonEvent("ActiveHeal");
+            if (player.HP >= player.MaxHP)
             {
                 this.MyCoolTime = 0;
                 EventManager.TriggerIntEvent("CastSkill", -this.MyMagicPoint);

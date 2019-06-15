@@ -130,8 +130,7 @@ ModelImporter:
     rigImportErrors: 
     rigImportWarnings: 
     animationImportErrors: 
-    animationImportWarnings: Event AnimationEnd has a time (0.835025) outside the
-      clip's valid range (0.000000..0.833333). It will never be fired
+    animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
@@ -188,6 +187,14 @@ ModelImporter:
         functionName: AnimationEnd
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 07507eaad9b459e4e9d0f3289730f810,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.6855263
+        functionName: SkillAttack
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: fb5a1f92664ece0468604fe504ce89c8,
           type: 3}
         floatParameter: 0
         intParameter: 0
