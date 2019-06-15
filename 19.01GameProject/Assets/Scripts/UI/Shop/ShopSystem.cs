@@ -17,6 +17,11 @@ public class ShopSystem : MonoBehaviour
 
     public float updateTime;                            // 아이템 리스트 갱신 시간
 
+    public AudioClip buySuccessful;
+    public AudioClip buyFail;
+
+    private AudioSource mAudioSource;
+
     private IEnumerator UpdateRandomItemList()            // 랜덤 아이템 리스트 갱신
     {
         while(true)
@@ -131,8 +136,22 @@ public class ShopSystem : MonoBehaviour
         }
     }
     
+    public void PlayBuySuccessful()
+    {
+        mAudioSource.clip = buySuccessful;
+        mAudioSource.Play();
+    }
+
+    public void PlayBuyFail()
+    {
+        mAudioSource.clip = buyFail;
+        mAudioSource.Play();
+    }
+
     void Start()
     {
+        mAudioSource = GetComponent<AudioSource>();
+
         InitItemLists();
         InitFixedItemPlaces();
         InitRandomItemPlaces();

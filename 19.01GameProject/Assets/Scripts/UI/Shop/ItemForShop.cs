@@ -6,6 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(BoxCollider))]
 public class ItemForShop : MonoBehaviour
 {
+    private ShopSystem shop;
     private ItemIconVersion mMyItemInfo;        // 내 아이템 정보
     private Renderer mRenderer;
     public bool mIsFull;                      // 구매할 수 있는가?
@@ -75,6 +76,7 @@ public class ItemForShop : MonoBehaviour
 
     void Start()
     {
+        shop = GetComponentInParent<ShopSystem>();
         StartCoroutine("CheckItemForSell");
     }
 
@@ -101,9 +103,13 @@ public class ItemForShop : MonoBehaviour
                 if(InventoryScript.MyInstance.Gold >= mMyItemInfo.MyCost/* && mIsFull == false*/)
                 {
                     InventoryScript.MyInstance.UpdateGold(-mMyItemInfo.MyCost);
-
+                    shop.PlayBuySuccessful();
                     ItemIconVersion potion = (HealthPotion)Instantiate(mMyItemInfo);
                     InventoryScript.MyInstance.AddItem(potion);
+                }
+                else
+                {
+                    shop.PlayBuyFail();
                 }
             }
         }
