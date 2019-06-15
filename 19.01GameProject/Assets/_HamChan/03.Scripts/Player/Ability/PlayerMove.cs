@@ -11,13 +11,15 @@ public class PlayerMove : PlayerAbility
     protected Vector3 mDirectionVector;
     protected float mHorizontalMove;
     protected float mVerticalMove;
-    
+    public AudioSource audioSource;
+    public AudioClip walkClip;
     protected void Start()
     {
         base.Start();
         mRigidbody = GetComponent<Rigidbody>();
         mRigidbody.freezeRotation = true;
         mRigidbody.isKinematic = true;
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -36,5 +38,9 @@ public class PlayerMove : PlayerAbility
             mPlayer.animator.SetBool("Walk", false);
         }
     }
-
+    protected void PlayWalkSound()
+    {
+        audioSource.clip = walkClip;
+        audioSource.Play();
+    }
 }
