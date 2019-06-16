@@ -9,6 +9,7 @@ TagManager:
   - ForFixed
   - ForRandom
   - Monster
+  - Boom
   layers:
   - Default
   - TransparentFX
