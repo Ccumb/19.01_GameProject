@@ -14,11 +14,24 @@ public class SubordinateRangeBoom : MonoBehaviour
     public LayerMask TargetMask;    //타겟 레이어
     public LayerMask ObstacleMask;  //장애물 레이어
 
+    public ParticleSystem Explosion = null;
+    public float ParticleScale = 10.0f;
+
+    public AudioClip BoomAudio;
+    private AudioSource mBoomSource;
+
     private float mBoomTime = 0.0f;
     private bool mbBoom = false;
 
+    private SpriteRenderer mRangeSpriteRenderer; //게임상에서 표시되는 2D 스프라이트(범위)
+
     private void OnEnable()
     {
+        mRangeSpriteRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
+        mRangeSpriteRenderer.transform.localScale = new Vector3(BoomRadius, BoomRadius, 0) * 10.0f;
+        mRangeSpriteRenderer.enabled = false;
+
+        mBoomSource = GameObject.Find("Sound").GetComponent<AudioSource>();
         mbBoom = false;
         StartCoroutine(FindTargetsWithDelay(0.2f));
     }
@@ -37,7 +50,12 @@ public class SubordinateRangeBoom : MonoBehaviour
         if(!mbBoom)
         {
             mBoomTime += Time.deltaTime;
-            if(mBoomTime > BoomDelayTime)
+            if (mBoomTime > BoomDelayTime - 1)
+            {
+                if(!mRangeSpriteRenderer.enabled)
+                    mRangeSpriteRenderer.enabled = true;
+            }
+            if (mBoomTime > BoomDelayTime)
             {
                 mbBoom = true;
                 mBoomTime = 0.0f;
@@ -61,6 +79,15 @@ public class SubordinateRangeBoom : MonoBehaviour
                     if(mbBoom)
                     {
                         DamageArea(targetsInOnRadius, Damage);
+                        Explosion.transform.localScale = new Vector3(ParticleScale, ParticleScale, ParticleScale);
+                        Instantiate(Explosion, transform.position, Quaternion.identity);
+                        DamageArea(targetsInOnRadius, Damage);
+                        if (BoomAudio != null)
+                        {
+                            Debug.Log("Audio");
+                            mBoomSource.PlayOneShot(BoomAudio);
+                        }
+                        mRangeSpriteRenderer.enabled = false;
                         gameObject.SetActive(false);
                         return;
                     }
@@ -70,6 +97,15 @@ public class SubordinateRangeBoom : MonoBehaviour
         //범위 내에 플레이어가 없어도 일정시간이 지나면 터지도록 하기 위하여 추가
         if (mbBoom)
         {
+            Explosion.transform.localScale = new Vector3(ParticleScale, ParticleScale, ParticleScale);
+            Instantiate(Explosion, transform.position, Quaternion.identity);
+            DamageArea(targetsInOnRadius, Damage);
+            if (BoomAudio != null)
+            {
+                Debug.Log("Audio");
+                mBoomSource.PlayOneShot(BoomAudio);
+            }
+            mRangeSpriteRenderer.enabled = false;
             gameObject.SetActive(false);
         }
     }

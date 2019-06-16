@@ -16,11 +16,20 @@ public class FixedRangeBoom : MonoBehaviour
     public ParticleSystem Explosion = null;
     public float ParticleScale = 10.0f;
 
+    public AudioClip BoomAudio;
+    private AudioSource mBoomSource;
+
     public float mBoomTime = 0.0f;
     private bool mbBoom = false;
 
+    private SpriteRenderer mRangeSpriteRenderer; //게임상에서 표시되는 2D 스프라이트(범위)
+
     private void OnEnable()
     {
+        mRangeSpriteRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
+        mRangeSpriteRenderer.transform.localScale = new Vector3(BoomRadius, BoomRadius, 0) * 10.0f;
+        mRangeSpriteRenderer.enabled = false;
+        mBoomSource = GetComponent<AudioSource>();
         mbBoom = false;
         StartCoroutine(FindTargetsWithDelay(0.2f));
     }
@@ -42,6 +51,11 @@ public class FixedRangeBoom : MonoBehaviour
         if (!mbBoom)
         {
             mBoomTime += Time.deltaTime;
+            if (mBoomTime > BoomDelayTime - 1)
+            {
+                if (!mRangeSpriteRenderer.enabled)
+                    mRangeSpriteRenderer.enabled = true;
+            }
             if (mBoomTime > BoomDelayTime)
             {
                 mbBoom = true;
@@ -57,10 +71,14 @@ public class FixedRangeBoom : MonoBehaviour
                 
         if (mbBoom)
         {
-            //이펙트 차후 추가
             Explosion.transform.localScale = new Vector3(ParticleScale, ParticleScale, ParticleScale);
             Instantiate(Explosion, transform.position, Quaternion.identity);
             DamageArea(targetsInOnRadius, Damage);
+            if(BoomAudio != null)
+            {
+                mBoomSource.PlayOneShot(BoomAudio);
+            }
+            mRangeSpriteRenderer.enabled = false;
             mbBoom = false;
             Debug.Log("The boom!");
             return;
