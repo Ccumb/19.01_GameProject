@@ -3266,7 +3266,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1357887190}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -9.53, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5715504511619558713}
@@ -3644,7 +3644,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1433423279}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 9.67, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4583221043224526998}
@@ -5725,7 +5725,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e6eabb90b0069d54580998d4afc9e301, type: 3}
+  - {fileID: 2100000, guid: d0cf3181c29ad59468247883fdb8b8b0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -6306,7 +6306,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: fe10ac9db43b8ef4db3e14ef0e31f44c, type: 3}
+  - {fileID: 2100000, guid: 390b65ba0dc30f04f9bdd6d200b68e35, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -6350,11 +6350,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5715504511619854617, guid: 60a34fd79d89f644481fb55a44d2a086,
-        type: 3}
-      propertyPath: m_Name
-      value: MeleeSlime
-      objectReference: {fileID: 0}
     - target: {fileID: 5715504511619558713, guid: 60a34fd79d89f644481fb55a44d2a086,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -6409,6 +6404,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5715504511619854617, guid: 60a34fd79d89f644481fb55a44d2a086,
+        type: 3}
+      propertyPath: m_Name
+      value: MeleeSlime
+      objectReference: {fileID: 0}
+    - target: {fileID: 5715504511619854617, guid: 60a34fd79d89f644481fb55a44d2a086,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 60a34fd79d89f644481fb55a44d2a086, type: 3}
@@ -7260,7 +7265,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ff12332bfb7e3ff4a89ffbcf0237ab2d, type: 3}
+  - {fileID: 2100000, guid: ea1e4d840c912384f867bec8e625f360, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
