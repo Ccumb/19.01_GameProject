@@ -13,7 +13,6 @@ public class MainMenuController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Time.timeScale = 0;
     }
 
     public void ShowMainPanel()
@@ -63,7 +62,7 @@ public class MainMenuController : MonoBehaviour
 
     public void ClickStartButton()
     {
-        Time.timeScale = 1;
+        //Time.timeScale = 1;
         SceneManager.LoadScene("Town");        
     }
 }

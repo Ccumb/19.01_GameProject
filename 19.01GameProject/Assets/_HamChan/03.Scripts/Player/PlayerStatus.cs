@@ -68,7 +68,7 @@ public class PlayerStatus :MonoBehaviour
         mPrimarySpeed = 15.0f;
         mPrimaryDamage = 1;
         mPrimaryMaxHP = 100;
-        mPrimaryHP = 10;
+        mPrimaryHP = 100;
         mPrimaryMaxSkillCost = 6;
         mPrimarySkillCost = 6;
         mPrimaryMaxSP = 100;
