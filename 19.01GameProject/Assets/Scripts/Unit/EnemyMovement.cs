@@ -27,6 +27,9 @@ public class EnemyMovement : EnemyAbility
         {
             MonsterAudio.PlayOneShot(MoveAudio);
         }
-        transform.position = Vector3.MoveTowards(transform.position, mTarget.transform.position, step);
+        if (mTarget != null)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, mTarget.transform.position, step);
+        }
     }
 }
