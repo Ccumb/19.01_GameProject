@@ -139,52 +139,52 @@ public class SkillSettingScript : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.L))
-        {
-            HealingSkill create = (HealingSkill)Instantiate(mSkillsList[0]);
+        //if(Input.GetKeyDown(KeyCode.L))
+        //{
+        //    HealingSkill create = (HealingSkill)Instantiate(mSkillsList[0]);
 
-            AddSkill(create);
-        }
-        if(Input.GetKeyDown(KeyCode.J))
-        {
-            SkillBombAsset create1 = (SkillBombAsset)Instantiate(mSkillsList[1]);
+        //    AddSkill(create);
+        //}
+        //if(Input.GetKeyDown(KeyCode.J))
+        //{
+        //    SkillBombAsset create1 = (SkillBombAsset)Instantiate(mSkillsList[1]);
 
-            AddSkill(create1);
-        }
-        if(Input.GetKeyDown(KeyCode.J))
-        {
-            ActiveSkillShortDistanceAttackAsset create2 = (ActiveSkillShortDistanceAttackAsset)Instantiate(mSkillsList[2]);
+        //    AddSkill(create1);
+        //}
+        //if(Input.GetKeyDown(KeyCode.J))
+        //{
+        //    ActiveSkillShortDistanceAttackAsset create2 = (ActiveSkillShortDistanceAttackAsset)Instantiate(mSkillsList[2]);
 
-            AddSkill(create2);
-        }
-        if(Input.GetKeyDown(KeyCode.J))
-        {
-            ActiveSkillLongDistanceAttackAsset create3 = (ActiveSkillLongDistanceAttackAsset)Instantiate(mSkillsList[3]);
+        //    AddSkill(create2);
+        //}
+        //if(Input.GetKeyDown(KeyCode.J))
+        //{
+        //    ActiveSkillLongDistanceAttackAsset create3 = (ActiveSkillLongDistanceAttackAsset)Instantiate(mSkillsList[3]);
 
-            AddSkill(create3);
-        }
-        if(Input.GetKeyDown(KeyCode.J))
-        {
-            PCoolTimeDownSkill create4 = (PCoolTimeDownSkill)Instantiate(mSkillsList[4]);
+        //    AddSkill(create3);
+        //}
+        //if(Input.GetKeyDown(KeyCode.J))
+        //{
+        //    PCoolTimeDownSkill create4 = (PCoolTimeDownSkill)Instantiate(mSkillsList[4]);
 
-            AddSkill(create4);
-        }
-        if(Input.GetKeyDown(KeyCode.J))
-        {
-            PassiveHeal create5 = (PassiveHeal)Instantiate(mSkillsList[5]);
+        //    AddSkill(create4);
+        //}
+        //if(Input.GetKeyDown(KeyCode.J))
+        //{
+        //    PassiveHeal create5 = (PassiveHeal)Instantiate(mSkillsList[5]);
 
-            AddSkill(create5);
-        }
-        if(Input.GetKeyDown(KeyCode.J))
-        {
-            BasicAttackPowerIncrease create7 = (BasicAttackPowerIncrease)Instantiate(mSkillsList[7]);
+        //    AddSkill(create5);
+        //}
+        //if(Input.GetKeyDown(KeyCode.J))
+        //{
+        //    BasicAttackPowerIncrease create7 = (BasicAttackPowerIncrease)Instantiate(mSkillsList[7]);
 
-            AddSkill(create7);
-        }
-        if(Input.GetKeyDown(KeyCode.O))
-        {
-            Test();
-        }
+        //    AddSkill(create7);
+        //}
+        //if(Input.GetKeyDown(KeyCode.O))
+        //{
+        //    Test();
+        //}
     }
 
     //스킬들의 slotposition과 mSkillList의 인덱스값을 일치 시켜놓은거라 추후 수정이 되면 동기화 작업 필요  
