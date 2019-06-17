@@ -21,6 +21,7 @@ MonoBehaviour:
   mCoolTime: 5
   mOriginalCoolTime: 5
   mIsUseable: 1
+  mSound: {fileID: 8300000, guid: 82c53a557b7d2e243b29f1b7c6354b03, type: 3}
   mEffect: 10
   BombPrefab: {fileID: 4085622656441075075, guid: bc67ff5a6021fe149a500f78aba94573,
     type: 3}

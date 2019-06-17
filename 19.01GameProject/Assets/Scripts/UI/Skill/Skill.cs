@@ -28,6 +28,9 @@ public class Skill : ScriptableObject, IMoveable
     private bool mIsUseable = true;
 
     [SerializeField]
+    private AudioClip mSound;
+
+    [SerializeField]
     private int mEffect = 0;
     private SkillSlotScript slot;
     
@@ -84,6 +87,10 @@ public class Skill : ScriptableObject, IMoveable
         }
     }
 
+    public AudioClip MyClip
+    {
+        get { return mSound; }
+    }
 
     public int MyEffect
     {

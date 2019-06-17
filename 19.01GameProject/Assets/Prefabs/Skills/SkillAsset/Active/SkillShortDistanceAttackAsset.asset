@@ -21,4 +21,5 @@ MonoBehaviour:
   mCoolTime: 5
   mOriginalCoolTime: 5
   mIsUseable: 1
+  mSound: {fileID: 8300000, guid: 82c53a557b7d2e243b29f1b7c6354b03, type: 3}
   mEffect: 15

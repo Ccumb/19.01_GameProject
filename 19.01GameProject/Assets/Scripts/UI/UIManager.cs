@@ -21,16 +21,25 @@ public class UIManager : MonoBehaviour
     public GameObject GamePlayQuickSlot;
     public GameObject GamePlaySkillQuickSlot;
 
+    public AudioClip GameOverAudio;
+
     private List<GameObject> mpanels = new List<GameObject>(); 
     private List<ActionButton> mGamePlayQuickSlots = new List<ActionButton>();
     private List<ActionButton> mGamePlaySkillQuickSlots = new List<ActionButton>();
+    private AudioSource mAudioSource;
 
     private static UIManager mInstance;
 
     public void GameOver()
     {
+        mAudioSource.clip = GameOverAudio;
         if(!gameoverPanel.activeSelf)
+        {
+            mAudioSource.loop = true;
+            mAudioSource.volume = 0.4f;
+            mAudioSource.Play();
             gameoverPanel.SetActive(true);
+        }
     }
 
     public static UIManager MyInstance
@@ -187,6 +196,7 @@ public class UIManager : MonoBehaviour
         {
             mGamePlaySkillQuickSlots.Add(GamePlaySkillQuickSlot.transform.GetChild(i).GetComponent<ActionButton>());
         }
+        mAudioSource = GetComponent<AudioSource>();
 
     }
     // Update is called once per frame
