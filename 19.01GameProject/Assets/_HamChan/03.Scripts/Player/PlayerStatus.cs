@@ -66,7 +66,7 @@ public class PlayerStatus :MonoBehaviour
     private void InitializeStatus()
     {
         mPrimarySpeed = 15.0f;
-        mPrimaryDamage = 1;
+        mPrimaryDamage = 7;
         mPrimaryMaxHP = 100;
         mPrimaryHP = 100;
         mPrimaryMaxSkillCost = 6;
