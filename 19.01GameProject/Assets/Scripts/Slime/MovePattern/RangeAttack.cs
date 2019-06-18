@@ -18,6 +18,9 @@ public class RangeAttack : EnemyAbility
 
     public bool bRepulsion = false;
 
+    public AudioClip MeleeAudio;
+    public AudioClip JumpAudio;
+
     public LayerMask TargetMask;    //타겟 레이어
     public LayerMask ObstacleMask;  //장애물 레이어
 
@@ -145,21 +148,12 @@ public class RangeAttack : EnemyAbility
                 {
                     if (!mbTargetOn) mbTargetOn = true;
                     if (_enemyMovement.enabled) _enemyMovement.enabled = false;
-                    if (!bRepulsion)
-                    {
-                        if (GetAnimBool("isAttack") || mbTargetOn)
-                        {
-                            SetAnimBool("isWalk", false);
-                        }
-                    }
-                    else
-                    {
-                        if (GetAnimBool("isJump") || mbTargetOn)
-                        {
-                            SetAnimBool("isWalk", false);
-                        }
 
+                    if (GetAnimBool("isJump") || GetAnimBool("isAttack") || mbTargetOn)
+                    {
+                        SetAnimBool("isWalk", false);
                     }
+
                     transform.forward = new Vector3(dirToTarget.x, 0, dirToTarget.z);
 
                     if (mbDamage)
@@ -168,10 +162,18 @@ public class RangeAttack : EnemyAbility
                         if (!bRepulsion)
                         {
                             SetAnimBool("isAttack", true);
+                            if (MeleeAudio != null)
+                            {
+                                MonsterAudio.PlayOneShot(MeleeAudio);
+                            }
                         }
                         else
                         {
                             SetAnimBool("isJump", true);
+                            if (JumpAudio != null)
+                            {
+                                MonsterAudio.PlayOneShot(JumpAudio);
+                            }
                         }
                         mbDamage = false;
                         ChangeColor.bIsAttack = false;

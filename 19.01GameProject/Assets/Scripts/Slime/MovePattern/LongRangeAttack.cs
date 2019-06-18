@@ -15,6 +15,8 @@ public class LongRangeAttack : EnemyAbility
     public float DamageTime = 3.3f; //타겟을 찾은 뒤 몇 초 뒤에 대미지를 줄 것인지
     public float CoolTime = 1.0f;
 
+    public AudioClip LongAudio;
+
     public LayerMask TargetMask;    //타겟 레이어
     public LayerMask ObstacleMask;  //장애물 레이어
 
@@ -135,7 +137,11 @@ public class LongRangeAttack : EnemyAbility
                     {
                         //프로젝타일 발사//
                         mProjectilePooling.Pooling();
-                        SetAnimBool("isAttack", true); 
+                        SetAnimBool("isAttack", true);
+                        if (LongAudio != null)
+                        {
+                            MonsterAudio.PlayOneShot(LongAudio);
+                        }
                         mbDamage = false;
                         ChangeColor.bIsAttack = false;
                     }

@@ -10,6 +10,8 @@ public class SubordinateSummon : EnemyAbility
     public float SummonTime = 10.0f;
     public Transform[] SummonTransform = new Transform[5];
 
+    public AudioClip SummonAudio;
+
     public ParticleSystem Explosion = null;
     public float ParticleScale = 10.0f;
 
@@ -54,6 +56,10 @@ public class SubordinateSummon : EnemyAbility
             {
                 Explosion.transform.localScale = new Vector3(ParticleScale, ParticleScale, ParticleScale);
                 Instantiate(Explosion, transform.position, Quaternion.identity);
+                if (SummonAudio != null)
+                {
+                    MonsterAudio.PlayOneShot(SummonAudio);
+                }
                 SummonPool.Pooling(SummonCount, SummonTransform);
                 if (SummonCount < 5)
                 {

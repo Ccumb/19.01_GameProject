@@ -217,12 +217,12 @@ public class InventoryScript : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.L))
-        {
-            HealthPotion potion = (HealthPotion)Instantiate(mItems[1]);
+        //if(Input.GetKeyDown(KeyCode.L))
+        //{
+        //    HealthPotion potion = (HealthPotion)Instantiate(mItems[1]);
 
-            AddItem(potion);
-        }
+        //    AddItem(potion);
+        //}
     }
 
     //현재 itemlist에는 bag도 포함되어 있는데 이걸 따로 변수로 빼놓는게 더 편할 수도 있을 것 같으니 빼놓자..

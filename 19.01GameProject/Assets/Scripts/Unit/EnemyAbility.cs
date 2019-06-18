@@ -9,6 +9,9 @@ public class EnemyAbility : MonoBehaviour
     public Animator anim = null;
     protected ChangeSlimeColor ChangeColor = null;
     protected EnemyMovement _enemyMovement = null;
+
+    protected AudioSource MonsterAudio;
+
     protected virtual void Start()
     {
         Initialization();
@@ -20,6 +23,7 @@ public class EnemyAbility : MonoBehaviour
         anim = GetComponent<Animator>();
         ChangeColor = transform.GetChild(3).GetComponent<ChangeSlimeColor>();
         _enemyMovement = GetComponent<EnemyMovement>();
+        MonsterAudio = GetComponent<AudioSource>();
         Debug.Log("EnemyAbility Init");
     }
 

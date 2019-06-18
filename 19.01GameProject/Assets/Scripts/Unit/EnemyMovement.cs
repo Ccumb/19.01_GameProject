@@ -6,7 +6,7 @@ using UnityEngine;
 public class EnemyMovement : EnemyAbility
 {
     public float speed = 0.5f;
-
+    public AudioClip MoveAudio;
     private GameObject mTarget;
 
     protected override void Start()
@@ -23,6 +23,13 @@ public class EnemyMovement : EnemyAbility
     {
         float step = speed * Time.deltaTime;
         //Debug.Log(mTarget.transform.position);
-        transform.position = Vector3.MoveTowards(transform.position, mTarget.transform.position, step);
+        if (MoveAudio != null && !MonsterAudio.isPlaying)
+        {
+            MonsterAudio.PlayOneShot(MoveAudio);
+        }
+        if (mTarget != null)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, mTarget.transform.position, step);
+        }
     }
 }

@@ -7,10 +7,16 @@ using Neremnem.Tools;
 [CreateAssetMenu(fileName = "SkillShortDistanceAttackAsset", menuName = "Skills/Active/SkillShortDistanceAttackAsset", order = 1)]
 public class ActiveSkillShortDistanceAttackAsset : Skill, IUseable
 {
+    private AudioSource mSource;
+
     public override void Use()
     {
         if(this.MyIsUseable)
         {
+            mSource = GameObject.Find("Canvas").GetComponent<AudioSource>();
+            mSource.clip = this.MyClip;
+            mSource.volume = 0.2f;
+            mSource.Play();
             PlayerAttack player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttack>();
             EventManager.TriggerIntEvent("IncreasedAttackDamage", MyEffect);
             player.SetSkillAttackTrigger();

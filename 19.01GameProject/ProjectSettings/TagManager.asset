@@ -9,6 +9,7 @@ TagManager:
   - ForFixed
   - ForRandom
   - Monster
+  - Boom
   layers:
   - Default
   - TransparentFX
@@ -45,4 +46,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: fx
+    uniqueID: 128729689
+    locked: 0
+  - name: ui
+    uniqueID: 2316015277
     locked: 0

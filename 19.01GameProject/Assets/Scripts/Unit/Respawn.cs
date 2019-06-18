@@ -6,7 +6,10 @@ public class Respawn : MonoBehaviour
 {
     public Transform RespawnPoint = null; //리스폰 위치
     public float RespawnTime = 30.0f; //리스폰 될 시간
+    public GameObject Portal;
+    public GameObject TownPortal;
 
+    private GameObject[] mBooms;
     private Enemy mEnemy = null; // Die변수를 가져오기 위한 script변수
     private float mRespawnTime = 0.0f; //지나가는 시간
 
@@ -16,6 +19,7 @@ public class Respawn : MonoBehaviour
     void Start()
     {
         mEnemy = transform.GetChild(0).GetComponent<Enemy>();
+        mBooms = GameObject.FindGameObjectsWithTag("Boom");
     }
 
     /// <summary>
@@ -25,12 +29,39 @@ public class Respawn : MonoBehaviour
     {
         if(mEnemy.bDie)
         {
+            if(Portal != null && !Portal.activeSelf)
+            {
+                Portal.SetActive(true);
+            }
+            if (TownPortal != null && !TownPortal.activeSelf)
+            {
+                TownPortal.SetActive(true);
+            }
             mRespawnTime += Time.deltaTime;
             if(mRespawnTime > RespawnTime)
             {
                 transform.GetChild(0).gameObject.SetActive(true);
                 transform.GetChild(0).gameObject.transform.position = RespawnPoint.position;
                 mRespawnTime = 0.0f;
+                if (Portal != null && Portal.activeSelf)
+                {
+                    Portal.SetActive(false);
+                }
+                if (TownPortal != null && TownPortal.activeSelf)
+                {
+                    TownPortal.SetActive(false);
+                }
+                for (int i = 0; i < mBooms.Length; i++)
+                {
+                    if (!mBooms[i].activeSelf)
+                        mBooms[i].SetActive(true);
+                }
+                return;
+            }
+            for(int i = 0; i < mBooms.Length; i++)
+            {
+                if(mBooms[i].activeSelf)
+                    mBooms[i].SetActive(false);
             }
         }
     }

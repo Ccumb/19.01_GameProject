@@ -9,6 +9,14 @@ public class SubordinateBoom : MonoBehaviour
     public ParticleSystem Explosion = null;
     public float ParticleScale = 10.0f;
 
+    public AudioClip BoomAudio;
+    private AudioSource mBoomSource;
+
+    private void OnEnable()
+    {
+        mBoomSource = GameObject.Find("Sound").GetComponent<AudioSource>();
+    }
+
     /// <summary>
     /// 플레이어와 부딪혔을 때 대미지를 주고 폭탄 터짐
     /// </summary>
@@ -20,9 +28,15 @@ public class SubordinateBoom : MonoBehaviour
             //대미지 주는 함수
             EventManager.TriggerTakeDamageEvent("EnemysAttack", collision.gameObject, Damage);
             Debug.Log("Damage[SubordinateBoom]: " + Damage);
-            //이펙트 차후 추가                                   
+            //이펙트                                   
             Explosion.transform.localScale = new Vector3(ParticleScale, ParticleScale, ParticleScale);
             Instantiate(Explosion, transform.position, Quaternion.identity);
+            //오디오
+            if (BoomAudio != null)
+            {
+                Debug.Log("Audio");
+                mBoomSource.PlayOneShot(BoomAudio);
+            }
             gameObject.SetActive(false);
             
         }
