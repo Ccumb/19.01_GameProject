@@ -30,7 +30,7 @@ public class SlimeBehaviorTree : MonoBehaviour
     }
     private void Start()
     {
-        mRigidbody.isKinematic = true;
+        mRigidbody.isKinematic = false;
         mNavMeshAgent.SetDestination(BlackBoard.GetValueByVector3Key("Destination"));
         BlackBoard.SetValueByGameObjectKey("Boss", this.gameObject);
         mBehaviorTree = new BehaviorTree(mGameObject);

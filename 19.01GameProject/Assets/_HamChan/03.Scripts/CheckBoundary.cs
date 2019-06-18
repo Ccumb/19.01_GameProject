@@ -18,7 +18,7 @@ public class CheckBoundary : MonoBehaviour
         mSphereCollider.isTrigger = true;
 
         mRigidbody = GetComponent<Rigidbody>();
-        mRigidbody.isKinematic = true;
+        mRigidbody.isKinematic = false;
         mRigidbody.useGravity = false;
         BlackBoard.AddKey("Whirlwind", false);
     }

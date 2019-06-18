@@ -15,7 +15,7 @@ public class PlayerDash : PlayerAbility
         base.Start();
         mRigidbody = GetComponent<Rigidbody>();
         mPlayerCollider = GetComponent<Collider>();
-        mRigidbody.isKinematic = true;
+        mRigidbody.isKinematic = false;
     }
 
     // Update is called once per frame

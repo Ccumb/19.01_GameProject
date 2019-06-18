@@ -11,7 +11,7 @@ public class Move : MonoBehaviour
     void Start()
     {
         mRigidbody = GetComponent<Rigidbody>();
-        mRigidbody.isKinematic = true;
+        mRigidbody.isKinematic = false;
     }
 
     void Update()
