@@ -12,4 +12,8 @@ public class ShowPlayerGold : MonoBehaviour
         mText = GetComponent<Text>();
     }
 
+    private void Update()
+    {
+        mText.text = "Gold : " + InventoryScript.MyInstance.Gold.ToString();
+    }
 }
