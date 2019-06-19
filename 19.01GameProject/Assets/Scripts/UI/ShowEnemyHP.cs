@@ -22,9 +22,10 @@ public class ShowEnemyHP : MonoBehaviour
         mBossName = GetComponentInChildren<Text>(); // HP바 자식으로 보스의 이름이 들어가 있는데 다른 방법으로 바꿔줘야 할듯.. 임시방편이다.
         string bossName = "BossName";
         mBossName.text = bossName;
-        if(GameObject.Find("Slime"))
+        Debug.Log(GameObject.FindGameObjectWithTag("Enemy"));
+        if(GameObject.FindGameObjectWithTag("Enemy"))
         {
-            mMax_hp = GameObject.Find("Slime").GetComponent<Enemy>().max_hp;
+            mMax_hp = GameObject.FindGameObjectWithTag("Enemy").GetComponent<Enemy>().max_hp;
             StartCoroutine("CheckHP");
         }
         else
@@ -38,11 +39,11 @@ public class ShowEnemyHP : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
         while(true)
         {
-            if(!GameObject.Find("Slime"))
+            if(!GameObject.FindGameObjectWithTag("Enemy"))
             {
                 StopCoroutine("CheckHP");
             }
-            mHp = GameObject.Find("Slime").GetComponent<Enemy>().hp;
+            mHp = GameObject.FindGameObjectWithTag("Enemy").GetComponent<Enemy>().hp;
             mHealthBar.fillAmount = mHp / mMax_hp;
             yield return new WaitForSeconds(0.1f);
         }
