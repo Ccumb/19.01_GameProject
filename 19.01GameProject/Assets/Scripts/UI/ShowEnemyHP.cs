@@ -22,24 +22,25 @@ public class ShowEnemyHP : MonoBehaviour
         mBossName = GetComponentInChildren<Text>(); // HP바 자식으로 보스의 이름이 들어가 있는데 다른 방법으로 바꿔줘야 할듯.. 임시방편이다.
         string bossName = "BossName";
         mBossName.text = bossName;
-<<<<<<< HEAD
 
-        mMax_hp = GameObject.FindGameObjectWithTag("Monster").GetComponent<Enemy>().max_hp;
-        if(GameObject.FindGameObjectWithTag("Monster"))
-        {
-            Debug.Log("fIND");
-            mMax_hp = GameObject.FindGameObjectWithTag("Monster").GetComponent<Enemy>().max_hp;
-=======
-        Debug.Log(GameObject.FindGameObjectWithTag("Enemy"));
         if(GameObject.FindGameObjectWithTag("Enemy"))
         {
             mMax_hp = GameObject.FindGameObjectWithTag("Enemy").GetComponent<Enemy>().max_hp;
->>>>>>> 1c8ffa8acc7ccb15e7d3167dbfc8050642cddc74
             StartCoroutine("CheckHP");
         }
         else
         {
-            mUIBar.SetActive(false);
+            Invoke("FindEnemy", 0.02f);
+        }
+    }
+
+    void FindEnemy()
+    {
+        if (GameObject.FindGameObjectWithTag("Enemy"))
+        {
+            mBossName.text = GameObject.FindGameObjectWithTag("Enemy").name;
+            mMax_hp = GameObject.FindGameObjectWithTag("Enemy").GetComponent<Enemy>().max_hp;
+            StartCoroutine("CheckHP");
         }
     }
 
@@ -48,11 +49,11 @@ public class ShowEnemyHP : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         while(true)
         {
-            if(!GameObject.FindGameObjectWithTag("Monster"))
+            if(!GameObject.FindGameObjectWithTag("Enemy"))
             {
                 break;
             }
-            mHp = GameObject.FindGameObjectWithTag("Monster").GetComponent<Enemy>().hp;
+            mHp = GameObject.FindGameObjectWithTag("Enemy").GetComponent<Enemy>().hp;
             mHealthBar.fillAmount = mHp / mMax_hp;
             yield return new WaitForSeconds(0.1f);
         }
