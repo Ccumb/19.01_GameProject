@@ -45,6 +45,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7613236019633979825}
   - component: {fileID: 207316699269150578}
+  - component: {fileID: 5430603905930815549}
   m_Layer: 0
   m_Name: Cone001
   m_TagString: Untagged
@@ -120,6 +121,19 @@ SkinnedMeshRenderer:
     m_Center: {x: -1.6726837, y: -0.073063314, z: 0.00000011920929}
     m_Extent: {x: 1.6841471, y: 1.8126583, z: 1.7384828}
   m_DirtyAABB: 0
+--- !u!114 &5430603905930815549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2473529872199653988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a99ff0dc3abb23a4d94a127885b72600, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bIsAttack: 0
 --- !u!1 &2878521574608800479
 GameObject:
   m_ObjectHideFlags: 0
@@ -178,7 +192,7 @@ Animator:
   m_GameObject: {fileID: 2878521574608800479}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 60adc3a30bdc98e468e51641b28fecc3, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8580f0db88dda3a4f8261ecb2ce410c5, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -316,7 +330,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anim: {fileID: 0}
   TargetOffRadius: 12
-  TargetOnRadius: 1
+  TargetOnRadius: 8
   TargetAngle: 360
   TargetOnTime: 0.5
   DamageTime: 0.5
@@ -348,7 +362,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anim: {fileID: 0}
   LongTargetOffRadius: 12
-  LongTargetOnRadius: 1
+  LongTargetOnRadius: 8
   LongTargetAngle: 360
   TargetOnTime: 0.5
   DamageTime: 3.3
