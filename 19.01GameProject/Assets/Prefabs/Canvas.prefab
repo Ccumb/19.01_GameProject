@@ -2583,6 +2583,7 @@ MonoBehaviour:
   mItems:
   - {fileID: 11400000, guid: dbb563eacaa76964d8a384f95d086390, type: 2}
   - {fileID: 11400000, guid: 200a91f9130b17345ac6b845de882195, type: 2}
+  - {fileID: 11400000, guid: 200a91f9130b17345ac6b845de882195, type: 2}
   bags: {fileID: 0}
   mExplainImage: {fileID: 5758838739538519053}
   mSlotScripts: []
@@ -3173,7 +3174,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 24.599976, y: -10.599976}
+  m_AnchoredPosition: {x: -16.299927, y: 9.400024}
   m_SizeDelta: {x: 49.4, y: 21.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2485697772106841739
@@ -4745,6 +4746,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 955451876334910877, guid: b5e2422d1f01014459c7df4876bcaafe,
+        type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 26
       objectReference: {fileID: 0}
     - target: {fileID: 955451876334910877, guid: b5e2422d1f01014459c7df4876bcaafe,
         type: 3}
